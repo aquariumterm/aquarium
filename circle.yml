@@ -1,6 +1,6 @@
 general:
   artifacts:
-    - "build"
+    - "build/compressed/"
 
 test:
   override:
