@@ -18,7 +18,5 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask('default', [
-        'nodewebkit'
-    ]);
+    grunt.registerTask('build', ['nodewebkit']);
 };

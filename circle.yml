@@ -1,0 +1,7 @@
+general:
+  artifacts:
+    - "build"
+
+test:
+  override:
+    - grunt build
