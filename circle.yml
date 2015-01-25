@@ -5,3 +5,4 @@ general:
 test:
   override:
     - grunt build
+    - mocha "app/test/*.js"
