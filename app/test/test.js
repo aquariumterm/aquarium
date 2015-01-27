@@ -16,7 +16,7 @@ describe("using promises and chai-as-promised", function() {
   });
 
   beforeEach(function() {
-    return browser.get("http://localhost:8080");
+    return browser.get("http://localhost:8081");
   });
 
   after(function() {
