@@ -20,10 +20,13 @@
     "load-grunt-tasks": "^3.0.0",
     "nw": "^0.12.0-alpha2",
     "time-grunt": "^1.0.0",
+
     "mocha": "^2.1.0",
-    "wd": "^0.3.11",
     "chai": "^1.10.0",
     "chai-as-promised": "^4.1.1",
-    "http-server": "^0.7.4"
+    "http-server": "^0.7.4",
+    "nightwatch": "^0.1.0",
+    "wd": "^0.3.11",
+    "chromedriver": "^2.13.0"
   }
 }
