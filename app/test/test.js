@@ -16,7 +16,7 @@ describe("using promises and chai-as-promised", function() {
   });
 
   beforeEach(function() {
-    return browser.get("http://localhost:8081");
+    return browser.get("http://localhost:8081/");
   });
 
   after(function() {
@@ -26,5 +26,4 @@ describe("using promises and chai-as-promised", function() {
   it("should retrieve the page title", function() {
     return browser.title().should.become("Hello World");
   });
-
 });

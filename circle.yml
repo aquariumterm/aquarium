@@ -3,8 +3,10 @@ general:
     - "build/compressed/"
 
 test:
-  override:
-    - grunt build
+  pre:
+    - npm install -g http-server
     - "http-server ./app":
         background: true
+  override:
+    - grunt build
     - mocha "app/test/*.js"
