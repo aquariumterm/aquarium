@@ -5,6 +5,6 @@ general:
 test:
   override:
     - grunt build
-    - http-server ./app
+    - "http-server ./app":
         background: true
     - mocha "app/test/*.js"
