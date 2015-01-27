@@ -13,6 +13,3 @@ test:
   override:
     - grunt build
     - mocha "app/test/*.js" -t 30000
-
-dependencies:
-  post:
