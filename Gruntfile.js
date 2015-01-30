@@ -101,6 +101,7 @@ module.exports = function (grunt) {
           dest: '<%= config.dist %>',
           src: [
             'package.json',
+            'node_modules/**',
             '*.{ico,png,txt}',
             'images/{,*/}*.{webp,gif}',
             '{,*/}*.html',
