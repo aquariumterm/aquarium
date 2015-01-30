@@ -1,3 +1,16 @@
+# node_modules should be installed with `npm install`
 node_modules
+
+# Generated build artifacts
 /build/
+/dist/
+
+# nw.js build cache
 /cache/
+
+# Usemin temp files
+/.tmp/
+
+# Generated Sass -> CSS
+/app/styles/**/*.css
+/app/styles/**/*.css.map

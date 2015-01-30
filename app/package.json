@@ -2,5 +2,8 @@
   "name": "Aquarium",
   "version": "0.0.1",
   "description": "A terminal emulator for beginners",
-  "main": "index.html"
+  "main": "index.html",
+  "dependencies": {
+    "react": "^0.12.2"
+  }
 }
