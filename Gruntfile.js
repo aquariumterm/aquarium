@@ -39,6 +39,18 @@ module.exports = function (grunt) {
       ]
     },
 
+    // Watches files for changes and runs tasks based on the changed files
+    watch: {
+      js: {
+        files: ['<%= config.app %>/scripts/{,*/}*.js'],
+        tasks: ['jshint']
+      },
+      sass: {
+        files: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
+        tasks: ['sass']
+      }
+    },
+
     // Empties folders to start fresh
     clean: {
       dist: {
@@ -183,10 +195,9 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('debug', [
-    // TODO: run JSHint, sass, nw, and watch for changes
-    // 'jshint',
+    'jshint',
     'sass',
-    // 'watch'
+    'watch'
   ]);
 
   grunt.registerTask('test', [
