@@ -32,3 +32,5 @@ Dependencies:
     ```shell
     grunt debug
     ```
+
+    This will launch the nw.js desktop app and watch for changes to source files, live-reloading the nw.js app.

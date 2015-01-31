@@ -51,6 +51,24 @@ module.exports = function (grunt) {
       }
     },
 
+    // Use grunt-shell to execute nw
+    shell: {
+      nw: {
+        command: '$(npm bin)/nw app'
+      }
+    },
+
+    // Run nw and watch for changes concurrently
+    concurrent: {
+      options: {
+        logConcurrentOutput: true
+      },
+      all: [
+        'shell:nw',
+        'watch'
+      ]
+    },
+
     // Empties folders to start fresh
     clean: {
       dist: {
@@ -197,7 +215,7 @@ module.exports = function (grunt) {
   grunt.registerTask('debug', [
     'jshint',
     'sass',
-    'watch'
+    'concurrent:all'
   ]);
 
   grunt.registerTask('test', [
