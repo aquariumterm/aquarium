@@ -3,6 +3,12 @@
   "version": "0.0.1",
   "description": "A terminal emulator for beginners",
   "main": "index.html",
+  "single-instance": false,
+  "window": {
+    "width": 720,
+    "height": 480,
+    "icon": "images/fish-512x512.png"
+  },
   "dependencies": {
     "react": "^0.12.2"
   }

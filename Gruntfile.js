@@ -41,6 +41,9 @@ module.exports = function (grunt) {
 
     // Watches files for changes and runs tasks based on the changed files
     watch: {
+      options: {
+        livereload: true
+      },
       js: {
         files: ['<%= config.app %>/scripts/{,*/}*.js'],
         tasks: ['jshint']
@@ -48,6 +51,13 @@ module.exports = function (grunt) {
       sass: {
         files: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
         tasks: ['sass']
+      },
+      livereload: {
+        files: [
+          '<%= config.app %>/*.html',
+          '<%= config.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+          '<%= config.app %>/manifest.json'
+        ]
       }
     },
 
