@@ -3,6 +3,10 @@ Aquarium
 
 A terminal emulator with enhanced auto-complete, and built-in documentation and tutorials.
 
+## Phase 1
+
+[Google Doc](https://docs.google.com/a/elliottsj.com/document/d/1HZ4h6swJqrk_00HHjmtdXOsPP-hKEZCTttgK40Uk37E)
+
 ## Development
 
 _NOTE: This has only been tested on OS X 10.10_
