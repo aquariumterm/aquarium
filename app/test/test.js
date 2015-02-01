@@ -31,6 +31,6 @@ describe("using promises and chai-as-promised", function() {
   });
 
   it("should retrieve the page title", function() {
-    return browser.title().should.become("Hello World!");
+    return browser.title().should.become("Aquarium");
   });
 });
