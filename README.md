@@ -9,13 +9,16 @@ A terminal emulator with enhanced auto-complete, and built-in documentation and 
 
 ## Development
 
-_NOTE: This has only been tested on OS X 10.10_
+#### NOTE:
+
+* Tested on OS X 10.10
+* Tested on Linux Ubuntu distribution version 14.04 through Oracle Virtualbox
 
 Dependencies:
 
-- Node ~v0.10.35
+* Node ~v0.10.35
   - OS X: Use [Homebrew](http://brew.sh/): `brew update && brew install node`
-  - Linux: Try [Linuxbrew](https://github.com/Homebrew/linuxbrew): `brew update && brew install node`
+  - Linux: Use [Linuxbrew](https://github.com/Homebrew/linuxbrew): `brew update && brew install node`
   - Windows: No.
 
 1. Install the [Grunt](http://gruntjs.com/) CLI:
