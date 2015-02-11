@@ -47,17 +47,21 @@ Dependencies:
 We're following the
 [feature branch workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow):
 
+0. (If one doesn't exist) Create a new GitHub issue for your feature:
+
+    <https://github.com/UoT-CSC30x-W15/301W15-Prj-Team4-repo/issues/new>
+
 1. Create your feature branch, with name starting with `feature/`:
 
     ```shell
     git checkout -b feature/my-awesome-feature
     ```
 
-2. Implement your feature, committing often:
+2. Implement your feature, committing often, prepending your GitHub issue number:
 
     ```shell
     git add app/my-awesome-feature.js
-    git commit -m 'Add foobar compatibility'
+    git commit -m '#1337 Add foobar compatibility'
 
     # For your first commit:
     git push -u origin feature/my-awesome-feature
