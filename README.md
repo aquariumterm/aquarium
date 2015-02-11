@@ -41,3 +41,41 @@ Dependencies:
     ```
 
     This will launch the nw.js desktop app and watch for changes to source files, live-reloading the nw.js app.
+
+### Branching strategy
+
+We're following the
+[feature branch workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow):
+
+1. Create your feature branch, with name starting with `feature/`:
+
+    ```shell
+    git checkout -b feature/my-awesome-feature
+    ```
+
+2. Implement your feature, committing often:
+
+    ```shell
+    git add app/my-awesome-feature.js
+    git commit -m 'Add foobar compatibility'
+
+    # For your first commit:
+    git push -u origin feature/my-awesome-feature
+    # For future commits:
+    git push
+    ```
+
+3. Create a pull request on GitHub based on `master`:
+
+    <https://github.com/UoT-CSC30x-W15/301W15-Prj-Team4-repo/compare/master...feature/my-awesome-feature>
+
+4. Work with the team to review your code, making any necessary changes before merging.
+
+5. A team member will merge your pull request into `master`.
+
+##### Non-feature branches
+
+We'll use the following naming convention for non-feature branches:
+
+- `fix/`: Bug fixes
+- `chore/`: Refactoring/improvements/general maintenance
