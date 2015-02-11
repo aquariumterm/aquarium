@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "start": "nw ./app",
+    "start": "nodewebkit ./app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -13,6 +13,10 @@
     "url": "https://github.com/UoT-CSC30x-W15/301W15-Prj-Team4-repo/issues"
   },
   "homepage": "https://github.com/UoT-CSC30x-W15/301W15-Prj-Team4-repo",
+  "engines": {
+    "node": "^0.10.22",
+    "npm": "^2.5.0"
+  },
   "devDependencies": {
     "chai": "^1.10.0",
     "chai-as-promised": "^4.1.1",
@@ -37,11 +41,8 @@
     "load-grunt-tasks": "^3.0.0",
     "mocha": "^2.1.0",
     "nightwatch": "^0.1.0",
-    "nw": "^0.12.0-alpha2",
+    "nodewebkit": "elliottsj/nodewebkit#v0.10.5-ia32",
     "time-grunt": "^1.0.0",
     "wd": "^0.3.11"
-  },
-  "engines": {
-    "node": "^0.12.0"
   }
 }
