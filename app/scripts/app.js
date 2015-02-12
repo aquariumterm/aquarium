@@ -5,26 +5,21 @@ global.navigator = window.navigator;
 var React = require('react');
 console.log(React);
 
+var pty = require('pty.js');
+
 var term = pty.spawn('bash', [], {
-    name: 'xterm-color',
-    cols: 80,
-    rows: 30,
-    cwd: process.env.HOME,
-    env: process.env
+  name: 'xterm-color',
+  cols: 80,
+  rows: 30,
+  cwd: process.env.HOME,
+  env: process.env
 });
 
 term.on('data', function(data) {
-    document.getElementById("term_output").innerHTML = data;
+  console.log(data);
 });
 
-process.stdin.on('readable', function() {
-    var chunk = process.stdin.read();
-    if (chunk !== null) {
-        term.write(chunk);
-    }
-});
+term.resize(100, 40);
+term.write('ls /\r');
 
-process.stdin.on('end', function() {
-    process.stdout.write('end');
-});
-
+console.log(term.process);
