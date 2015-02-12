@@ -64,7 +64,7 @@ module.exports = function (grunt) {
     // Use grunt-shell to execute nw
     shell: {
       nw: {
-        command: '$(npm bin)/nw app'
+        command: 'npm start'
       }
     },
 

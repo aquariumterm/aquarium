@@ -1,6 +1,7 @@
 {
   "private": true,
   "scripts": {
+    "postinstall": "cd app && npm install && cd node_modules/pty.js && nw-gyp configure --target=0.10.5 && nw-gyp build",
     "start": "nodewebkit ./app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -42,6 +43,7 @@
     "mocha": "^2.1.0",
     "nightwatch": "^0.1.0",
     "nodewebkit": "elliottsj/nodewebkit#v0.10.5-ia32",
+    "nw-gyp": "^0.12.4",
     "time-grunt": "^1.0.0",
     "wd": "^0.3.11"
   }
