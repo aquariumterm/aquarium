@@ -57,11 +57,11 @@ We're following the
     git checkout -b feature/my-awesome-feature
     ```
 
-3. Implement your feature, committing often, prepending your GitHub issue number:
+3. Implement your feature, committing often:
 
     ```shell
     git add app/my-awesome-feature.js
-    git commit -m '#1337 Add foobar compatibility'
+    git commit -m 'Add foobar compatibility'
 
     # For your first commit:
     git push -u origin feature/my-awesome-feature
