@@ -47,11 +47,11 @@ Dependencies:
 We're following the
 [feature branch workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow):
 
-1. (If one doesn't exist) Create a new GitHub issue for your feature:
+1. (If one doesn't exist) Create a new GitHub issue for your feature/bug/other:
 
     <https://github.com/UoT-CSC30x-W15/301W15-Prj-Team4-repo/issues/new>
 
-2. Create your feature branch, with name starting with `feature/`:
+2. Create your feature branch, with name starting with `feature/`, (or `fix/` or `chore/`):
 
     ```shell
     git checkout -b feature/my-awesome-feature
