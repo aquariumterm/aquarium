@@ -158,7 +158,7 @@ module.exports = function (grunt) {
       options: {
         appName: 'app',
         version: '0.8.6',
-        platforms: ['win', 'osx', 'linux'],
+        platforms: [/*'win',*/ 'osx32', 'linux'],
         buildDir: './build'  // Where the build version of your nw.js app is saved
       },
       src: ['./dist/**/*']  // Your node-webkit app
@@ -193,33 +193,33 @@ module.exports = function (grunt) {
         src: ['osx32/**'],
         dest: ''
       },
-      osx64: {
-        options: {
-          archive: 'build/compressed/osx64.zip'
-        },
-        expand: true,
-        cwd: 'build/app/',
-        src: ['osx64/**'],
-        dest: ''
-      },
-      win32: {
-        options: {
-          archive: 'build/compressed/win32.zip'
-        },
-        expand: true,
-        cwd: 'build/app/',
-        src: ['win32/**'],
-        dest: ''
-      },
-      win64: {
-        options: {
-          archive: 'build/compressed/win64.zip'
-        },
-        expand: true,
-        cwd: 'build/app/',
-        src: ['win64/**'],
-        dest: ''
-      }
+      //osx64: {
+      //  options: {
+      //    archive: 'build/compressed/osx64.zip'
+      //  },
+      //  expand: true,
+      //  cwd: 'build/app/',
+      //  src: ['osx64/**'],
+      //  dest: ''
+      //},
+      //win32: {
+      //  options: {
+      //    archive: 'build/compressed/win32.zip'
+      //  },
+      //  expand: true,
+      //  cwd: 'build/app/',
+      //  src: ['win32/**'],
+      //  dest: ''
+      //},
+      //win64: {
+      //  options: {
+      //    archive: 'build/compressed/win64.zip'
+      //  },
+      //  expand: true,
+      //  cwd: 'build/app/',
+      //  src: ['win64/**'],
+      //  dest: ''
+      //}
     }
   });
 
