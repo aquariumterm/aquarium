@@ -76,13 +76,6 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use(express.basicAuth(function(user, pass, next) {
-  if (user !== 'foo' || pass !== 'bar') {
-    return next(true);
-  }
-  return next(null, user);
-}));
-
 app.use(express.static(__dirname));
 app.use(terminal.middleware());
 
