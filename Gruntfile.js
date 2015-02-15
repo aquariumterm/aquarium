@@ -157,7 +157,7 @@ module.exports = function (grunt) {
     nodewebkit: {
       options: {
         appName: 'app',
-        version: '0.10.5',
+        version: '0.8.6',
         platforms: ['win', 'osx', 'linux'],
         buildDir: './build'  // Where the build version of your nw.js app is saved
       },
