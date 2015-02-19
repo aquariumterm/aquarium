@@ -10,7 +10,8 @@
     "icon": "images/fish-512x512.png"
   },
   "dependencies": {
-    "react": "^0.12.2",
-    "term.js": "0.0.4"
+    "pty.js": "^0.2.5",
+    "term.js": "0.0.4",
+    "react": "^0.12.2"
   }
 }
