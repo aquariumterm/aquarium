@@ -31,12 +31,14 @@
 */
 </style>
 <h1>term.js</h1>
-<script src="/socket.io/socket.io.js"></script>
+<script src="socket.io.js"></script>
 <script src="term.js"></script>
+<script src="termclient.js"></script>
 <script>
 ;(function() {
   window.onload = function() {
-    var socket = io.connect();
+    var socket = io.connect("http://localhost:8080");
+
     socket.on('connect', function() {
       var term = new Terminal({
         cols: 80,
@@ -47,7 +49,7 @@
       });
 
       term.on('data', function(data) {
-        socket.emit('data', data);
+        socket.emit('data', data)
       });
 
       term.on('title', function(title) {

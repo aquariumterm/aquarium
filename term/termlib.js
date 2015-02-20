@@ -4,6 +4,8 @@
  * https://github.com/chjj/term.js
  */
 
+console.log("?????");
+
 function term(options) {
   return new term.Terminal(options);
 }

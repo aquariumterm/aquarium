@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 /**
  * term.js
  * Copyright (c) 2012-2013, Christopher Jeffrey (MIT License)
@@ -7,15 +5,15 @@
 
 var http = require('http')
   , express = require('express')
-  , io = require('socket.io')
-  , pty = require('pty.js')
-  , terminal = require('../');
+  , socketio = require('socket.io')
+  , pty = require('../app/node_modules/pty.js/')
+  , terminal = require('./termlib');
 
 /**
  * term.js
  */
 
-process.title = 'term.js';
+// process.title = 'term.js';
 
 /**
  * Dump
@@ -42,6 +40,7 @@ term = pty.fork(process.env.SHELL || 'sh', [], {
   rows: 24,
   cwd: process.env.HOME
 });
+
 
 term.on('data', function(data) {
   if (stream) stream.write('OUT: ' + data + '\n-\n');
@@ -76,10 +75,17 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use(express.static(__dirname));
+app.use(express.basicAuth(function(user, pass, next) {
+  if (user !== 'foo' || pass !== 'bar') {
+    return next(true);
+  }
+  return next(null, user);
+}));
+
+// app.use(express.static(__dirname));
 app.use(terminal.middleware());
 
-if (!~process.argv.indexOf('-n')) {
+// if (!~process.argv.indexOf('-n')) {
   server.on('connection', function(socket) {
     var address = socket.remoteAddress;
     if (address !== '127.0.0.1' && address !== '::1') {
@@ -91,7 +97,7 @@ if (!~process.argv.indexOf('-n')) {
       console.log('Attempted connection from %s. Refused.', address);
     }
   });
-}
+// }
 
 server.listen(8080);
 
@@ -99,11 +105,13 @@ server.listen(8080);
  * Sockets
  */
 
-io = io.listen(server, {
+socketio = socketio.listen(server, {
   log: false
 });
 
-io.sockets.on('connection', function(sock) {
+console.log("WTF?");
+socketio.sockets.on('connection', function(sock) {
+  console.log("WEBSOCKET CONNECTED");
   socket = sock;
 
   socket.on('data', function(data) {

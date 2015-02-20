@@ -1,8 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "postinstall": "cd app && npm install && cd node_modules/pty.js && nw-gyp configure --target=0.8.6 && nw-gyp build",
-    "start": "nodewebkit ./app",
+    "postinstall": "cd app && npm install && cd node_modules/pty.js && nw-gyp rebuild --target=0.8.6",
+    "start": "nodewebkit ./term",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -46,5 +46,9 @@
     "nw-gyp": "^0.12.4",
     "time-grunt": "^1.0.0",
     "wd": "^0.3.11"
+  },
+  "dependencies": {
+    "express": "^3.20.0",
+    "socket.io": "^0.9.13"
   }
 }
