@@ -42,7 +42,7 @@
     "load-grunt-tasks": "^3.0.0",
     "mocha": "^2.1.0",
     "nightwatch": "^0.1.0",
-    "nodewebkit": "elliottsj/nodewebkit#v0.8.6-ia32",
+    "nodewebkit": "elliottsj/nodewebkit#v0.8.6",
     "nw-gyp": "^0.12.4",
     "time-grunt": "^1.0.0",
     "wd": "^0.3.11"
