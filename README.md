@@ -16,10 +16,7 @@ A terminal emulator with enhanced auto-complete, and built-in documentation and 
 
 Dependencies:
 
-* Node ~v0.10.35
-  - OS X: Use [Homebrew](http://brew.sh/): `brew update && brew install node`
-  - Linux: Use [Linuxbrew](https://github.com/Homebrew/linuxbrew): `brew update && brew install node`. You may need to symlink /usr/.lib/libudev.so.0 -> /usr/lib/libudev.so.0
-  - Windows: No.
+* Node ~v0.10.36 ([nvm](https://github.com/creationix/nvm) recommended)
 * _Note_: For Linux (Ubuntu/Mint), you must symlink `libudev.so.0`:
 
     ```shell
