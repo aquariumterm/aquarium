@@ -20,6 +20,11 @@ Dependencies:
   - OS X: Use [Homebrew](http://brew.sh/): `brew update && brew install node`
   - Linux: Use [Linuxbrew](https://github.com/Homebrew/linuxbrew): `brew update && brew install node`. You may need to symlink /usr/.lib/libudev.so.0 -> /usr/lib/libudev.so.0
   - Windows: No.
+* _Note_: For Linux (Ubuntu/Mint), you must symlink `libudev.so.0`:
+
+    ```shell
+    sudo ln -s /lib/x86_64-linux-gnu/libudev.so.1 /lib/x86_64-linux-gnu/libudev.so.0
+    ```
 
 1. Install the [Grunt](http://gruntjs.com/) CLI:
 
