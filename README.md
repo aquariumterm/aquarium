@@ -21,7 +21,7 @@ Dependencies:
     # Linux Mint:
     sudo apt-get install curl build-essential
     curl https://raw.githubusercontent.com/creationix/nvm/v0.23.3/install.sh | bash
-    echo "export NVM_DIR=\"$HOME/.nvm\"\n[ -s "$NVM_DIR/nvm.sh" ] && . \"$NVM_DIR/nvm.sh\"  # This loads nvm" > ~/.bashrc
+    echo "source $HOME/.nvm/nvm.sh" > ~/.bashrc
     source ~/.bashrc
     nvm install 0.10.36
     ```
