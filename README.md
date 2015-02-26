@@ -16,7 +16,14 @@ A terminal emulator with enhanced auto-complete, and built-in documentation and 
 
 Dependencies:
 
-* Node ~v0.10.36 ([nvm](https://github.com/creationix/nvm) recommended)
+* Node ~v0.10.36 ([nvm](https://github.com/creationix/nvm) recommended):
+    ```shell
+    # Linux Mint:
+    sudo apt-get install curl build-essential
+    curl https://raw.githubusercontent.com/creationix/nvm/v0.23.3/install.sh | bash
+    echo "export NVM_DIR=\"/home/spencer/.nvm\"\n[ -s "$NVM_DIR/nvm.sh" ] && . \"$NVM_DIR/nvm.sh\"  # This loads nvm" > ~/.bashrc
+    nvm install 0.10.36
+    ```
 * _Note_: For Linux (Ubuntu/Mint), you must symlink `libudev.so.0`:
 
     ```shell
