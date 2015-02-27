@@ -35,9 +35,11 @@ terminal.on('data', function(data) {
   shell.write(data);
 });
 
+/*
 terminal.open = function(parent) {
   // new open function here
 }
+*/
 terminal.open(document.body);
 
 //shell.resize(100, 40);
