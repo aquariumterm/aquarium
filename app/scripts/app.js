@@ -13,14 +13,14 @@ var Terminal = require('term.js');
 
 var terminal = new Terminal({
 	cols: 80,
-	rows: 30,
+	rows: 24,
 	screenKeys: true}
 );
 
 var shell = pty.spawn('bash', [], {
   name: 'xterm-color',
   cols: 80,
-  rows: 30,
+  rows: 24,
   cwd: process.env.HOME,
   env: process.env
 });
@@ -35,10 +35,13 @@ terminal.on('data', function(data) {
   shell.write(data);
 });
 
+terminal.open = function(parent) {
+  // new open function here
+}
 terminal.open(document.body);
 
 //shell.resize(100, 40);
 //shell.write('ls /\r');
-terminal.write('Welcome to Aquarium!\n');
+terminal.write('\x1b[31mWelcome to Aquarium!\x1b[m\r\n');
 
 //console.log(shell.process);
