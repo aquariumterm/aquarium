@@ -76,80 +76,6 @@ module.exports = function (grunt) {
       ]
     },
 
-    // Empties folders to start fresh
-    clean: {
-      dist: {
-        files: [{
-          dot: true,
-          src: [
-            'dist/*'
-          ]
-        }]
-      }
-    },
-
-    // Compiles Sass to CSS and generates necessary files if requested
-    sass: {
-      options: {
-        // If using bower:
-        // includePaths: 'app/bower_components',
-        imagePath: 'app/images',
-        sourceMap: true
-      },
-      all: {
-        files: [{
-          expand: true,
-          cwd: 'app/styles/',
-          src: ['**/*.scss'],
-          dest: 'app/styles/',
-          ext: '.css'
-        }]
-      }
-    },
-
-    // Reads HTML for usemin blocks to enable smart builds that automatically
-    // concat, minify and revision files. Creates configurations in memory so
-    // additional tasks can operate on them
-    useminPrepare: {
-      options: {
-        dest: 'dist'
-      },
-      html: [
-        'app/index.html'
-      ]
-    },
-
-    // Performs rewrites based on rev and the useminPrepare configuration
-    usemin: {
-      options: {
-        assetsDirs: ['dist', 'dist/images']
-      },
-      html: ['dist/{,*/}*.html'],
-      css: ['dist/styles/{,*/}*.css']
-    },
-
-    // Copies remaining files to places other tasks can use
-    copy: {
-      dist: {
-        files: [{
-          expand: true,
-          dot: true,
-          cwd: 'app',
-          dest: 'dist',
-          src: [
-            'package.json',
-            'node_modules/**',
-            '*.{ico,png,txt}',
-            'images/{,*/}*.{webp,gif}',
-            '{,*/}*.html',
-            'styles/{,*/}*.css',
-            'styles/fonts/{,*/}*.*',
-            '_locales/{,*/}*.json'
-          ]
-        }]
-      }
-    },
-
     // Builds the nw.js native apps
     nodewebkit: {
       options: {
@@ -158,7 +84,7 @@ module.exports = function (grunt) {
         platforms: [/*'win',*/ 'osx32', 'linux'],
         buildDir: './build'  // Where the build version of your nw.js app is saved
       },
-      src: ['./dist/**/*']  // Your node-webkit app
+      src: ['./app/**/*']  // Your node-webkit app
     },
 
     compress: {
@@ -204,26 +130,6 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('build', [
-    // Clear out dist/
-    'clean',
-
-    // Compile SCSS
-    'sass',
-
-    // Generate usemin subtasks
-    'useminPrepare',
-
-    // Execute usemin subtasks
-    'concat:generated',  // Concatenate assets
-    'cssmin:generated',  // Minify CSS
-    'uglify:generated',  // Minify JS
-
-    // Copy remaining files to dist/
-    'copy',
-
-    // Replace asset references with newly-minified assets
-    'usemin',
-
     // Build the native app
     'nodewebkit',
 
