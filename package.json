@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "postinstall": "cd app && npm install && cd node_modules/pty.js && nw-gyp configure --target=0.8.6 && nw-gyp build",
+    "postinstall": "cd app && npm install && cd node_modules/pty.js && nw-gyp rebuild --target=0.8.6",
     "start": "nodewebkit ./app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
