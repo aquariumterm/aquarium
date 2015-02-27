@@ -16,10 +16,21 @@ A terminal emulator with enhanced auto-complete, and built-in documentation and 
 
 Dependencies:
 
-* Node ~v0.10.35
-  - OS X: Use [Homebrew](http://brew.sh/): `brew update && brew install node`
-  - Linux: Use [Linuxbrew](https://github.com/Homebrew/linuxbrew): `brew update && brew install node`. You may need to symlink /usr/.lib/libudev.so.0 -> /usr/lib/libudev.so.0
-  - Windows: No.
+* Node ~v0.10.36 ([nvm](https://github.com/creationix/nvm) recommended):
+    ```shell
+    # Linux Mint:
+    sudo apt-get install curl build-essential
+    curl https://raw.githubusercontent.com/creationix/nvm/v0.23.3/install.sh | bash
+    echo "source $HOME/.nvm/nvm.sh" > ~/.bashrc
+    source ~/.bashrc
+    nvm install 0.10.36
+    ```
+    
+* _Note_: For Linux (Ubuntu/Mint), you must symlink `libudev.so.0`:
+
+    ```shell
+    sudo ln -s /lib/x86_64-linux-gnu/libudev.so.1 /lib/x86_64-linux-gnu/libudev.so.0
+    ```
 
 1. Install the [Grunt](http://gruntjs.com/) CLI:
 
