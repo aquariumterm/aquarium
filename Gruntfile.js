@@ -16,9 +16,7 @@ module.exports = function (grunt) {
 
   // Configurable paths
   var config = {
-    name: 'Aquarium',
-    app: 'app',
-    dist: 'dist'
+    name: 'Aquarium'
   };
 
   grunt.initConfig({
@@ -33,9 +31,8 @@ module.exports = function (grunt) {
       },
       all: [
         'Gruntfile.js',
-        '<%= config.app %>/scripts/{,*/}*.js',
-        '!<%= config.app %>/scripts/vendor/*',
-        'test/spec/{,*/}*.js'
+        'app/js/**/*.js',
+        'test/**/*.js'
       ]
     },
 
@@ -45,18 +42,18 @@ module.exports = function (grunt) {
         livereload: true
       },
       js: {
-        files: ['<%= config.app %>/scripts/{,*/}*.js'],
+        files: ['app/scripts/{,*/}*.js'],
         tasks: ['jshint']
       },
       sass: {
-        files: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
+        files: ['app/styles/{,*/}*.{scss,sass}'],
         tasks: ['sass']
       },
       livereload: {
         files: [
-          '<%= config.app %>/*.html',
-          '<%= config.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-          '<%= config.app %>/manifest.json'
+          'app/*.html',
+          'app/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+          'app/manifest.json'
         ]
       }
     },
@@ -85,7 +82,7 @@ module.exports = function (grunt) {
         files: [{
           dot: true,
           src: [
-            '<%= config.dist %>/*'
+            'dist/*'
           ]
         }]
       }
@@ -95,16 +92,16 @@ module.exports = function (grunt) {
     sass: {
       options: {
         // If using bower:
-        // includePaths: '<%= config.app %>/bower_components',
-        imagePath: '<%= config.app %>/images',
+        // includePaths: 'app/bower_components',
+        imagePath: 'app/images',
         sourceMap: true
       },
       all: {
         files: [{
           expand: true,
-          cwd: '<%= config.app %>/styles/',
+          cwd: 'app/styles/',
           src: ['**/*.scss'],
-          dest: '<%= config.app %>/styles/',
+          dest: 'app/styles/',
           ext: '.css'
         }]
       }
@@ -115,20 +112,20 @@ module.exports = function (grunt) {
     // additional tasks can operate on them
     useminPrepare: {
       options: {
-        dest: '<%= config.dist %>'
+        dest: 'dist'
       },
       html: [
-        '<%= config.app %>/index.html'
+        'app/index.html'
       ]
     },
 
     // Performs rewrites based on rev and the useminPrepare configuration
     usemin: {
       options: {
-        assetsDirs: ['<%= config.dist %>', '<%= config.dist %>/images']
+        assetsDirs: ['dist', 'dist/images']
       },
-      html: ['<%= config.dist %>/{,*/}*.html'],
-      css: ['<%= config.dist %>/styles/{,*/}*.css']
+      html: ['dist/{,*/}*.html'],
+      css: ['dist/styles/{,*/}*.css']
     },
 
     // Copies remaining files to places other tasks can use
@@ -137,8 +134,8 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           dot: true,
-          cwd: '<%= config.app %>',
-          dest: '<%= config.dist %>',
+          cwd: 'app',
+          dest: 'dist',
           src: [
             'package.json',
             'node_modules/**',
@@ -192,34 +189,7 @@ module.exports = function (grunt) {
         cwd: 'build/app/',
         src: ['osx32/**'],
         dest: ''
-      },
-      //osx64: {
-      //  options: {
-      //    archive: 'build/compressed/osx64.zip'
-      //  },
-      //  expand: true,
-      //  cwd: 'build/app/',
-      //  src: ['osx64/**'],
-      //  dest: ''
-      //},
-      //win32: {
-      //  options: {
-      //    archive: 'build/compressed/win32.zip'
-      //  },
-      //  expand: true,
-      //  cwd: 'build/app/',
-      //  src: ['win32/**'],
-      //  dest: ''
-      //},
-      //win64: {
-      //  options: {
-      //    archive: 'build/compressed/win64.zip'
-      //  },
-      //  expand: true,
-      //  cwd: 'build/app/',
-      //  src: ['win64/**'],
-      //  dest: ''
-      //}
+      }
     }
   });
 
