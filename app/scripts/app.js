@@ -5,7 +5,7 @@ global.document = window.document;
 global.navigator = window.navigator;
 
 var React = require('react');
-console.log(React);
+//console.log(React);
 
 var pty = require('pty.js');
 
