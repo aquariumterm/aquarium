@@ -9,7 +9,15 @@ console.log(React);
 
 var pty = require('pty.js');
 
-var term = pty.spawn('bash', [], {
+var Terminal = require('term.js');
+
+var terminal = new Terminal({
+	cols: 80,
+	rows: 30,
+	screenKeys: true}
+);
+
+var shell = pty.spawn('bash', [], {
   name: 'xterm-color',
   cols: 80,
   rows: 30,
@@ -17,11 +25,20 @@ var term = pty.spawn('bash', [], {
   env: process.env
 });
 
-term.on('data', function(data) {
-  console.log(data);
+// from system shell
+shell.on('data', function(data) {
+  terminal.write(data);
 });
 
-term.resize(100, 40);
-term.write('ls /\r');
+// from user
+terminal.on('data', function(data) {
+  shell.write(data);
+});
 
-console.log(term.process);
+terminal.open(document.body);
+
+//shell.resize(100, 40);
+//shell.write('ls /\r');
+terminal.write('Welcome to Aquarium!\n');
+
+//console.log(shell.process);
