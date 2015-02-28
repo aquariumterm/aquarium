@@ -16,9 +16,7 @@ module.exports = function (grunt) {
 
   // Configurable paths
   var config = {
-    name: 'Aquarium',
-    app: 'app',
-    dist: 'dist'
+    name: 'Aquarium'
   };
 
   grunt.initConfig({
@@ -33,9 +31,8 @@ module.exports = function (grunt) {
       },
       all: [
         'Gruntfile.js',
-        '<%= config.app %>/scripts/{,*/}*.js',
-        '!<%= config.app %>/scripts/vendor/*',
-        'test/spec/{,*/}*.js'
+        'app/js/**/*.js',
+        'test/**/*.js'
       ]
     },
 
@@ -45,18 +42,18 @@ module.exports = function (grunt) {
         livereload: true
       },
       js: {
-        files: ['<%= config.app %>/scripts/{,*/}*.js'],
+        files: ['app/scripts/{,*/}*.js'],
         tasks: ['jshint']
       },
       sass: {
-        files: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
+        files: ['app/styles/{,*/}*.{scss,sass}'],
         tasks: ['sass']
       },
       livereload: {
         files: [
-          '<%= config.app %>/*.html',
-          '<%= config.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-          '<%= config.app %>/manifest.json'
+          'app/*.html',
+          'app/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+          'app/manifest.json'
         ]
       }
     },
@@ -79,80 +76,6 @@ module.exports = function (grunt) {
       ]
     },
 
-    // Empties folders to start fresh
-    clean: {
-      dist: {
-        files: [{
-          dot: true,
-          src: [
-            '<%= config.dist %>/*'
-          ]
-        }]
-      }
-    },
-
-    // Compiles Sass to CSS and generates necessary files if requested
-    sass: {
-      options: {
-        // If using bower:
-        // includePaths: '<%= config.app %>/bower_components',
-        imagePath: '<%= config.app %>/images',
-        sourceMap: true
-      },
-      all: {
-        files: [{
-          expand: true,
-          cwd: '<%= config.app %>/styles/',
-          src: ['**/*.scss'],
-          dest: '<%= config.app %>/styles/',
-          ext: '.css'
-        }]
-      }
-    },
-
-    // Reads HTML for usemin blocks to enable smart builds that automatically
-    // concat, minify and revision files. Creates configurations in memory so
-    // additional tasks can operate on them
-    useminPrepare: {
-      options: {
-        dest: '<%= config.dist %>'
-      },
-      html: [
-        '<%= config.app %>/index.html'
-      ]
-    },
-
-    // Performs rewrites based on rev and the useminPrepare configuration
-    usemin: {
-      options: {
-        assetsDirs: ['<%= config.dist %>', '<%= config.dist %>/images']
-      },
-      html: ['<%= config.dist %>/{,*/}*.html'],
-      css: ['<%= config.dist %>/styles/{,*/}*.css']
-    },
-
-    // Copies remaining files to places other tasks can use
-    copy: {
-      dist: {
-        files: [{
-          expand: true,
-          dot: true,
-          cwd: '<%= config.app %>',
-          dest: '<%= config.dist %>',
-          src: [
-            'package.json',
-            'node_modules/**',
-            '*.{ico,png,txt}',
-            'images/{,*/}*.{webp,gif}',
-            '{,*/}*.html',
-            'styles/{,*/}*.css',
-            'styles/fonts/{,*/}*.*',
-            '_locales/{,*/}*.json'
-          ]
-        }]
-      }
-    },
-
     // Builds the nw.js native apps
     nodewebkit: {
       options: {
@@ -161,7 +84,7 @@ module.exports = function (grunt) {
         platforms: [/*'win',*/ 'osx32', 'linux'],
         buildDir: './build'  // Where the build version of your nw.js app is saved
       },
-      src: ['./dist/**/*']  // Your node-webkit app
+      src: ['./app/**/*']  // Your node-webkit app
     },
 
     compress: {
@@ -192,34 +115,7 @@ module.exports = function (grunt) {
         cwd: 'build/app/',
         src: ['osx32/**'],
         dest: ''
-      },
-      //osx64: {
-      //  options: {
-      //    archive: 'build/compressed/osx64.zip'
-      //  },
-      //  expand: true,
-      //  cwd: 'build/app/',
-      //  src: ['osx64/**'],
-      //  dest: ''
-      //},
-      //win32: {
-      //  options: {
-      //    archive: 'build/compressed/win32.zip'
-      //  },
-      //  expand: true,
-      //  cwd: 'build/app/',
-      //  src: ['win32/**'],
-      //  dest: ''
-      //},
-      //win64: {
-      //  options: {
-      //    archive: 'build/compressed/win64.zip'
-      //  },
-      //  expand: true,
-      //  cwd: 'build/app/',
-      //  src: ['win64/**'],
-      //  dest: ''
-      //}
+      }
     }
   });
 
@@ -234,26 +130,6 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('build', [
-    // Clear out dist/
-    'clean',
-
-    // Compile SCSS
-    'sass',
-
-    // Generate usemin subtasks
-    'useminPrepare',
-
-    // Execute usemin subtasks
-    'concat:generated',  // Concatenate assets
-    'cssmin:generated',  // Minify CSS
-    'uglify:generated',  // Minify JS
-
-    // Copy remaining files to dist/
-    'copy',
-
-    // Replace asset references with newly-minified assets
-    'usemin',
-
     // Build the native app
     'nodewebkit',
 
