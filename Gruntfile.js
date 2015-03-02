@@ -24,30 +24,10 @@ module.exports = function (grunt) {
     // Project settings
     config: config,
 
-    jshint: {
-      options: {
-        jshintrc: true,  // use config from .jshintrc
-        reporter: require('jshint-stylish')
-      },
-      all: [
-        'Gruntfile.js',
-        'app/js/**/*.js',
-        'test/**/*.js'
-      ]
-    },
-
     // Watches files for changes and runs tasks based on the changed files
     watch: {
       options: {
         livereload: true
-      },
-      js: {
-        files: ['app/scripts/{,*/}*.js'],
-        tasks: ['jshint']
-      },
-      sass: {
-        files: ['app/styles/{,*/}*.{scss,sass}'],
-        tasks: ['sass']
       },
       livereload: {
         files: [
@@ -120,8 +100,6 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('debug', [
-    'jshint',
-    'sass',
     'concurrent:all'
   ]);
 
@@ -138,7 +116,6 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('default', [
-    'jshint',
     'test',
     'build'
   ]);
