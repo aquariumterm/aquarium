@@ -15,7 +15,7 @@
   },
   "homepage": "https://github.com/UoT-CSC30x-W15/301W15-Prj-Team4-repo",
   "engines": {
-    "node": "^0.10.22",
+    "node": "~0.10.22",
     "npm": "^2.5.0"
   },
   "devDependencies": {
