@@ -12,7 +12,7 @@ SELENIUM_DL=http://selenium-release.storage.googleapis.com/2.45/selenium-server-
 SELENIUM_FILENAME=${DL_DIR}"/selenium.jar"
 if [ ! -e ${SELENIUM_FILENAME} ]
 then
-    curl -o ${SELENIUM_FILENAME} ${SELENIUM_DL}
+    curl -L -o ${SELENIUM_FILENAME} ${SELENIUM_DL}
 fi
 
 # grab chromedriver too
@@ -22,7 +22,7 @@ then
 
     if [[ ${OSTYPE} == "linux-gnu" ]]; then
         # LINUX
-        CHROMEDRIVER_DL=https://s3.amazonaws.com/node-webkit/v0.8.0/chromedriver2-nw-v0.8.0-linux-ia32.tar.gz
+        CHROMEDRIVER_DL=https://s3.amazonaws.com/node-webkit/v0.8.0/chromedriver2-nw-v0.8.0-linux-x64.tar.gz
     elif [[ ${OSTYPE} == "darwin"* ]]; then
         # MAC OS
         CHROMEDRIVER_DL=https://s3.amazonaws.com/node-webkit/v0.8.0/chromedriver2-nw-v0.8.0-osx-ia32.zip
@@ -35,7 +35,7 @@ then
     fi
 
     ARCHIVE_PATH=${DL_DIR}"/chromedriver_archive"
-    curl -o ${ARCHIVE_PATH} ${CHROMEDRIVER_DL}
+    curl -L -o ${ARCHIVE_PATH} ${CHROMEDRIVER_DL}
 
     # figure out what type of archive we just downloaded and unpack accordingly
     if [[ ${CHROMEDRIVER_DL} == "*.zip" ]]
@@ -53,7 +53,17 @@ curl --fail --silent -X GET http://localhost:4444/selenium-server/driver/?cmd=sh
 sleep 0.5
 
 # Symlink the nodewebkit binary to the chromedriver2_server directory
-ln -s $(pwd)/node_modules/nodewebkit/nodewebkit ${DL_DIR}/node-webkit.app
+if [[ ${OSTYPE} == "linux-gnu" ]]; then
+    NW_FILENAME="nw"
+elif [[ ${OSTYPE} == "darwin"* ]]; then
+    NW_FILENAME="node-webkit.app"
+elif [[ ${OSTYPE} == "cygwin" ]]; then
+    NW_FILENAME="nw.exe"
+else
+    echo "Cannot detect operating system. OSTYPE is " $OSTYPE 1>&2
+    exit 1
+fi
+ln -s $(pwd)/node_modules/nodewebkit/nodewebkit ${DL_DIR}/${NW_FILENAME}
 
 # Launch the selenium server
 java -jar ${SELENIUM_FILENAME} -Dwebdriver.chrome.driver=${CHROMEDRIVER_FILENAME} &
