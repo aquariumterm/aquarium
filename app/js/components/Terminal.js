@@ -3,6 +3,13 @@ import TerminalJS from 'term.js';
 import pty from 'pty.js';
 
 var Terminal = React.createClass({
+  /** Styles */
+  _main() {
+    return {
+      fontFamily: 'monospace'
+    };
+  },
+
   componentDidMount() {
     var shell = pty.spawn('bash', [], {
       name: 'xterm-color',
@@ -14,18 +21,17 @@ var Terminal = React.createClass({
 
     var term = new TerminalJS({
       cols: 80,
-      rows: 24,
+      rows: 30,
       screenKeys: true
     });
 
-    shell.on('data', term.write);
-    term.on('data', shell.write);
+    shell.on('data', (data) => term.write(data));
+    term.on('data', (data) => shell.write(data));
 
-    var domNode = this.getDOMNode();
-    term.open(domNode);
+    term.open(this.getDOMNode());
   },
   render() {
-    return (<div>Terminal</div>);
+    return (<div style={this._main()}></div>);
   }
 });
 
