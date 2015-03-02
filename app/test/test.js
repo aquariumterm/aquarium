@@ -1,3 +1,4 @@
+var path = require('path');
 var wd = require('wd');
 var chai = require('chai');
 var chaiAsPromised = require('chai-as-promised');
@@ -20,7 +21,7 @@ describe("using promises and chai-as-promised", function() {
   });
 
   beforeEach(function() {
-    return browser.get("http://localhost:8080");
+    return browser.get('file://' + path.join(process.cwd(), 'app/index.html'));
   });
 
   after(function(done) {
