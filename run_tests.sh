@@ -50,13 +50,13 @@ fi
 
 # Make sure no selenium server is running
 curl --fail --silent -X GET http://localhost:4444/selenium-server/driver/?cmd=shutDownSeleniumServer
+sleep 0.5
 
 # Symlink the nodewebkit binary to the chromedriver2_server directory
-ln -s ../../node_modules/nodewebkit/nodewebkit node-webkit.app
+ln -s $(pwd)/node_modules/nodewebkit/nodewebkit ${DL_DIR}/node-webkit.app
 
 # Launch the selenium server
 java -jar ${SELENIUM_FILENAME} -Dwebdriver.chrome.driver=${CHROMEDRIVER_FILENAME} &
 
 # Run tests
-
-npm test
+$(npm bin)/mocha --recursive ./app/test -t 30000
