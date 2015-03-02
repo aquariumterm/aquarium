@@ -6,7 +6,7 @@ global.navigator = window.navigator;
 
 import React from 'react';
 
-import Terminal from './components/Terminal/Terminal';
+import Terminal from './components/Terminal';
 
 React.render(
   <Terminal />,
