@@ -54,9 +54,9 @@ sleep 0.5
 
 # Symlink the nodewebkit binaries to the chromedriver2_server directory
 if [[ ${OSTYPE} == "linux-gnu" ]]; then
-    ln -s $(pwd)/node_modules/nodewebkit/nodewebkit/* ${DL_DIR}
+    ln -sf $(pwd)/node_modules/nodewebkit/nodewebkit/* ${DL_DIR}
 elif [[ ${OSTYPE} == "darwin"* ]]; then
-    ln -s $(pwd)/node_modules/nodewebkit/nodewebkit ${DL_DIR}/node-webkit.app
+    ln -sf $(pwd)/node_modules/nodewebkit/nodewebkit ${DL_DIR}/node-webkit.app
 elif [[ ${OSTYPE} == "cygwin" ]]; then
     NW_FILENAME="nw.exe"
 else
