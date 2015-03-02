@@ -52,18 +52,17 @@ fi
 curl --fail --silent -X GET http://localhost:4444/selenium-server/driver/?cmd=shutDownSeleniumServer
 sleep 0.5
 
-# Symlink the nodewebkit binary to the chromedriver2_server directory
+# Symlink the nodewebkit binaries to the chromedriver2_server directory
 if [[ ${OSTYPE} == "linux-gnu" ]]; then
-    NW_FILENAME="nw"
+    ln -s $(pwd)/node_modules/nodewebkit/nodewebkit/* ${DL_DIR}
 elif [[ ${OSTYPE} == "darwin"* ]]; then
-    NW_FILENAME="node-webkit.app"
+    ln -s $(pwd)/node_modules/nodewebkit/nodewebkit ${DL_DIR}/node-webkit.app
 elif [[ ${OSTYPE} == "cygwin" ]]; then
     NW_FILENAME="nw.exe"
 else
     echo "Cannot detect operating system. OSTYPE is " $OSTYPE 1>&2
     exit 1
 fi
-ln -s $(pwd)/node_modules/nodewebkit/nodewebkit ${DL_DIR}/${NW_FILENAME}
 
 # Launch the selenium server
 java -jar ${SELENIUM_FILENAME} -Dwebdriver.chrome.driver=${CHROMEDRIVER_FILENAME} &
