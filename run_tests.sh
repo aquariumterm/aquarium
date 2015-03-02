@@ -38,7 +38,7 @@ then
     curl -L -o ${ARCHIVE_PATH} ${CHROMEDRIVER_DL}
 
     # figure out what type of archive we just downloaded and unpack accordingly
-    if [[ ${CHROMEDRIVER_DL} == "*.zip" ]]
+    if [[ ${CHROMEDRIVER_DL} == *".zip" ]]
     then
         unzip ${ARCHIVE_PATH} -d ${DL_DIR}
     else
