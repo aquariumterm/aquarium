@@ -42,7 +42,7 @@ then
     then
         unzip ${ARCHIVE_PATH} -d ${DL_DIR}
     else
-        tar -xvzf ${ARCHIVE_PATH} -C ${DL_DIR}
+        tar -xvzf ${ARCHIVE_PATH} -C ${DL_DIR} --strip-components 1
     fi
 
     rm ${ARCHIVE_PATH}
