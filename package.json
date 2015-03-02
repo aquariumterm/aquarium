@@ -46,5 +46,9 @@
     "nw-gyp": "^0.12.4",
     "time-grunt": "^1.0.0",
     "wd": "^0.3.11"
+  },
+  "dependencies": {
+    "express": "^3.20.0",
+    "socket.io": "^0.9.13"
   }
 }

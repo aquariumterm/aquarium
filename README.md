@@ -12,7 +12,8 @@ A terminal emulator with enhanced auto-complete, and built-in documentation and 
 #### NOTE:
 
 * Tested on OS X 10.10
-* Tested on Linux Ubuntu distribution version 14.04 through Oracle Virtualbox
+* Tested on Linux Ubuntu distribution version 14.04LTS and Arch Linux
+* Does NOT work on Debian 7 "Wheezy" (glibc < 2.15)
 
 Dependencies:
 

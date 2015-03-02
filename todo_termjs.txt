@@ -1,0 +1,20 @@
+index.html is client
+term.js is server
+
+TODO: 
+ - convert server into standalone module (running instance of terminal)
+ - convert that into a react component
+ - ???
+ - Profit.
+
+get it to compile on linux x_x
+
+do testing to make sure we don't break anything
+
+
+Breaking down server
+================
+ - remove all express components
+ - remove all socket.io stuff
+ - change so that it takes in input from stdin instead of socket
+ - make sure that when run the resultant terminal it acts like normal bash terminal
