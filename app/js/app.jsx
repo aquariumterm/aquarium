@@ -4,9 +4,13 @@
 global.document = window.document;
 global.navigator = window.navigator;
 
+/* ignore jslint start */
+
 import React from 'react';
 
 import Terminal from './components/Terminal';
+
+/* ignore jslint end */
 
 React.render(
   <Terminal />,

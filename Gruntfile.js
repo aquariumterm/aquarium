@@ -19,10 +19,35 @@ module.exports = function (grunt) {
     name: 'Aquarium'
   };
 
+  var jsWatchFiles = ['app/js/**/*.jsx', 'app/test/**/*.js'];
+
+  grunt.loadNpmTasks('grunt-contrib-jshint-jsx');
+
   grunt.initConfig({
 
     // Project settings
     config: config,
+
+    // Watches files for changes and runs tasks based on the changed files
+    watch: {
+      options: {
+        livereload: true,
+        scripts: true
+      },
+
+      livereload: {
+        files: [
+          'app/*.html',
+          'app/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+          'app/manifest.json'
+        ]
+      },
+
+      scripts: {
+        files: jsWatchFiles,
+        tasks: ['jshint-jsx']
+      }
+    },
 
     // Use grunt-shell to execute nw
     shell: {
@@ -71,7 +96,18 @@ module.exports = function (grunt) {
         src: ['osx32/**'],
         dest: ''
       }
+    },
+
+    "jshint-jsx": {
+      options: {
+        esnext: true,
+        convertJSX: true,
+        node: true,
+        browser: true
+      },
+      uses_defaults: jsWatchFiles
     }
+
   });
 
   grunt.registerTask('debug', [
