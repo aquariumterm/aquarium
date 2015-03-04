@@ -1,3 +1,5 @@
+'use strict';
+
 var path = require('path');
 var wd = require('wd');
 var chai = require('chai');
