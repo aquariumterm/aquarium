@@ -8,7 +8,14 @@ import React from 'react';
 
 import Terminal from './components/Terminal';
 
+import Sidebar from './components/Sidebar';
+
 React.render(
   <Terminal />,
   document.querySelector('main')
+);
+
+React.render(
+  <Sidebar />,
+  document.querySelector('side')
 );
