@@ -6,4 +6,4 @@ deployment:
   master:
     branch: /.*/
     commands:
-      - grunt build
+      - grunt
