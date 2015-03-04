@@ -1,3 +1,5 @@
+'use strict';
+
 import React from 'react';
 import TerminalJS from 'term.js';
 import pty from 'pty.js';

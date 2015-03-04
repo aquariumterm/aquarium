@@ -14,37 +14,23 @@ module.exports = function (grunt) {
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
-  // Configurable paths
-  var config = {
-    name: 'Aquarium'
-  };
-
-  var jsWatchFiles = ['app/js/**/*.jsx', 'app/test/**/*.js'];
-
-  grunt.loadNpmTasks('grunt-contrib-jshint-jsx');
-
   grunt.initConfig({
 
-    // Project settings
-    config: config,
+    // Run nw and watch for changes concurrently
+    concurrent: {
+      options: {
+        logConcurrentOutput: true
+      },
+      all: [
+        'shell:nw',
+        'watch'
+      ]
+    },
 
     // Watches files for changes and runs tasks based on the changed files
     watch: {
-      options: {
-        livereload: true,
-        scripts: true
-      },
-
-      livereload: {
-        files: [
-          'app/*.html',
-          'app/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-          'app/manifest.json'
-        ]
-      },
-
       scripts: {
-        files: jsWatchFiles,
+        files: ['app/{js,test}/**/*.jsx', 'app/{js,test}/**/*.js'],
         tasks: ['jshint-jsx']
       }
     },
@@ -98,20 +84,19 @@ module.exports = function (grunt) {
       }
     },
 
-    "jshint-jsx": {
+    'jshint-jsx': {
       options: {
-        esnext: true,
-        convertJSX: true,
-        node: true,
-        browser: true
+        jshintrc: '.jshintrc',
+        convertJSX: true
       },
-      uses_defaults: jsWatchFiles
+      all: ['app/{js,test}/**/*.jsx', 'app/{js,test}/**/*.js']
     }
 
   });
 
   grunt.registerTask('debug', [
-    'shell:nw'
+    'jshint-jsx',
+    'concurrent:all'
   ]);
 
   grunt.registerTask('test', [
@@ -127,6 +112,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('default', [
+    'jshint-jsx',
     'test',
     'build'
   ]);
