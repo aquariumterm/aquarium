@@ -22,8 +22,7 @@ then
 
     if [[ ${OSTYPE} == "linux-gnu" ]]; then
         # LINUX
-        ARCH=`uname -m`
-        if [[ ARCH == "x86_64" ]]; then
+        if [[ $(uname -m) == "x86_64" ]]; then
             CHROMEDRIVER_DL=https://s3.amazonaws.com/node-webkit/v0.8.0/chromedriver2-nw-v0.8.0-linux-x64.tar.gz
         else
             CHROMEDRIVER_DL=https://s3.amazonaws.com/node-webkit/v0.8.0/chromedriver2-nw-v0.8.0-linux-ia32.tar.gz
