@@ -31,17 +31,6 @@ module.exports = function (grunt) {
       }
     },
 
-    // Run nw and watch for changes concurrently
-    concurrent: {
-      options: {
-        logConcurrentOutput: true
-      },
-      all: [
-        'shell:nw',
-        'watch'
-      ]
-    },
-
     // Builds the nw.js native apps
     nodewebkit: {
       options: {
@@ -86,7 +75,7 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('debug', [
-    'concurrent:all'
+    'shell:nw'
   ]);
 
   grunt.registerTask('test', [
