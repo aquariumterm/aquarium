@@ -24,6 +24,7 @@
     "chromedriver": "^2.13.0",
     "grunt": "^0.4.5",
     "grunt-concurrent": "^1.0.0",
+    "grunt-contrib-compress": "^0.13.0",
     "grunt-contrib-jshint": "^0.11.0",
     "grunt-filerev": "^2.1.2",
     "grunt-node-webkit-builder": "^1.0.0",
