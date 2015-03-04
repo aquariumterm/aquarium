@@ -24,20 +24,6 @@ module.exports = function (grunt) {
     // Project settings
     config: config,
 
-    // Watches files for changes and runs tasks based on the changed files
-    watch: {
-      options: {
-        livereload: true
-      },
-      livereload: {
-        files: [
-          'app/*.html',
-          'app/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-          'app/manifest.json'
-        ]
-      }
-    },
-
     // Use grunt-shell to execute nw
     shell: {
       nw: {
