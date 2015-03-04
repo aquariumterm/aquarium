@@ -43,5 +43,8 @@
     "nw-gyp": "^0.12.4",
     "time-grunt": "^1.0.0",
     "wd": "^0.3.11"
+  },
+  "dependencies": {
+    "chromedriver": "^2.14.1"
   }
 }
