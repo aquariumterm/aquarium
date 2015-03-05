@@ -7,7 +7,7 @@
 ##### February 9th - Post-Phase 1 Review
 Location: _Bahen Laptop Lab_
 
-- Completion of Phase 1 
+- Completion of Phase 1
 - Reviewed design spec together
 - Discussed possible experimentations in technology we want to use
 - Plan to ask TA for project approval in class later today
@@ -28,8 +28,8 @@ Location: _Bahen Laptop Lab_
 - Goal for the sprint: 
 	- Continual work on the build, moving towards completion
 	- Research term.js
-	- Research React.js 
-	
+	- Research React.js
+
 ##### February 16th - Sprint 1 review
 Location: _Bahen Laptop Lab_
 
@@ -62,10 +62,10 @@ Location: _Bahen Laptop Lab_
 
 - Build currently has several bugs to be ironed out in the this sprint
 	- Less work intensive, so build team will also develop testing tools to ensure builds correctly
-- Term.js work still needs to be made natie, requesting help from other members of the team
+- Term.js work still needs to be made native, requesting help from other members of the team
 	- Should be 100% complete by the end of this sprint
 - React.js work should start to be done on the repository
-	- Idea is that any relevant work should be put on, and can be reviewed at a later date to improve on React fundamentals  
+	- Idea is that any relevant work should be put on, and can be reviewed at a later date to improve on React fundamentals
 
 ##### March 2nd - Sprint 3 Review
 Location: _Bahen Laptop Lab_
