@@ -35,9 +35,5 @@
     "nw-gyp": "^0.12.4",
     "time-grunt": "^1.0.0",
     "wd": "^0.3.11"
-  },
-  "dependencies": {
-    "source-map": "^0.4.1",
-    "sourcemap": "^0.1.0"
   }
 }
