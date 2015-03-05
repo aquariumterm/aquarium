@@ -4,7 +4,9 @@ var Sidebar = React.createClass({
   render: function() {
     return (
       <div className="Sidebar">
-        Hello, world! I am a Sidebar.
+      	<form action =''>
+        	<input type="text" name="query" placeholder="Search"></input>
+      	</form>
       </div>
     );
   }
