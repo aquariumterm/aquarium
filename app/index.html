@@ -1,11 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
+  
+ <!-- Forgive me for my in-file styling -->
+  <style>
+  .wrapper {
+  	width: 100%;
+  	border: 0px;
+  	overflow: hidden;
+  }
+
+  .term {
+  	width: 66%;
+  	height: 100%;
+  	float:left;
+  }
+  .sidebar {
+  	width: 33%;
+  	height: 100%;
+  	float: right;
+  	background-color: blue; 
+  	overflow: hidden;
+  }
+  </style>
+
   <title>Aquarium</title>
 </head>
 <body>
-  <main></main>
-  <side></side>
+
+<!-- Forgive me for my div soup -->
+<div class="wrapper">
+  <div class="term">	
+  	<main></main>
+  </div>
+
+  <div class="sidebar">
+  	<side></side>
+  </div>
+</div>
   <script>
     require('babel/register');
     require('./js/app');
