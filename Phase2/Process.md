@@ -85,3 +85,19 @@ Location: _Bahen Laptop Lab_
 - Mockup work has been done and members are all sharing similar ideas for work
 - Basic React component templates need to be added to the feature/sidebar branch
 - Documentation needs to be completed for Phase 2
+
+## Usage of GitHub Issues + Pull Requests
+
+See <https://github.com/UoT-CSC30x-W15/301W15-Prj-Team4-repo#branching-strategy>
+
+## Other tools
+
+#### [Slack](https://slack.com/)
+
+Our team uses Slack to communicate via text and to receive notifications from GitHub
+and CircleCI when people make commits, create and comment on issues, and when tests pass/fail.
+
+#### [CircleCI](https://circleci.com/gh/UoT-CSC30x-W15/301W15-Prj-Team4-repo)
+
+We use CircleCI to automatically run tests and build distributable binaries whenever
+commits are pushed to GitHub.

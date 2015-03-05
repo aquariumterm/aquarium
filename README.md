@@ -2,6 +2,7 @@ Aquarium
 ========
 
 A terminal emulator with enhanced auto-complete, and built-in documentation and tutorials.
+Supports _bash_, _zsh_, _fish_.
 
 ## Phase 1
 
