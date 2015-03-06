@@ -23,12 +23,12 @@ Location: _Bahen Laptop Lab_
 - Discussion of how to break off tasks:
 	- Alex and Spencer will work on getting the build working (50% of MVP)
 	- Peter and Kyle will setup term.js (50% of MVP)
-	- Ryan, Nick and Allen will design React.js components (0% of MVP but relevant to everything after)
+	- Ryan, Nick and Allen will design React.js components (0% of MVP but relevant phase 3)
 	- This decision was made unanimously with no objection, although understanding exactly how the three components related was quintessential to the decision
 - Goal for the sprint: 
 	- Continual work on the build, moving towards completion
-	- Research term.js
-	- Research React.js
+	- Research `term.js`
+	- Research `React.js`
 
 ##### February 16th - Sprint 1 review
 Location: _Bahen Laptop Lab_
@@ -73,8 +73,8 @@ Location: _Bahen Laptop Lab_
 - Build now works 100% on Mac OS X and Debian-based linux distros with no bugs (100% done!!)
 	- Possibility of extending to other distros, but for now this is sufficient
 - Term.js now integrates with the NodeWebKit build and works natively with no bugs. (100% done!)
-- React.js components are developed, but require polish and improvement (75% )
-	- Next planning meeting will include discussion of mockup to solidify design idea 
+- React.js components are developed, but require polish and improvement
+	- Next planning meeting will include discussion of mock-up to solidify design idea 
 - Our Minimum Viable Product for Phase 2 is now more or less complete with room for polish left
 
 ##### March 4th - Sprint 4 Planning
@@ -82,8 +82,9 @@ Location: _Bahen Laptop Lab_
 
 - Build will be extended to support RPM-based distros such as Fedora due to members using said distro
 - Testing tools are completed and are to be run on each OS to make sure it builds properly
-- Mockup work has been done and members are all sharing similar ideas for work
 - Basic React component templates need to be added to the feature/sidebar branch
+- Some discussion about whether certain elements can be done without React
+	- No conclusion reached as this issue is more relevant for phase 3
 - Documentation needs to be completed for Phase 2
 
 ## Usage of GitHub Issues + Pull Requests
