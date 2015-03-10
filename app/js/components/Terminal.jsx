@@ -7,6 +7,8 @@ import pty from 'pty.js';
 import TerminalActionCreator from '../actions/TerminalActionCreator';
 import TerminalStore from '../stores/TerminalStore';
 
+import AutoCompleteSuggestion from './AutoCompleteSuggestion';
+
 var shell;
 var term;
 
@@ -19,11 +21,35 @@ var getTerminalState = function() {
 
 var Terminal = React.createClass({
   /** Styles */
-  _main() {
+  _mainStyle() {
     return {
       fontFamily: 'monospace'
     };
   },
+
+  _suggestionListStyle() {
+    if (!term) {
+      return;
+    }
+
+    var numSuggestions = this.state.candidates.length;
+    var rowHeight = term.element.clientHeight / term.rows;
+    var shouldRenderAbove = term.y + numSuggestions >= term.rows;
+
+    var currentRowY = term.y * rowHeight;
+    var suggestionListHeight = numSuggestions * rowHeight;
+    var suggestionListStartY = shouldRenderAbove ? currentRowY - suggestionListHeight : currentRowY + suggestionListHeight;
+
+    return {
+      position: "absolute",
+      "list-style-type": "none",
+      left: 0,
+      top: suggestionListStartY,
+      height: suggestionListHeight
+    };
+  },
+
+  /** Component Functions */
 
   getInitialState() {
     return getTerminalState();
@@ -64,20 +90,15 @@ var Terminal = React.createClass({
   },
 
   render() {
-    if (this.isMounted()) {
-      var numSuggestions = this.state.candidates.length;
-      var renderSuggestionsAbove = term.y + numSuggestions >= term.rows;
-
-      for (var i = 0; i < numSuggestions; i++) {
-        React.render(
-          <div>{this.state.candidates[i].name}</div>,
-          term.element.childNodes.item(renderSuggestionsAbove ? term.y - numSuggestions + i : term.y + i + 1)
-        );
-      }
-    }
-
     return (
-      <div style={this._main()}>
+      <div style={this._mainStyle()}>
+        <div></div>
+
+        <ul style={this._suggestionListStyle()}>
+          {this.state.candidates.map(function(candidate) {
+            return <AutoCompleteSuggestion key={candidate.id} data={candidate} />;
+          }.bind(this))}
+        </ul>
       </div>
     );
   },

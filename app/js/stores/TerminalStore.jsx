@@ -4,27 +4,42 @@ import TerminalDispatcher from '../dispatchers/TerminalDispatcher';
 import TerminalConstants from '../constants/TerminalConstants';
 import { EventEmitter } from 'events';
 import assign from 'object-assign';
+import Fuse from 'fuse.js';
 
 var ShellActions = TerminalConstants.ShellActions;
 var AppActions = TerminalConstants.AppActions;
 
 var CHANGE_EVENT = 'change';
 
-var _commands = {};
+var _commands = [];
 var _candidates = [];
-var _text = "";
+var _text = '';
+
+var fuzzySearch;
+var searchOptions = {
+  caseSensitive: false,
+  includeScore: false,
+  shouldSort: true,
+  threshold: 0.6,
+  keys: ['name']
+};
 
 var CommandStore = assign({}, EventEmitter.prototype, {
   init: function(rawCommands) {
-    rawCommands.forEach(function(command) {
-      var commandID = command.commandID;
-      _commands[commandID] = {
-        id: commandID,
+    _commands = [];
+
+    for (var i = 0; i < rawCommands.length; i++) {
+      var command = rawCommands[i];
+
+      _commands.push({
+        key: i,
         name: command.commandName,
         description: command.description,
         examples: command.examples
-      };
-    }, this);
+      });
+    }
+
+    fuzzySearch = new Fuse(_commands, searchOptions);
   },
 
   emitChange: function() {
@@ -53,18 +68,29 @@ var CommandStore = assign({}, EventEmitter.prototype, {
   },
 
   updateAutocompletionCandidates: function() {
-    _candidates = [_commands[0]];
+    if (fuzzySearch === undefined) {
+      _candidates = [];
+      return;
+    }
+
+    // do a fuzzy search for the text the user has entered
+    _candidates = fuzzySearch.search(_text);
+
+    // give each candidate a unique key
+    _candidates.forEach(function(candidate, i) {
+      candidate.key = i;
+    });
   },
 
   // TODO: The current text being typed by the user can be separated away from the commands
   updateText: function(key) {
     if (key === '\r') {
       _text = "";
+    } else if (key === '\u007F') {
+      _text = _text.substring(0, _text.length - 1);
     } else {
       _text += key;
     }
-
-    console.log("Text is now " + _text);
   }
 });
 
