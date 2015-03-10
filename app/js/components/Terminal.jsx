@@ -42,7 +42,7 @@ var Terminal = React.createClass({
 
     return {
       position: "absolute",
-      "list-style-type": "none",
+      listStyleType: "none",
       left: 0,
       top: suggestionListStartY,
       height: suggestionListHeight
