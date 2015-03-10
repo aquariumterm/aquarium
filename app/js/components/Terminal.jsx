@@ -5,7 +5,17 @@ import TerminalJS from 'term.js';
 import pty from 'pty.js';
 
 import TerminalActionCreator from '../actions/TerminalActionCreator';
-import '../stores/CommandStore';
+import TerminalStore from '../stores/TerminalStore';
+
+var shell;
+var term;
+
+var getTerminalState = function() {
+  return {
+    commands: TerminalStore.getAll(),
+    candidates: TerminalStore.getAutocompletionCandidates()
+  };
+};
 
 var Terminal = React.createClass({
   /** Styles */
@@ -15,8 +25,12 @@ var Terminal = React.createClass({
     };
   },
 
+  getInitialState() {
+    return getTerminalState();
+  },
+
   componentDidMount() {
-    var shell = pty.spawn('bash', [], {
+    shell = pty.spawn('bash', [], {
       name: 'xterm-color',
       cols: 80,
       rows: 30,
@@ -24,7 +38,7 @@ var Terminal = React.createClass({
       env: process.env
     });
 
-    var term = new TerminalJS({
+    term = new TerminalJS({
       cols: 80,
       rows: 30,
       screenKeys: true
@@ -38,23 +52,38 @@ var Terminal = React.createClass({
     term.on('data', (data) => {
       shell.write(data);
       TerminalActionCreator.typeKey(data);
-
-      //if (currentLine === "ls" && allowAutoComplete) {
-      //  React.render(
-      //    <div>Hello</div>,
-      //    term.element.childNodes.item(term.y === term.rows - 1 ? term.y - 1 : term.y + 1)
-      //  );
-      //}
     });
 
     term.open(this.getDOMNode());
+
+    TerminalStore.addChangeListener(this._onChange);
+  },
+
+  componentWillUnmount() {
+    TerminalStore.removeChangeListener(this._onChange);
   },
 
   render() {
+    if (this.isMounted()) {
+      var numSuggestions = this.state.candidates.length;
+      var renderSuggestionsAbove = term.y + numSuggestions >= term.rows;
+
+      for (var i = 0; i < numSuggestions; i++) {
+        React.render(
+          <div>{this.state.candidates[i].name}</div>,
+          term.element.childNodes.item(renderSuggestionsAbove ? term.y - numSuggestions + i : term.y + i + 1)
+        );
+      }
+    }
+
     return (
       <div style={this._main()}>
       </div>
     );
+  },
+
+  _onChange() {
+    this.setState(getTerminalState());
   }
 });
 
