@@ -5,7 +5,12 @@ global.document = window.document;
 global.navigator = window.navigator;
 
 import React from 'react';
+
 import Terminal from './components/Terminal';
+import TerminalActionCreator from './actions/TerminalActionCreator';
+import TerminalConstants from './constants/TerminalConstants';
+
+TerminalActionCreator.sendRawCommands(TerminalConstants.KnownCommands);
 
 React.render(
   <Terminal />,

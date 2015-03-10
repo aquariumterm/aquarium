@@ -35,5 +35,9 @@
     "nw-gyp": "^0.12.4",
     "time-grunt": "^1.0.0",
     "wd": "^0.3.11"
+  },
+  "dependencies": {
+    "flux": "^2.0.1",
+    "object-assign": "^2.0.0"
   }
 }

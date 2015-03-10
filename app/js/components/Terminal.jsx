@@ -4,6 +4,9 @@ import React from 'react';
 import TerminalJS from 'term.js';
 import pty from 'pty.js';
 
+import TerminalActionCreator from '../actions/TerminalActionCreator';
+import '../stores/CommandStore';
+
 var Terminal = React.createClass({
   /** Styles */
   _main() {
@@ -27,13 +30,31 @@ var Terminal = React.createClass({
       screenKeys: true
     });
 
-    shell.on('data', (data) => term.write(data));
-    term.on('data', (data) => shell.write(data));
+    shell.on('data', (data) => {
+      term.write(data);
+      TerminalActionCreator.receiveOutput(data);
+    });
+
+    term.on('data', (data) => {
+      shell.write(data);
+      TerminalActionCreator.typeKey(data);
+
+      //if (currentLine === "ls" && allowAutoComplete) {
+      //  React.render(
+      //    <div>Hello</div>,
+      //    term.element.childNodes.item(term.y === term.rows - 1 ? term.y - 1 : term.y + 1)
+      //  );
+      //}
+    });
 
     term.open(this.getDOMNode());
   },
+
   render() {
-    return (<div style={this._main()}></div>);
+    return (
+      <div style={this._main()}>
+      </div>
+    );
   }
 });
 
