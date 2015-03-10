@@ -17,6 +17,7 @@ export default {
 
   KnownCommands: [
     { commandName: "ls", description: "List the contents of a directory", examples: ["ls -ah"] },
-    { commandName: "cd", description: "Change the current working directory", examples: ["cd code/"] }
+    { commandName: "cd", description: "Change the current working directory", examples: ["cd code/"] },
+    { commandName: "clear", description: "Clear the output of the terminal", examples: ["clear"] }
   ]
 };
