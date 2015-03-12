@@ -5,7 +5,9 @@ import TerminalJS from 'term.js';
 import pty from 'pty.js';
 
 import TerminalActionCreator from '../actions/TerminalActionCreator';
-import TerminalStore from '../stores/TerminalStore';
+
+import CommandStore from '../stores/CommandStore';
+import AutoCompleteStore from '../stores/AutoCompleteStore';
 
 import AutoCompleteSuggestion from './AutoCompleteSuggestion';
 
@@ -14,8 +16,8 @@ var term;
 
 var getTerminalState = function() {
   return {
-    commands: TerminalStore.getAll(),
-    candidates: TerminalStore.getAutocompletionCandidates()
+    commands: CommandStore.getAll(),
+    candidates: AutoCompleteStore.getCandidates()
   };
 };
 
@@ -82,11 +84,13 @@ var Terminal = React.createClass({
 
     term.open(this.getDOMNode());
 
-    TerminalStore.addChangeListener(this._onChange);
+    CommandStore.addChangeListener(this._onChange);
+    AutoCompleteStore.addChangeListener(this._onChange);
   },
 
   componentWillUnmount() {
-    TerminalStore.removeChangeListener(this._onChange);
+    CommandStore.removeChangeListener(this._onChange);
+    AutoCompleteStore.removeChangeListener(this._onChange);
   },
 
   render() {
