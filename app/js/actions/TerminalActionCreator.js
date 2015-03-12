@@ -31,7 +31,5 @@ export default {
       action: AppActions.SEND_RAW_COMMANDS,
       commands: commands
     });
-
-    console.log(TerminalDispatcher.isDispatching());
   }
 };

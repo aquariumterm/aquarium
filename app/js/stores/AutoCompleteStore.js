@@ -1,19 +1,18 @@
 'use strict';
 
-import { EventEmitter } from 'events';
 import assign from 'object-assign';
 import Fuse from 'fuse.js';
 
 import TerminalDispatcher from '../dispatchers/TerminalDispatcher';
 import TerminalConstants from '../constants/TerminalConstants';
+
 import CommandStore from './CommandStore';
 import EnteredCommandStore from './EnteredCommandStore';
 
+import ChangeEmitter from '../mixins/ChangeEmitter';
+
 var AppActions = TerminalConstants.AppActions;
 var ShellActions = TerminalConstants.ShellActions;
-
-var CHANGE_EVENT = 'change';
-
 
 var fuzzySearch;
 var searchOptions = {
@@ -26,21 +25,9 @@ var searchOptions = {
 
 var _candidates = [];
 
-var AutoCompleteStore = assign({}, EventEmitter.prototype, {
+var AutoCompleteStore = assign({}, ChangeEmitter, {
   init(commands) {
     fuzzySearch = new Fuse(commands, searchOptions);
-  },
-
-  emitChange: function() {
-    this.emit(CHANGE_EVENT);
-  },
-
-  addChangeListener: function(callback) {
-    this.on(CHANGE_EVENT, callback);
-  },
-
-  removeChangeListener: function(callback) {
-    this.removeListener(CHANGE_EVENT, callback);
   },
 
   getCandidates: function() {
@@ -49,7 +36,6 @@ var AutoCompleteStore = assign({}, EventEmitter.prototype, {
 
   updateCandidates: function(enteredText) {
     if (fuzzySearch === undefined) {
-      _candidates = [];
       return;
     }
 

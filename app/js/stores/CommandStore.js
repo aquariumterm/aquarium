@@ -1,15 +1,14 @@
 'use strict';
 
-import TerminalDispatcher from '../dispatchers/TerminalDispatcher';
-import TerminalConstants from '../constants/TerminalConstants';
-import { EventEmitter } from 'events';
 import assign from 'object-assign';
 
-var CHANGE_EVENT = 'change';
+import TerminalDispatcher from '../dispatchers/TerminalDispatcher';
+import TerminalConstants from '../constants/TerminalConstants';
+import ChangeEmitter from '../mixins/ChangeEmitter';
 
 var _commands = [];
 
-var CommandStore = assign({}, EventEmitter.prototype, {
+var CommandStore = assign({}, ChangeEmitter, {
   init: function(rawCommands) {
     _commands = [];
 
@@ -23,18 +22,6 @@ var CommandStore = assign({}, EventEmitter.prototype, {
         examples: command.examples
       });
     }
-  },
-
-  emitChange: function() {
-    this.emit(CHANGE_EVENT);
-  },
-
-  addChangeListener: function(callback) {
-    this.on(CHANGE_EVENT, callback);
-  },
-
-  removeChangeListener: function(callback) {
-    this.removeListener(CHANGE_EVENT, callback);
   },
 
   get: function(id) {
