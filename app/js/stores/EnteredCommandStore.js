@@ -34,7 +34,7 @@ var EnteredCommandStore = assign({}, ChangeEmitter, {
 
       case Keys.Backspace:
         if (_cursor >= 0) {
-          _text = _text.slice(0, _cursor) + _text.slice(_cursor + 1);
+          _text = _text.removeAt(_cursor);
           _cursor = Math.max(-1, _cursor - 1);
         }
         break;
