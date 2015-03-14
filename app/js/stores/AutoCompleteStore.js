@@ -24,6 +24,7 @@ var searchOptions = {
 };
 
 var _candidates = [];
+var _selectionIndex = -1;
 
 var AutoCompleteStore = assign({}, ChangeEmitter, {
   init(commands) {
@@ -46,6 +47,26 @@ var AutoCompleteStore = assign({}, ChangeEmitter, {
     _candidates.forEach(function(candidate, i) {
       candidate.key = i;
     });
+  },
+
+  getSelectionIndex: function() {
+    return _selectionIndex;
+  },
+
+  updateSelection: function(key) {
+    if (_candidates.length === 0) {
+      _selectionIndex = -1;
+      return;
+    }
+
+    switch (key) {
+      case "\u001B[B":
+        _selectionIndex = Math.max(_candidates.length - 1, _selectionIndex + 1);
+        break;
+      case "\u001B[A":
+        _selectionIndex = Math.min(0, _selectionIndex - 1);
+        break;
+    }
   }
 });
 
@@ -60,6 +81,7 @@ AutoCompleteStore.dispatchToken = TerminalDispatcher.register(function(payload) 
     case ShellActions.TYPE_KEY:
       TerminalDispatcher.waitFor([EnteredCommandStore.dispatchToken]);
       AutoCompleteStore.updateCandidates(EnteredCommandStore.get());
+      AutoCompleteStore.updateSelection(payload.key);
       AutoCompleteStore.emitChange();
       break;
   }

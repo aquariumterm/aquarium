@@ -18,6 +18,7 @@ export default {
   KnownCommands: [
     { commandName: "ls", description: "List the contents of a directory", examples: ["ls -ah"] },
     { commandName: "cd", description: "Change the current working directory", examples: ["cd code/"] },
+    { commandName: "cp", description: "Copy a file's contents into another file", examples: ["cp file1.txt file1_copy.txt"] },
     { commandName: "clear", description: "Clear the output of the terminal", examples: ["clear"] }
   ]
 };

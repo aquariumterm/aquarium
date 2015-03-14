@@ -17,7 +17,8 @@ var term;
 var getTerminalState = function() {
   return {
     commands: CommandStore.getAll(),
-    candidates: AutoCompleteStore.getCandidates()
+    candidates: AutoCompleteStore.getCandidates(),
+    selectedIndex: AutoCompleteStore.getSelectionIndex()
   };
 };
 
@@ -40,7 +41,7 @@ var Terminal = React.createClass({
 
     var currentRowY = term.y * rowHeight;
     var suggestionListHeight = numSuggestions * rowHeight;
-    var suggestionListStartY = shouldRenderAbove ? currentRowY - suggestionListHeight : currentRowY + suggestionListHeight;
+    var suggestionListStartY = shouldRenderAbove ? currentRowY - rowHeight - suggestionListHeight : currentRowY + rowHeight ;
 
     return {
       position: "absolute",
@@ -99,7 +100,10 @@ var Terminal = React.createClass({
         <div></div>
 
         <ul style={this._suggestionListStyle()}>
-          {this.state.candidates.map(function(candidate) {
+          {this.state.candidates.map(function(candidate, i) {
+            console.log("Selected index: " + this.state.selectedIndex);
+            console.log("Index: " + i);
+            candidate.selected = i === this.state.selectedIndex;
             return <AutoCompleteSuggestion key={candidate.id} data={candidate} />;
           }.bind(this))}
         </ul>
