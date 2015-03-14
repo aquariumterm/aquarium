@@ -15,6 +15,15 @@ export default {
     APP_ACTION: null
   }),
 
+  Keys: {
+    DownArrow: '\u001B[B',
+    UpArrow: '\u001B[A',
+    LeftArrow: '\u001B[D',
+    RightArrow: '\u001B[C',
+    Backspace: '\u007F',
+    Enter: '\r'
+  },
+
   KnownCommands: [
     { commandName: "ls", description: "List the contents of a directory", examples: ["ls -ah"] },
     { commandName: "cd", description: "Change the current working directory", examples: ["cd code/"] },

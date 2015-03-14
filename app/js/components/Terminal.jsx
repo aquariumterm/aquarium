@@ -6,7 +6,10 @@ import pty from 'pty.js';
 
 import TerminalActionCreator from '../actions/TerminalActionCreator';
 
+import TerminalConstants from '../constants/TerminalConstants';
+
 import CommandStore from '../stores/CommandStore';
+import EnteredCommandStore from '../stores/EnteredCommandStore';
 import AutoCompleteStore from '../stores/AutoCompleteStore';
 
 import AutoCompleteSuggestion from './AutoCompleteSuggestion';
@@ -17,8 +20,14 @@ var term;
 var getTerminalState = function() {
   return {
     commands: CommandStore.getAll(),
-    candidates: AutoCompleteStore.getCandidates(),
-    selectedIndex: AutoCompleteStore.getSelectionIndex()
+    suggestions: AutoCompleteStore.getSuggestions(),
+    selectedIndex: AutoCompleteStore.getSelectionIndex(),
+    enteredCommand: EnteredCommandStore.get(),
+    autocompletedText: AutoCompleteStore.getAutocompletedText(),
+
+    // TODO: The view should not be handling logic for ignoring keys that we don't want to write to the shell.
+    // Break interaction with the shell out into a store so we can make this cleaner.
+    ignoredKeys: AutoCompleteStore.getKeyboardKeysToIgnore()
   };
 };
 
@@ -35,7 +44,7 @@ var Terminal = React.createClass({
       return;
     }
 
-    var numSuggestions = this.state.candidates.length;
+    var numSuggestions = this.state.suggestions.length;
     var rowHeight = term.element.clientHeight / term.rows;
     var shouldRenderAbove = term.y + numSuggestions >= term.rows;
 
@@ -73,14 +82,31 @@ var Terminal = React.createClass({
       screenKeys: true
     });
 
+    // send any output from the shell to the client
     shell.on('data', (data) => {
       term.write(data);
       TerminalActionCreator.receiveOutput(data);
     });
 
+    // write any input from the client to the shell
     term.on('data', (data) => {
-      shell.write(data);
-      TerminalActionCreator.typeKey(data);
+      this.writeKey(data);
+
+      // HACK: do an update to the shell for autocomplete logic on each render,
+      // such as filling in the chosen autocomplete option
+      if (this.state.autocompletedText !== "") {
+
+        // save some properties before clearing the buffer clears their values
+        var autocompletedText = this.state.autocompletedText;
+        var bufferLength = this.state.enteredCommand.length;
+
+        // clear the user's currently entered text
+        for (let i = 0; i < bufferLength; i++) {
+          this.writeKey(TerminalConstants.Keys.Backspace);
+        }
+
+        this.writeText(autocompletedText);
+      }
     });
 
     term.open(this.getDOMNode());
@@ -94,17 +120,34 @@ var Terminal = React.createClass({
     AutoCompleteStore.removeChangeListener(this._onChange);
   },
 
+
+  writeKey(key) {
+    if (this.state.ignoredKeys.indexOf(key) === -1) {
+      shell.write(key);
+    }
+
+    TerminalActionCreator.typeKey(key);
+  },
+
+  writeText(text) {
+    for (let i = 0; i < text.length; i++) {
+      this.writeKey(text[i]);
+    }
+  },
+
   render() {
+    if (term) {
+      term.write("");
+    }
+
     return (
       <div style={this._mainStyle()}>
         <div></div>
 
         <ul style={this._suggestionListStyle()}>
-          {this.state.candidates.map(function(candidate, i) {
-            console.log("Selected index: " + this.state.selectedIndex);
-            console.log("Index: " + i);
-            candidate.selected = i === this.state.selectedIndex;
-            return <AutoCompleteSuggestion key={candidate.id} data={candidate} />;
+          {this.state.suggestions.map(function(suggestion, i) {
+            suggestion.selected = i === this.state.selectedIndex;
+            return <AutoCompleteSuggestion key={suggestion.id} data={suggestion} />;
           }.bind(this))}
         </ul>
       </div>
@@ -113,6 +156,8 @@ var Terminal = React.createClass({
 
   _onChange() {
     this.setState(getTerminalState());
+
+
   }
 });
 
