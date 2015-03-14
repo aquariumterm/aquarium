@@ -87,8 +87,8 @@ var AutoCompleteStore = assign({}, ChangeEmitter, {
         _selectionIndex = Math.max(0, _selectionIndex - 1);
         break;
 
-      // to avoid interfering with the EnteredCommandStore, use RightArrow for autocomplete for now
-      // until we find a better solution
+      // HACK: to avoid interfering with the EnteredCommandStore's logic, which uses the enter key to clear the buffer,
+      // use RightArrow for autocomplete for now
       case TerminalConstants.Keys.RightArrow:
         if (_selectionIndex !== -1) {
           _autoCompletedText = _suggestions[_selectionIndex].name;

@@ -8,9 +8,19 @@ import ChangeEmitter from '../mixins/ChangeEmitter';
 
 var Keys = TerminalConstants.Keys;
 
+// HACK: This entire store is a hack to keep track of the text that the user has entered, since there was no property
+// for that in the APIs term.js and pty.js expose to us. After further reflection, I think we can find the entered text by figuring out what
+// the user's shell prompt is, getting the text in the current row in the terminal(you can find examples of this in the
+// term.js codebase) and removing the prompt from that text.
+
+// the text that the user has entered after the command prompt
 var _text = '';
+
+// the index of the user's cursor. Could probably be retrieved from term.js or pty.js instead.
 var _cursor = 0;
-var _blacklist = ['\u001B[A', '\u001B[B'];
+
+// keys that we don't want to write into the buffer of text entered by the user.
+var _blacklist = [TerminalConstants.Keys.UpArrow, TerminalConstants.Keys.DownArrow];
 
 var EnteredCommandStore = assign({}, ChangeEmitter, {
   get: function() {
@@ -37,6 +47,7 @@ var EnteredCommandStore = assign({}, ChangeEmitter, {
           _text = _text.removeAt(_cursor);
           _cursor = Math.max(-1, _cursor - 1);
         }
+
         break;
 
       default:

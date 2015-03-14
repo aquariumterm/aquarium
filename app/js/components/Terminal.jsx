@@ -96,11 +96,11 @@ var Terminal = React.createClass({
       // such as filling in the chosen autocomplete option
       if (this.state.autocompletedText !== "") {
 
-        // save some properties before clearing the buffer clears their values
+        // save properties before clearing the buffer mutates their values
         var autocompletedText = this.state.autocompletedText;
         var bufferLength = this.state.enteredCommand.length;
 
-        // clear the user's currently entered text
+        // clear the user's currently entered text (buffer)
         for (let i = 0; i < bufferLength; i++) {
           this.writeKey(TerminalConstants.Keys.Backspace);
         }
@@ -136,6 +136,8 @@ var Terminal = React.createClass({
   },
 
   render() {
+    // HACK: Force the terminal to call its ondata handler so we can call actions(React won't let us within render)
+    // to do some autocompletion logic.
     if (term) {
       term.write("");
     }
