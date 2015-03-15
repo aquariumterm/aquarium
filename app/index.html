@@ -20,8 +20,14 @@
   	height: 100%;
   	float: right; 
   	overflow: hidden;
+    display = 'block'
   }
   </style>
+    
+  <script type="text/javascript">
+	      
+    
+  </script>
 
   <title>Aquarium</title>
 </head>
@@ -29,9 +35,20 @@
 
 <!-- Forgive me for my div soup -->
 <div class="wrapper">
-  <main></main>
-  
+    <button onclick="myFunction()">Click me</button>
+    <main></main>
   <script>
+      
+    function myFunction() {
+        var s = document.getElementById('sidebar');
+        if(s.style.display == 'block'){
+          s.style.display = 'none';
+        }
+        else{
+          s.style.display = 'block';
+        }
+
+	}
     require('babel/register');
     require('./js/app');
   </script>

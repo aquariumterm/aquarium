@@ -5,7 +5,7 @@ import React from 'react';
 var Sidebar = React.createClass({
   render: function() {
     return (
-      <div className="Sidebar">
+      <div className="Sidebar" id='sidebar' display='none'>
       	<form action =''>
         	<input type="text" name="query" placeholder="Search"></input>
       	</form>
