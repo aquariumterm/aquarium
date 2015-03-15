@@ -11,11 +11,11 @@ import Terminal from './components/Terminal';
 import Sidebar from './components/Sidebar';
 
 React.render(
-  <Terminal />,
+  <div class ="term"><Terminal /><Sidebar /></div>,
   document.querySelector('main')
 );
 
-React.render(
+/*React.render(
   <Sidebar />,
   document.querySelector('side')
-);
+);*/

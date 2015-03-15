@@ -31,7 +31,7 @@ var Terminal = React.createClass({
     term.open(this.getDOMNode());
   },
   render() {
-    return (<div style={this._main()}></div>);
+    return (<div className="Terminal" style={this._main()}></div>);
   }
 });
 
