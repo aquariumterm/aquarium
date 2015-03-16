@@ -1,0 +1,31 @@
+NOTE: Anything marked with #S is for the SPEAKER to cover, and #N for the NAVIGATOR
+
+------------------
+Introduction
+------------------
+- #S: Our product currently works on Mac OS X, and on most debian-based Linux distros such as Linux Mint, and several RPM-based Linux distros such as Fedora
+	- #N: Display the readme I guess...?
+- #S: Product is executable by using `grunt debug`
+ 	- #N: Probably still the readme...
+- #S: This sprint was largely focused on TOOLING for ease of development, with basic functionality. Additional features slated for next sprint.
+
+-------------------
+Basic Functionality
+-------------------
+
+- #S: Our terminal runs on Term.js, a Javascript library that produces a terminal emulator. Has all basic functions implemented and working
+	- #N Run various commands in the background (ls, mkdir, cd, pwd, ls -l, htop(?))
+- #S: Term.js interacts with Pty.js to interact with ther user's native shell and file system
+	- #S: Any changes you make here will be mirrored on the local file system
+	- #N: mkdir/touch and navigate to the new file/dir using the native file browser
+- #S: Because Term.js uses pty.js to access the native terminal, it will run using whatever the user already has pre-installed. 
+	- #S: For beginner it's recommended to use FISH, but currently also confirmed to work perfectly with bash and zsh
+
+-------------------
+Tooling
+-------------------
+
+- #S: To run our application, we use a gruntfile to not only run the application but also for various tasks
+	- #N Open the gruntfile in a text editor
+
+
