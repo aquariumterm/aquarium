@@ -6,27 +6,20 @@ import ColorConstants from '../constants/ColorConstants';
 
 export default React.createClass({
   _mainStyle(suggestion) {
-    let style = {
-      width: "600px",
-      borderStyle: "solid",
-      borderWidth: "1px",
-      borderColor: ColorConstants.Mixed
+    return {
+      width: '600px',
+      borderStyle: 'solid',
+      borderWidth: '1px',
+      borderColor: ColorConstants.Mixed,
+      backgroundColor: suggestion.selected ? ColorConstants.DarkerBlue : 'black'
     };
-
-    if (suggestion.selected) {
-      style.backgroundColor = ColorConstants.DarkerBlue;
-    } else {
-      style.backgroundColor = 'black';
-    }
-
-    return style;
   },
 
   _nameStyle() {
     return {
       color: ColorConstants.LightSand,
-      marginLeft: "15px",
-      float: "left"
+      marginLeft: '15px',
+      float: 'left'
     };
   },
 

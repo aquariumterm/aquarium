@@ -4,7 +4,7 @@ import React from 'react';
 import TerminalJS from 'term.js';
 import pty from 'pty.js';
 
-import TerminalActionCreator from '../actions/TerminalActionCreator';
+import TerminalActions from '../actions/TerminalActions';
 
 import TerminalConstants from '../constants/TerminalConstants';
 
@@ -16,20 +16,6 @@ import AutoCompleteSuggestion from './AutoCompleteSuggestion';
 
 var shell;
 var term;
-
-var getTerminalState = function() {
-  return {
-    commands: CommandStore.getAll(),
-    suggestions: AutoCompleteStore.getSuggestions(),
-    selectedIndex: AutoCompleteStore.getSelectionIndex(),
-    enteredCommand: EnteredCommandStore.get(),
-    autocompletedText: AutoCompleteStore.getAutocompletedText(),
-
-    // TODO: The view should not be handling logic for ignoring keys that we don't want to write to the shell.
-    // Break interaction with the shell out into a store so we can make this cleaner.
-    ignoredKeys: AutoCompleteStore.getKeyboardKeysToIgnore()
-  };
-};
 
 var Terminal = React.createClass({
   /** Styles */
@@ -53,18 +39,32 @@ var Terminal = React.createClass({
     var suggestionListStartY = shouldRenderAbove ? currentRowY - rowHeight - suggestionListHeight : currentRowY + rowHeight ;
 
     return {
-      position: "absolute",
-      listStyleType: "none",
+      position: 'absolute',
+      listStyleType: 'none',
       left: 0,
       top: suggestionListStartY,
       height: suggestionListHeight
     };
   },
 
+  getState() {
+    return {
+      commands: CommandStore.getAll(),
+      suggestions: AutoCompleteStore.getSuggestions(),
+      selectedIndex: AutoCompleteStore.getSelectionIndex(),
+      enteredCommand: EnteredCommandStore.get(),
+      autocompletedText: AutoCompleteStore.getAutocompletedText(),
+
+      // TODO: The view should not be handling logic for ignoring keys that we don't want to write to the shell.
+      // Break interaction with the shell out into a store so we can make this cleaner.
+      ignoredKeys: AutoCompleteStore.getKeyboardKeysToIgnore()
+    };
+  },
+
   /** Component Functions */
 
   getInitialState() {
-    return getTerminalState();
+    return this.getState();
   },
 
   componentDidMount() {
@@ -85,7 +85,7 @@ var Terminal = React.createClass({
     // send any output from the shell to the client
     shell.on('data', (data) => {
       term.write(data);
-      TerminalActionCreator.receiveOutput(data);
+      TerminalActions.receiveOutput(data);
     });
 
     // write any input from the client to the shell
@@ -126,7 +126,7 @@ var Terminal = React.createClass({
       shell.write(key);
     }
 
-    TerminalActionCreator.typeKey(key);
+    TerminalActions.typeKey(key);
   },
 
   writeText(text) {
@@ -139,7 +139,7 @@ var Terminal = React.createClass({
     // HACK: Force the terminal to call its ondata handler so we can call actions(React won't let us within render)
     // to do some autocompletion logic.
     if (term) {
-      term.write("");
+      term.write('');
     }
 
     return (
@@ -147,19 +147,17 @@ var Terminal = React.createClass({
         <div></div>
 
         <ul style={this._suggestionListStyle()}>
-          {this.state.suggestions.map(function(suggestion, i) {
+          {this.state.suggestions.map((suggestion, i) => {
             suggestion.selected = i === this.state.selectedIndex;
             return <AutoCompleteSuggestion key={suggestion.id} data={suggestion} />;
-          }.bind(this))}
+          })}
         </ul>
       </div>
     );
   },
 
   _onChange() {
-    this.setState(getTerminalState());
-
-
+    this.setState(this.getState());
   }
 });
 
