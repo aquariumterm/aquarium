@@ -11,6 +11,9 @@
   },
   "dependencies": {
     "babel": "^4.6.0",
+    "flux": "^2.0.1",
+    "fuse.js": "^1.2.2",
+    "object-assign": "^2.0.0",
     "pty.js": "^0.2.5",
     "react": "^0.12.2",
     "term.js": "0.0.4"
