@@ -1,6 +1,6 @@
 'use strict';
 
-import TerminalDispatcher from '../dispatchers/TerminalDispatcher';
+import AppDispatcher from '../dispatchers/AppDispatcher';
 import TerminalConstants from '../constants/TerminalConstants';
 
 var ShellActions = TerminalConstants.ShellActions;
@@ -11,14 +11,14 @@ export default {
   /* Shell Actions */
 
   typeKey: function(key) {
-    TerminalDispatcher.dispatch({
+    AppDispatcher.dispatch({
       action: ShellActions.TYPE_KEY,
       key: key
     });
   },
 
   receiveOutput: function(output) {
-    TerminalDispatcher.dispatch({
+    AppDispatcher.dispatch({
       action: ShellActions.OUTPUT_RECEIVED,
       output: output
     });
@@ -27,7 +27,7 @@ export default {
   /* App Actions */
 
   sendRawCommands: function(commands) {
-    TerminalDispatcher.dispatch({
+    AppDispatcher.dispatch({
       action: AppActions.SEND_RAW_COMMANDS,
       commands: commands
     });

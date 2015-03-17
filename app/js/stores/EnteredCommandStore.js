@@ -2,7 +2,7 @@
 
 import assign from 'object-assign';
 
-import TerminalDispatcher from '../dispatchers/TerminalDispatcher';
+import AppDispatcher from '../dispatchers/AppDispatcher';
 import TerminalConstants from '../constants/TerminalConstants';
 import ChangeEmitter from '../mixins/ChangeEmitter';
 
@@ -61,7 +61,7 @@ var EnteredCommandStore = assign({}, ChangeEmitter, {
   }
 });
 
-EnteredCommandStore.dispatchToken = TerminalDispatcher.register(function(payload) {
+EnteredCommandStore.dispatchToken = AppDispatcher.register(function(payload) {
   switch (payload.action) {
     case TerminalConstants.ShellActions.TYPE_KEY:
       EnteredCommandStore.updateText(payload.key);

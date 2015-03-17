@@ -3,16 +3,13 @@
 import assign from 'object-assign';
 import Fuse from 'fuse.js';
 
-import TerminalDispatcher from '../dispatchers/TerminalDispatcher';
+import AppDispatcher from '../dispatchers/AppDispatcher';
 import TerminalConstants from '../constants/TerminalConstants';
 
 import CommandStore from './CommandStore';
 import EnteredCommandStore from './EnteredCommandStore';
 
 import ChangeEmitter from '../mixins/ChangeEmitter';
-
-var AppActions = TerminalConstants.AppActions;
-var ShellActions = TerminalConstants.ShellActions;
 
 var fuzzySearch;
 var searchOptions = {
@@ -103,16 +100,16 @@ var AutoCompleteStore = assign({}, ChangeEmitter, {
   }
 });
 
-AutoCompleteStore.dispatchToken = TerminalDispatcher.register(function(payload) {
+AutoCompleteStore.dispatchToken = AppDispatcher.register(function(payload) {
   switch (payload.action) {
-    case AppActions.SEND_RAW_COMMANDS:
-      TerminalDispatcher.waitFor([CommandStore.dispatchToken]);
+    case TerminalConstants.AppActions.SEND_RAW_COMMANDS:
+      AppDispatcher.waitFor([CommandStore.dispatchToken]);
       AutoCompleteStore.init(CommandStore.getAll());
       AutoCompleteStore.emitChange();
       break;
 
-    case ShellActions.TYPE_KEY:
-      TerminalDispatcher.waitFor([EnteredCommandStore.dispatchToken]);
+    case TerminalConstants.ShellActions.TYPE_KEY:
+      AppDispatcher.waitFor([EnteredCommandStore.dispatchToken]);
       AutoCompleteStore.updateSuggestions(EnteredCommandStore.get());
       AutoCompleteStore.updateSelection(payload.key);
       AutoCompleteStore.emitChange();

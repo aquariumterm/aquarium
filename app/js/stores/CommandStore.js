@@ -2,7 +2,7 @@
 
 import assign from 'object-assign';
 
-import TerminalDispatcher from '../dispatchers/TerminalDispatcher';
+import AppDispatcher from '../dispatchers/AppDispatcher';
 import TerminalConstants from '../constants/TerminalConstants';
 import ChangeEmitter from '../mixins/ChangeEmitter';
 
@@ -33,7 +33,7 @@ var CommandStore = assign({}, ChangeEmitter, {
   }
 });
 
-CommandStore.dispatchToken = TerminalDispatcher.register(function(payload) {
+CommandStore.dispatchToken = AppDispatcher.register(function(payload) {
   switch (payload.action) {
 
     case TerminalConstants.AppActions.SEND_RAW_COMMANDS:
