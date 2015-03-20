@@ -28,7 +28,18 @@ var Terminal = React.createClass({
     });
 
     shell.on('data', (data) => term.write(data));
-    term.on('data', (data) => shell.write(data));
+    term.on('data', (data) => {
+      shell.write(data);
+      if (data === '`'){
+        var s = document.getElementById('sidebar');
+        if(s.style.display === 'block'){
+          s.style.display = 'none';
+        }
+        else{
+          s.style.display = 'block';
+        }
+      }
+    });
 
     term.open(this.getDOMNode());
   },
