@@ -1,33 +1,18 @@
 'use strict';
 
 import React from 'react';
-import TerminalJS from 'term.js';
-import pty from 'pty.js';
 
 import TerminalActions from '../actions/TerminalActions';
 import {selectSuggestion} from '../actions/AutoCompleteActions';
 
 import TerminalConstants from '../constants/TerminalConstants';
 
+import TerminalStore from '../stores/TerminalStore';
 import CommandStore from '../stores/CommandStore';
 import EnteredCommandStore from '../stores/EnteredCommandStore';
 import AutoCompleteStore from '../stores/AutoCompleteStore';
 
 import AutoCompleteSuggestion from './AutoCompleteSuggestion';
-
-let shell = pty.spawn('bash', [], {
-  name: 'xterm-color',
-  cols: 80,
-  rows: 30,
-  cwd: process.env.HOME,
-  env: process.env
-});
-
-let term = new TerminalJS({
-  cols: 80,
-  rows: 30,
-  screenKeys: true
-});
 
 let Terminal = React.createClass({
   /** Styles */
@@ -38,6 +23,8 @@ let Terminal = React.createClass({
   },
 
   suggestionListStyle() {
+    let term = TerminalStore.getTerminal();
+
     if (!term.element) {
       return null;
     }
@@ -61,15 +48,10 @@ let Terminal = React.createClass({
 
   getState() {
     return {
-      commands: CommandStore.getAll(),
       suggestions: AutoCompleteStore.getSuggestions(),
       selectedIndex: AutoCompleteStore.getSelectionIndex(),
       enteredCommand: EnteredCommandStore.get(),
-      autoCompletedText: AutoCompleteStore.getAutoCompletedText(),
-
-      // TODO: The view should not be handling logic for ignoring keys that we don't want to write to the shell.
-      // Break interaction with the shell out into a store so we can make this cleaner.
-      ignoredKeys: AutoCompleteStore.getKeyboardKeysToIgnore()
+      autoCompletedText: AutoCompleteStore.getAutoCompletedText()
     };
   },
 
@@ -80,32 +62,8 @@ let Terminal = React.createClass({
   },
 
   componentDidMount() {
-    // send any output from the shell to the client
-    shell.on('data', data => {
-      term.write(data);
-      TerminalActions.receiveOutput(data);
-    });
-
-    // write any input from the client to the shell
-    term.on('data', data => {
-      if (this.state.selectedIndex >= 0 && data === TerminalConstants.Keys.Enter) {
-        // User has chosen a suggestion
-        // save properties before clearing the buffer mutates their values
-        var autoCompletedText = this.state.autoCompletedText;
-        var bufferLength = this.state.enteredCommand.length;
-
-        // clear the user's currently entered text (buffer)
-        for (let i = 0; i < bufferLength; i++) {
-          this.writeKey(TerminalConstants.Keys.Backspace);
-        }
-
-        // Write the suggested command
-        this.writeText(autoCompletedText);
-      } else {
-        this.writeKey(data);
-      }
-    });
-
+    // Initialize the terminal on this DOM node
+    let term = TerminalStore.getTerminal();
     term.open(this.getDOMNode());
 
     CommandStore.addChangeListener(this.onChange);
@@ -117,23 +75,6 @@ let Terminal = React.createClass({
     AutoCompleteStore.removeChangeListener(this.onChange);
   },
 
-  /**
-   * Write the given key to the host shell,
-   *
-   * @param key
-   */
-  writeKey(key) {
-    if (this.state.ignoredKeys.indexOf(key) === -1) {
-      shell.write(key);
-    }
-
-    TerminalActions.typeKey(key);
-  },
-
-  writeText(text) {
-    text.split('').forEach(char => this.writeKey(char));
-  },
-
   render() {
     return (
       <div style={this.mainStyle()}>
@@ -142,7 +83,7 @@ let Terminal = React.createClass({
         <ul style={this.suggestionListStyle()}>
           {this.state.suggestions.map((suggestion, i) => {
             return <AutoCompleteSuggestion
-              key={suggestion.id}
+              key={suggestion.key}
               isSelected={i === this.state.selectedIndex}
               onSelect={() => this.handleSelectSuggestion(i)}
               name={suggestion.name}

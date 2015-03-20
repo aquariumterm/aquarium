@@ -10,6 +10,8 @@ import Terminal from './components/Terminal';
 import TerminalActions from './actions/TerminalActions';
 import TerminalConstants from './constants/TerminalConstants';
 
+import './stores/ShellStore';
+
 TerminalActions.sendRawCommands(TerminalConstants.KnownCommands);
 
 React.render(
