@@ -1,9 +1,8 @@
 #!/bin/bash
 
-###
-# Prepare a test environment by downloading and running the correct
-# version of selenium and chromedriver
 #
+#
+
 
 # make a directory for test tools if we don't have it already
 DL_DIR="./tmp"
@@ -72,6 +71,3 @@ else
     echo "Cannot detect operating system. OSTYPE is " $OSTYPE 1>&2
     exit 1
 fi
-
-# Launch the selenium server
-java -jar ${SELENIUM_FILENAME} -Dwebdriver.chrome.driver=${CHROMEDRIVER_FILENAME} &

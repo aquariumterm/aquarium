@@ -21,9 +21,13 @@ module.exports = function (grunt) {
       options: {
         logConcurrentOutput: true
       },
-      all: [
+      dev: [
         'shell:nw',
         'watch'
+      ],
+      test: [
+        'shell:launchSelenium',
+        'testThenQuit'
       ]
     },
 
@@ -41,22 +45,29 @@ module.exports = function (grunt) {
     },
 
     // Run mocha tests
-    mocha: {
+    mochaTest: {
       test: {
-        src: ['app/test/**'],
+        src: ['app/test/**.*'],
         options: {
+          require: 'babel/register',
           timeout: 30000
         }
       }
     },
 
-    // Use grunt-shell to execute nw
+    // Run commands in the shell
     shell: {
       nw: {
         command: 'npm start'
       },
-      prepareTests: {
+      prepareTestEnvironment: {
         command: './prepare_test_environment.sh'
+      },
+      launchSelenium: {
+        command: 'java -jar ./tmp/selenium.jar -Dwebdriver.chrome.driver=./tmp/chromedriver2_server'
+      },
+      quitSelenium: {
+        command: 'curl --fail --silent -X GET http://localhost:4444/selenium-server/driver/?cmd=shutDownSeleniumServer; exit 0'
       }
     },
 
@@ -104,20 +115,25 @@ module.exports = function (grunt) {
 
   });
 
+  // Execute mocha tests, then quit selenium
+  grunt.registerTask('testThenQuit', [
+    'mochaTest',
+    'shell:quitSelenium'
+  ]);
+
   grunt.registerTask('debug', [
     // Lint code
     'eslint',
 
     // Run node-webkit while linting files as they change
-    'concurrent:all'
+    'concurrent:dev'
   ]);
 
   grunt.registerTask('test', [
-    // Prepare selenium + chromedriver
-    'shell:prepareTests',
+    'shell:prepareTestEnvironment',
 
     // Execute tests
-    'mocha'
+    'concurrent:test'
   ]);
 
   grunt.registerTask('build', [

@@ -19,6 +19,7 @@
     "npm": "^2.5.0"
   },
   "devDependencies": {
+    "babel": "^4.7.16",
     "babel-eslint": "^2.0.2",
     "chai": "^1.10.0",
     "chai-as-promised": "^4.1.1",
@@ -29,7 +30,7 @@
     "grunt-contrib-compress": "^0.13.0",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-eslint": "^9.0.0",
-    "grunt-mocha": "^0.4.12",
+    "grunt-mocha-test": "^0.12.7",
     "grunt-node-webkit-builder": "^1.0.0",
     "grunt-shell": "^1.1.1",
     "load-grunt-tasks": "^3.0.0",
