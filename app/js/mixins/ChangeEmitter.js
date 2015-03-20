@@ -1,20 +1,21 @@
 'use strict';
 
-import { EventEmitter } from 'events';
-import assign from 'object-assign';
+import {EventEmitter} from 'events';
 
-var CHANGE_EVENT = 'change';
+const CHANGE_EVENT = 'CHANGE';
 
-export default assign({}, EventEmitter.prototype, {
-  emitChange: function() {
+class ChangeEmitter extends EventEmitter {
+  emitChange() {
     this.emit(CHANGE_EVENT);
-  },
+  }
 
-  addChangeListener: function(callback) {
+  addChangeListener(callback) {
     this.on(CHANGE_EVENT, callback);
-  },
+  }
 
-  removeChangeListener: function(callback) {
+  removeChangeListener(callback) {
     this.removeListener(CHANGE_EVENT, callback);
   }
-});
+}
+
+export default ChangeEmitter;

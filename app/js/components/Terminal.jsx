@@ -53,7 +53,7 @@ var Terminal = React.createClass({
       suggestions: AutoCompleteStore.getSuggestions(),
       selectedIndex: AutoCompleteStore.getSelectionIndex(),
       enteredCommand: EnteredCommandStore.get(),
-      autocompletedText: AutoCompleteStore.getAutocompletedText(),
+      autocompletedText: AutoCompleteStore.getAutoCompletedText(),
 
       // TODO: The view should not be handling logic for ignoring keys that we don't want to write to the shell.
       // Break interaction with the shell out into a store so we can make this cleaner.

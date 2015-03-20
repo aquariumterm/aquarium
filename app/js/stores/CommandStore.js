@@ -1,46 +1,47 @@
-'use strict';
+/**
+ * Stores a list of command quick documentation: name, description, and examples
+ */
 
-import assign from 'object-assign';
+'use strict';
 
 import AppDispatcher from '../dispatchers/AppDispatcher';
 import TerminalConstants from '../constants/TerminalConstants';
 import ChangeEmitter from '../mixins/ChangeEmitter';
 
-var _commands = [];
+class CommandStore extends ChangeEmitter {
+  constructor() {
+    this.dispatchToken = AppDispatcher.register(payload => {
+      switch (payload.action) {
 
-var CommandStore = assign({}, ChangeEmitter, {
-  init: function(rawCommands) {
-    _commands = [];
+        case TerminalConstants.AppActions.SEND_RAW_COMMANDS:
+          this.init(payload.commands);
+          this.emitChange();
+          break;
+      }
+    });
+  }
 
-    for (var i = 0; i < rawCommands.length; i++) {
-      var command = rawCommands[i];
-
-      _commands.push({
-        key: i,
+  init(rawCommands) {
+    this.commands = rawCommands.map(command => {
+      return {
         name: command.commandName,
         description: command.description,
         examples: command.examples
-      });
-    }
-  },
-
-  get: function(id) {
-    return _commands[id];
-  },
-
-  getAll: function() {
-    return _commands;
+      };
+    });
   }
-});
 
-CommandStore.dispatchToken = AppDispatcher.register(function(payload) {
-  switch (payload.action) {
-
-    case TerminalConstants.AppActions.SEND_RAW_COMMANDS:
-      CommandStore.init(payload.commands);
-      CommandStore.emitChange();
-      break;
+  getDispatchToken() {
+    return this.dispatchToken;
   }
-});
 
-export default CommandStore;
+  get(id) {
+    return this.commands[id];
+  }
+
+  getAll() {
+    return this.commands;
+  }
+}
+
+export default new CommandStore();
