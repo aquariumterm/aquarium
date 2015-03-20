@@ -35,20 +35,8 @@
 
 <!-- Forgive me for my div soup -->
 <div class="wrapper">
-    <button onclick="myFunction()">Click me</button>
     <main></main>
   <script>
-      
-    function myFunction() {
-        var s = document.getElementById('sidebar');
-        if(s.style.display == 'block'){
-          s.style.display = 'none';
-        }
-        else{
-          s.style.display = 'block';
-        }
-
-	}
     require('babel/register');
     require('./js/app');
   </script>
