@@ -30,13 +30,16 @@ var Terminal = React.createClass({
     shell.on('data', (data) => term.write(data));
     term.on('data', (data) => {
       shell.write(data);
-      if (data === '`'){
+      if (data.charCodeAt(0) === 0){
+         //make a toggle action later
         var s = document.getElementById('sidebar');
         if(s.style.display === 'block'){
           s.style.display = 'none';
+          window.resizeTo(640, 450);
         }
         else{
           s.style.display = 'block';
+          window.resizeTo(840, 450);
         }
       }
     });
