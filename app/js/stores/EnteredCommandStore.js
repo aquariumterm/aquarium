@@ -42,7 +42,7 @@ class EnteredCommandStore extends ChangeEmitter {
   updateText(key) {
     switch (key) {
       case Keys.Enter:
-        this.text = "";
+        this.text = '';
         this.cursor = 0;
         break;
 
@@ -56,7 +56,8 @@ class EnteredCommandStore extends ChangeEmitter {
 
       case Keys.Backspace:
         if (this.cursor >= 0) {
-          this.text = this.text.removeAt(this.cursor);
+          // Remove character at cursor
+          this.text = this.text.slice(0, this.cursor) + this.text.slice(this.cursor + 1);
           this.cursor = Math.max(-1, this.cursor - 1);
         }
 

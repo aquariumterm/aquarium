@@ -37,9 +37,9 @@ let Terminal = React.createClass({
     };
   },
 
-  _suggestionListStyle() {
+  suggestionListStyle() {
     if (!term.element) {
-      return;
+      return null;
     }
 
     var numSuggestions = this.state.suggestions.length;
@@ -48,7 +48,7 @@ let Terminal = React.createClass({
 
     var currentRowY = term.y * rowHeight;
     var suggestionListHeight = numSuggestions * rowHeight;
-    var suggestionListStartY = shouldRenderAbove ? currentRowY - rowHeight - suggestionListHeight : currentRowY + rowHeight ;
+    var suggestionListStartY = shouldRenderAbove ? currentRowY - rowHeight - suggestionListHeight : currentRowY + rowHeight;
 
     return {
       position: 'absolute',
@@ -80,8 +80,6 @@ let Terminal = React.createClass({
   },
 
   componentDidMount() {
-    let self = this;
-
     // send any output from the shell to the client
     shell.on('data', data => {
       term.write(data);
@@ -90,11 +88,11 @@ let Terminal = React.createClass({
 
     // write any input from the client to the shell
     term.on('data', data => {
-      if (self.state.selectedIndex >= 0 && data === TerminalConstants.Keys.Enter) {
+      if (this.state.selectedIndex >= 0 && data === TerminalConstants.Keys.Enter) {
         // User has chosen a suggestion
         // save properties before clearing the buffer mutates their values
-        var autoCompletedText = self.state.autoCompletedText;
-        var bufferLength = self.state.enteredCommand.length;
+        var autoCompletedText = this.state.autoCompletedText;
+        var bufferLength = this.state.enteredCommand.length;
 
         // clear the user's currently entered text (buffer)
         for (let i = 0; i < bufferLength; i++) {
@@ -104,19 +102,19 @@ let Terminal = React.createClass({
         // Write the suggested command
         this.writeText(autoCompletedText);
       } else {
-        self.writeKey(data);
+        this.writeKey(data);
       }
     });
 
-    term.open(self.getDOMNode());
+    term.open(this.getDOMNode());
 
-    CommandStore.addChangeListener(self._onChange);
-    AutoCompleteStore.addChangeListener(self._onChange);
+    CommandStore.addChangeListener(this.onChange);
+    AutoCompleteStore.addChangeListener(this.onChange);
   },
 
   componentWillUnmount() {
-    CommandStore.removeChangeListener(this._onChange);
-    AutoCompleteStore.removeChangeListener(this._onChange);
+    CommandStore.removeChangeListener(this.onChange);
+    AutoCompleteStore.removeChangeListener(this.onChange);
   },
 
   /**
@@ -138,10 +136,10 @@ let Terminal = React.createClass({
 
   render() {
     return (
-      <div style={this._mainStyle()}>
+      <div style={this.mainStyle()}>
         <div></div>
 
-        <ul style={this._suggestionListStyle()}>
+        <ul style={this.suggestionListStyle()}>
           {this.state.suggestions.map((suggestion, i) => {
             return <AutoCompleteSuggestion
               key={suggestion.id}
@@ -159,7 +157,7 @@ let Terminal = React.createClass({
     selectSuggestion(index);
   },
 
-  _onChange() {
+  onChange() {
     this.setState(this.getState());
   }
 });

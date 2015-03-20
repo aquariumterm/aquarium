@@ -29,7 +29,7 @@ class AutoCompleteStore extends ChangeEmitter {
 
     // any text that was filled in from choosing an autocomplete choice. This text needs
     // to be written to the shell.
-    this.autoCompletedText = "";
+    this.autoCompletedText = '';
 
     this.dispatchToken = AppDispatcher.register(payload => {
       switch (payload.action) {
@@ -85,7 +85,7 @@ class AutoCompleteStore extends ChangeEmitter {
 
   updateSelection(key) {
     // if the user chose an autocompletion on the previous keystroke, reset its value
-    this.autoCompletedText = "";
+    this.autoCompletedText = '';
 
     if (this.suggestions.length === 0) {
       this.selectionIndex = -1;

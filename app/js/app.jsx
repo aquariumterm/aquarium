@@ -10,9 +10,6 @@ import Terminal from './components/Terminal';
 import TerminalActions from './actions/TerminalActions';
 import TerminalConstants from './constants/TerminalConstants';
 
-// mixins, importing will add extra functionality to prototypes
-import './mixins/StringExtensions';
-
 TerminalActions.sendRawCommands(TerminalConstants.KnownCommands);
 
 React.render(

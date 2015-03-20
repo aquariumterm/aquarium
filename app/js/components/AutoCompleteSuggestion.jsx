@@ -5,7 +5,7 @@ import React from 'react';
 import ColorConstants from '../constants/ColorConstants';
 
 export default React.createClass({
-  _mainStyle() {
+  mainStyle() {
     return {
       width: '600px',
       borderStyle: 'solid',
@@ -15,7 +15,7 @@ export default React.createClass({
     };
   },
 
-  _nameStyle() {
+  nameStyle() {
     return {
       color: ColorConstants.LightSand,
       marginLeft: '15px',
@@ -23,7 +23,7 @@ export default React.createClass({
     };
   },
 
-  _descriptionStyle() {
+  descriptionStyle() {
     return {
       color: ColorConstants.DarkSand
     };
@@ -36,10 +36,10 @@ export default React.createClass({
   },
 
   render() {
-    return (<li style={this._mainStyle()}>
+    return (<li style={this.mainStyle()}>
       <div>
-        <div style={this._nameStyle()}>{this.props.name}:&nbsp;</div>
-        <div style={this._descriptionStyle()}>{this.props.description}</div>
+        <div style={this.nameStyle()}>{this.props.name}:&nbsp;</div>
+        <div style={this.descriptionStyle()}>{this.props.description}</div>
       </div>
     </li>);
   }
