@@ -14,7 +14,3 @@ React.render(
   document.querySelector('main')
 );
 
-/*React.render(
-  <Sidebar />,
-  document.querySelector('side')
-);*/
