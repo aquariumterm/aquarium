@@ -6,7 +6,7 @@ import pty from 'pty.js';
 
 var Terminal = React.createClass({
   /** Styles */
-  _main() {
+  mainStyle() {
     return {
       fontFamily: 'monospace'
     };
@@ -33,7 +33,7 @@ var Terminal = React.createClass({
     term.open(this.getDOMNode());
   },
   render() {
-    return (<div style={this._main()}></div>);
+    return (<div style={this.mainStyle()}></div>);
   }
 });
 
