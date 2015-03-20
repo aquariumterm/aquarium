@@ -27,11 +27,26 @@ module.exports = function (grunt) {
       ]
     },
 
+    // Scan code for style violations
+    eslint: {
+      all: ['app/{js,test}/**/*.{js,jsx}']
+    },
+
     // Watches files for changes and runs tasks based on the changed files
     watch: {
-      scripts: {
-        files: ['app/{js,test}/**/*.jsx', 'app/{js,test}/**/*.js'],
-        tasks: ['jshint-jsx']
+      eslint: {
+        files: ['app/{js,test}/**/*.{js,jsx}'],
+        tasks: ['eslint:all']
+      }
+    },
+
+    // Run mocha tests
+    mocha: {
+      test: {
+        src: ['app/test/**'],
+        options: {
+          timeout: 30000
+        }
       }
     },
 
@@ -39,6 +54,9 @@ module.exports = function (grunt) {
     shell: {
       nw: {
         command: 'npm start'
+      },
+      prepareTests: {
+        command: './prepare_test_environment.sh'
       }
     },
 
@@ -82,25 +100,24 @@ module.exports = function (grunt) {
         src: ['osx32/**'],
         dest: ''
       }
-    },
-
-    'jshint-jsx': {
-      options: {
-        jshintrc: '.jshintrc',
-        convertJSX: true
-      },
-      all: ['app/{js,test}/**/*.jsx', 'app/{js,test}/**/*.js']
     }
 
   });
 
   grunt.registerTask('debug', [
-    'jshint-jsx',
+    // Lint code
+    'eslint',
+
+    // Run node-webkit while linting files as they change
     'concurrent:all'
   ]);
 
   grunt.registerTask('test', [
-    // TODO: run tests
+    // Prepare selenium + chromedriver
+    'shell:prepareTests',
+
+    // Execute tests
+    'mocha'
   ]);
 
   grunt.registerTask('build', [
@@ -112,8 +129,13 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('default', [
-    'jshint-jsx',
+    // Lint code
+    'eslint',
+
+    // Test
     'test',
+
+    // Build distributable binaries
     'build'
   ]);
 };

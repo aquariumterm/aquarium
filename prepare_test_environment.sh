@@ -1,5 +1,10 @@
 #!/bin/bash
 
+###
+# Prepare a test environment by downloading and running the correct
+# version of selenium and chromedriver
+#
+
 # make a directory for test tools if we don't have it already
 DL_DIR="./tmp"
 if [ ! -d ${DL_DIR} ]
@@ -70,6 +75,3 @@ fi
 
 # Launch the selenium server
 java -jar ${SELENIUM_FILENAME} -Dwebdriver.chrome.driver=${CHROMEDRIVER_FILENAME} &
-
-# Run tests
-$(npm bin)/mocha --recursive ./app/test -t 30000
