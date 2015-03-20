@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#
+#
+
+
 # make a directory for test tools if we don't have it already
 DL_DIR="./tmp"
 if [ ! -d ${DL_DIR} ]
@@ -67,9 +71,3 @@ else
     echo "Cannot detect operating system. OSTYPE is " $OSTYPE 1>&2
     exit 1
 fi
-
-# Launch the selenium server
-java -jar ${SELENIUM_FILENAME} -Dwebdriver.chrome.driver=${CHROMEDRIVER_FILENAME} &
-
-# Run tests
-$(npm bin)/mocha --recursive ./app/test -t 30000

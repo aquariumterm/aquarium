@@ -31,7 +31,7 @@ let term = new TerminalJS({
 
 let Terminal = React.createClass({
   /** Styles */
-  _mainStyle() {
+  mainStyle() {
     return {
       fontFamily: 'monospace'
     };

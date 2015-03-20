@@ -2,8 +2,6 @@ general:
   artifacts:
     - "build/compressed/"
 
-deployment:
-  master:
-    branch: /.*/
-    commands:
-      - grunt
+test:
+  override:
+    - grunt
