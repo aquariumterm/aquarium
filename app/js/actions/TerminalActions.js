@@ -1,23 +1,25 @@
 'use strict';
 
 import AppDispatcher from '../dispatchers/AppDispatcher';
-import TerminalConstants from '../constants/TerminalConstants';
-
-var ShellActions = TerminalConstants.ShellActions;
-var AppActions = TerminalConstants.AppActions;
+import {ShellActions, AppActions} from '../constants/TerminalConstants';
 
 export default {
 
   /* Shell Actions */
 
-  typeKey: function(key) {
+  typeKey: key => {
     AppDispatcher.dispatch({
       action: ShellActions.TYPE_KEY,
       key: key
     });
   },
 
-  receiveOutput: function(output) {
+  /**
+   * Receive output from the host shell
+   *
+   * @param output
+   */
+  receiveOutput: output => {
     AppDispatcher.dispatch({
       action: ShellActions.OUTPUT_RECEIVED,
       output: output
@@ -26,7 +28,7 @@ export default {
 
   /* App Actions */
 
-  sendRawCommands: function(commands) {
+  sendRawCommands: commands => {
     AppDispatcher.dispatch({
       action: AppActions.SEND_RAW_COMMANDS,
       commands: commands

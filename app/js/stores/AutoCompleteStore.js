@@ -1,6 +1,5 @@
 'use strict';
 
-import assign from 'object-assign';
 import Fuse from 'fuse.js';
 
 import AppDispatcher from '../dispatchers/AppDispatcher';

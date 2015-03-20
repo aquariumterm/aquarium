@@ -5,13 +5,13 @@ import React from 'react';
 import ColorConstants from '../constants/ColorConstants';
 
 export default React.createClass({
-  _mainStyle(suggestion) {
+  _mainStyle() {
     return {
       width: '600px',
       borderStyle: 'solid',
       borderWidth: '1px',
       borderColor: ColorConstants.Mixed,
-      backgroundColor: suggestion.selected ? ColorConstants.DarkerBlue : 'black'
+      backgroundColor: this.props.isSelected ? ColorConstants.DarkerBlue : 'black'
     };
   },
 
@@ -29,11 +29,17 @@ export default React.createClass({
     };
   },
 
+  propTypes: {
+    isSelected: React.PropTypes.bool,
+    name: React.PropTypes.string,
+    description: React.PropTypes.string
+  },
+
   render() {
-    return (<li style={this._mainStyle(this.props.data)}>
+    return (<li style={this._mainStyle()}>
       <div>
-        <div style={this._nameStyle()}>{this.props.data.name}:&nbsp;</div>
-        <div style={this._descriptionStyle()}>{this.props.data.description}</div>
+        <div style={this._nameStyle()}>{this.props.name}:&nbsp;</div>
+        <div style={this._descriptionStyle()}>{this.props.description}</div>
       </div>
     </li>);
   }
