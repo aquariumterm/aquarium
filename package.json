@@ -44,6 +44,6 @@
     "wd": "^0.3.11"
   },
   "window": {
-    "icon": "./app/images/alt-512"
+    "icon": "./app/images/alt-small"
   }
 }
