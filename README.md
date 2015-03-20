@@ -2,6 +2,7 @@ Aquarium
 ========
 
 A terminal emulator with enhanced auto-complete, and built-in documentation and tutorials.
+Supports _bash_, _zsh_, _fish_.
 
 ## Phase 1
 
@@ -52,7 +53,7 @@ Dependencies:
     grunt debug
     ```
 
-    This will launch the nw.js desktop app and watch for changes to source files, live-reloading the nw.js app.
+    This will launch the nw.js desktop app.
 
 ### Branching strategy
 

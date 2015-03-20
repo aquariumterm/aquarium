@@ -14,46 +14,61 @@ module.exports = function (grunt) {
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
-  // Configurable paths
-  var config = {
-    name: 'Aquarium'
-  };
-
   grunt.initConfig({
-
-    // Project settings
-    config: config,
-
-    // Watches files for changes and runs tasks based on the changed files
-    watch: {
-      options: {
-        livereload: true
-      },
-      livereload: {
-        files: [
-          'app/*.html',
-          'app/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-          'app/manifest.json'
-        ]
-      }
-    },
-
-    // Use grunt-shell to execute nw
-    shell: {
-      nw: {
-        command: 'npm start'
-      }
-    },
 
     // Run nw and watch for changes concurrently
     concurrent: {
       options: {
         logConcurrentOutput: true
       },
-      all: [
+      dev: [
         'shell:nw',
         'watch'
+      ],
+      test: [
+        'shell:launchSelenium',
+        'testThenQuit'
       ]
+    },
+
+    // Scan code for style violations
+    eslint: {
+      all: ['app/{js,test}/**/*.{js,jsx}']
+    },
+
+    // Watches files for changes and runs tasks based on the changed files
+    watch: {
+      eslint: {
+        files: ['app/{js,test}/**/*.{js,jsx}'],
+        tasks: ['eslint:all']
+      }
+    },
+
+    // Run mocha tests
+    mochaTest: {
+      test: {
+        src: ['app/test/**.*'],
+        options: {
+          require: 'babel/register',
+          timeout: 30000
+        }
+      }
+    },
+
+    // Run commands in the shell
+    shell: {
+      nw: {
+        command: 'npm start'
+      },
+      prepareTestEnvironment: {
+        command: './prepare_test_environment.sh'
+      },
+      launchSelenium: {
+        command: 'java -jar ./tmp/selenium.jar -Dwebdriver.chrome.driver=./tmp/chromedriver2_server'
+      },
+      quitSelenium: {
+        command: 'curl --fail --silent -X GET http://localhost:4444/selenium-server/driver/?cmd=shutDownSeleniumServer; exit 0'
+      }
     },
 
     // Builds the nw.js native apps
@@ -97,14 +112,28 @@ module.exports = function (grunt) {
         dest: ''
       }
     }
+
   });
 
+  // Execute mocha tests, then quit selenium
+  grunt.registerTask('testThenQuit', [
+    'mochaTest',
+    'shell:quitSelenium'
+  ]);
+
   grunt.registerTask('debug', [
-    'concurrent:all'
+    // Lint code
+    'eslint',
+
+    // Run node-webkit while linting files as they change
+    'concurrent:dev'
   ]);
 
   grunt.registerTask('test', [
-    // TODO: run tests
+    'shell:prepareTestEnvironment',
+
+    // Execute tests
+    'concurrent:test'
   ]);
 
   grunt.registerTask('build', [
@@ -116,7 +145,13 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('default', [
+    // Lint code
+    'eslint',
+
+    // Test
     'test',
+
+    // Build distributable binaries
     'build'
   ]);
 };

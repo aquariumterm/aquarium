@@ -1,3 +1,5 @@
+'use strict';
+
 var path = require('path');
 var wd = require('wd');
 var chai = require('chai');
@@ -10,14 +12,14 @@ chai.should();
 
 chaiAsPromised.transferPromiseness = wd.transferPromiseness;
 
-describe("using promises and chai-as-promised", function() {
+describe('using promises and chai-as-promised', function() {
   var browser;
 
   before(function() {
     browser = wd.promiseChainRemote();
 
     chromedriver.start();
-    return browser.init({browserName:'chrome'});
+    return browser.init({browserName: 'chrome'});
   });
 
   beforeEach(function() {
@@ -31,7 +33,7 @@ describe("using promises and chai-as-promised", function() {
     });
   });
 
-  it("should retrieve the page title", function() {
-    return browser.title().should.become("Aquarium");
+  it('should retrieve the page title', function() {
+    return browser.title().should.become('Aquarium');
   });
 });

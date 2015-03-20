@@ -1,10 +1,12 @@
+'use strict';
+
 import React from 'react';
 import TerminalJS from 'term.js';
 import pty from 'pty.js';
 
 var Terminal = React.createClass({
   /** Styles */
-  _main() {
+  mainStyle() {
     return {
       fontFamily: 'monospace'
     };
@@ -31,7 +33,7 @@ var Terminal = React.createClass({
     term.open(this.getDOMNode());
   },
   render() {
-    return (<div className="Terminal" style={this._main()}></div>);
+    return (<div className="Terminal" style={this.mainStyle()}></div>);
   }
 });
 

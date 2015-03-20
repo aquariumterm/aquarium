@@ -5,7 +5,6 @@ global.document = window.document;
 global.navigator = window.navigator;
 
 import React from 'react';
-
 import Terminal from './components/Terminal';
 
 import Sidebar from './components/Sidebar';

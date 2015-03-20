@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#
+#
+
+
 # make a directory for test tools if we don't have it already
 DL_DIR="./tmp"
 if [ ! -d ${DL_DIR} ]
@@ -22,7 +26,11 @@ then
 
     if [[ ${OSTYPE} == "linux-gnu" ]]; then
         # LINUX
-        CHROMEDRIVER_DL=https://s3.amazonaws.com/node-webkit/v0.8.0/chromedriver2-nw-v0.8.0-linux-x64.tar.gz
+        if [[ $(uname -m) == "x86_64" ]]; then
+            CHROMEDRIVER_DL=https://s3.amazonaws.com/node-webkit/v0.8.0/chromedriver2-nw-v0.8.0-linux-x64.tar.gz
+        else
+            CHROMEDRIVER_DL=https://s3.amazonaws.com/node-webkit/v0.8.0/chromedriver2-nw-v0.8.0-linux-ia32.tar.gz
+        fi
     elif [[ ${OSTYPE} == "darwin"* ]]; then
         # MAC OS
         CHROMEDRIVER_DL=https://s3.amazonaws.com/node-webkit/v0.8.0/chromedriver2-nw-v0.8.0-osx-ia32.zip
@@ -63,9 +71,3 @@ else
     echo "Cannot detect operating system. OSTYPE is " $OSTYPE 1>&2
     exit 1
 fi
-
-# Launch the selenium server
-java -jar ${SELENIUM_FILENAME} -Dwebdriver.chrome.driver=${CHROMEDRIVER_FILENAME} &
-
-# Run tests
-$(npm bin)/mocha --recursive ./app/test -t 30000
