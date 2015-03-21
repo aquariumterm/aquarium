@@ -1,10 +1,19 @@
 'use strict';
 
 import React from 'react';
-import TerminalJS from 'term.js';
-import pty from 'pty.js';
 
-var Terminal = React.createClass({
+import TerminalActions from '../actions/TerminalActions';
+import {selectSuggestion} from '../actions/AutoCompleteActions';
+
+import TerminalConstants from '../constants/TerminalConstants';
+
+import TerminalStore from '../stores/TerminalStore';
+import CommandStore from '../stores/CommandStore';
+import AutoCompleteStore from '../stores/AutoCompleteStore';
+
+import AutoCompleteSuggestion from './AutoCompleteSuggestion';
+
+let Terminal = React.createClass({
   /** Styles */
   mainStyle() {
     return {
@@ -12,28 +21,89 @@ var Terminal = React.createClass({
     };
   },
 
-  componentDidMount() {
-    var shell = pty.spawn('bash', [], {
-      name: 'xterm-color',
-      cols: 80,
-      rows: 30,
-      cwd: process.env.HOME,
-      env: process.env
-    });
+  suggestionListStyle() {
+    let term = TerminalStore.getTerminal();
 
-    var term = new TerminalJS({
-      cols: 80,
-      rows: 30,
-      screenKeys: true
-    });
+    if (!term.element) {
+      return null;
+    }
 
-    shell.on('data', (data) => term.write(data));
-    term.on('data', (data) => shell.write(data));
+    var numSuggestions = this.state.suggestions.length;
+    var rowHeight = term.element.clientHeight / term.rows;
+    var shouldRenderAbove = term.y + numSuggestions >= term.rows;
 
-    term.open(this.getDOMNode());
+    var currentRowY = term.y * rowHeight;
+    var suggestionListHeight = numSuggestions * rowHeight;
+    var suggestionListStartY = shouldRenderAbove ? currentRowY - rowHeight - suggestionListHeight : currentRowY + rowHeight;
+
+    return {
+      position: 'absolute',
+      listStyleType: 'none',
+      left: 0,
+      top: suggestionListStartY,
+      height: suggestionListHeight
+    };
   },
+
+  getState() {
+    return {
+      suggestions: AutoCompleteStore.getSuggestions(),
+      selectedIndex: AutoCompleteStore.getSelectionIndex(),
+      enteredCommand: AutoCompleteStore.getEnteredCommand(),
+      autoCompletedText: AutoCompleteStore.getAutoCompletedText()
+    };
+  },
+
+  /** Component Functions */
+
+  getInitialState() {
+    return this.getState();
+  },
+
+  componentDidMount() {
+    // Initialize the terminal on this DOM node
+    let term = TerminalStore.getTerminal();
+    term.open(this.getDOMNode());
+
+    term.on('data', data => {
+      // If the user selects a suggestion, trigger the selectSuggestion action
+      if (this.state.selectedIndex >= 0 && data === TerminalConstants.Keys.Enter) {
+        selectSuggestion(this.state.selectedIndex);
+      } else {
+        // Otherwise, trigger typeKey action
+        TerminalActions.typeKey(data);
+      }
+    });
+
+    CommandStore.addChangeListener(this.onChange);
+    AutoCompleteStore.addChangeListener(this.onChange);
+  },
+
+  componentWillUnmount() {
+    CommandStore.removeChangeListener(this.onChange);
+    AutoCompleteStore.removeChangeListener(this.onChange);
+  },
+
   render() {
-    return (<div style={this.mainStyle()}></div>);
+    return (
+      <div style={this.mainStyle()}>
+        <div></div>
+
+        <ul style={this.suggestionListStyle()}>
+          {this.state.suggestions.map((suggestion, i) => {
+            return <AutoCompleteSuggestion
+              key={suggestion.key}
+              isSelected={i === this.state.selectedIndex}
+              name={suggestion.name}
+              description={suggestion.description} />;
+          })}
+        </ul>
+      </div>
+    );
+  },
+
+  onChange() {
+    this.setState(this.getState());
   }
 });
 
