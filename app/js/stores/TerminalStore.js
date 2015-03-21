@@ -15,11 +15,6 @@ class TerminalStore extends ChangeEmitter {
       screenKeys: true
     });
 
-    // Trigger typeKey action when data is entered in the terminal
-    this.term.on('data', data => {
-      TerminalActions.typeKey(data);
-    });
-
     this.dispatchToken = AppDispatcher.register(payload => {
       switch (payload.action) {
         case TerminalConstants.ShellActions.OUTPUT_RECEIVED:

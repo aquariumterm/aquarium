@@ -2,6 +2,8 @@
 
 import keyMirror from 'keyMirror';
 
-export const AutoCompleteActions = keyMirror({
+export default {
+  Actions: keyMirror({
     SELECT_SUGGESTION: null
-});
+  })
+};

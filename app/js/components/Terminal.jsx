@@ -9,7 +9,6 @@ import TerminalConstants from '../constants/TerminalConstants';
 
 import TerminalStore from '../stores/TerminalStore';
 import CommandStore from '../stores/CommandStore';
-import EnteredCommandStore from '../stores/EnteredCommandStore';
 import AutoCompleteStore from '../stores/AutoCompleteStore';
 
 import AutoCompleteSuggestion from './AutoCompleteSuggestion';
@@ -50,7 +49,7 @@ let Terminal = React.createClass({
     return {
       suggestions: AutoCompleteStore.getSuggestions(),
       selectedIndex: AutoCompleteStore.getSelectionIndex(),
-      enteredCommand: EnteredCommandStore.get(),
+      enteredCommand: AutoCompleteStore.getEnteredCommand(),
       autoCompletedText: AutoCompleteStore.getAutoCompletedText()
     };
   },
@@ -65,6 +64,16 @@ let Terminal = React.createClass({
     // Initialize the terminal on this DOM node
     let term = TerminalStore.getTerminal();
     term.open(this.getDOMNode());
+
+    term.on('data', data => {
+      // If the user selects a suggestion, trigger the selectSuggestion action
+      if (this.state.selectedIndex >= 0 && data === TerminalConstants.Keys.Enter) {
+        selectSuggestion(this.state.selectedIndex);
+      } else {
+        // Otherwise, trigger typeKey action
+        TerminalActions.typeKey(data);
+      }
+    });
 
     CommandStore.addChangeListener(this.onChange);
     AutoCompleteStore.addChangeListener(this.onChange);
@@ -85,17 +94,12 @@ let Terminal = React.createClass({
             return <AutoCompleteSuggestion
               key={suggestion.key}
               isSelected={i === this.state.selectedIndex}
-              onSelect={() => this.handleSelectSuggestion(i)}
               name={suggestion.name}
               description={suggestion.description} />;
           })}
         </ul>
       </div>
     );
-  },
-
-  handleSelectSuggestion(index) {
-    selectSuggestion(index);
   },
 
   onChange() {
