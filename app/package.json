@@ -5,8 +5,8 @@
   "main": "index.html",
   "single-instance": false,
   "window": {
-    "width": 720,
-    "height": 480,
+    "width": 640,
+    "height": 520,
     "icon": "images/fish-512x512.png"
   },
   "dependencies": {

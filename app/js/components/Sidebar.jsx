@@ -30,9 +30,9 @@ var Sidebar = React.createClass({
 
   render: function() {
     if (this.state.isShowing) {
-      window.resizeTo(840, 450);
+      window.resizeTo(840, 520);
     } else {
-      window.resizeTo(640, 450);
+      window.resizeTo(640, 520);
     }
 
     return (
