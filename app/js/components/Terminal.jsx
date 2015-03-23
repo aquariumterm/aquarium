@@ -109,8 +109,6 @@ let Terminal = React.createClass({
           this.writeKey(AppConstants.Keys.Backspace);
         }
 
-        console.log('about to write text: ' + autoCompletedText);
-
         // Write the suggested command
         this.writeText(autoCompletedText);
       } else {
@@ -144,7 +142,6 @@ let Terminal = React.createClass({
 
   writeText(text) {
     text.split('').forEach(char => {
-      console.log('writing key ' + char);
       this.writeKey(char);
     });
   },
