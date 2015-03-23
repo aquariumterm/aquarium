@@ -1,14 +1,31 @@
 'use strict';
 
 import SidebarStore from '../stores/SidebarStore';
+import SidebarActions from '../actions/SidebarActions';
+
 import React from 'react';
 
 // import Entry from './Entry';
 
+var Entry = React.createClass({
+  render: function() {
+    return (
+      <div className="Entry">
+        <hr></hr>
+        <h2 className="entryCommand">
+          {this.props.command}
+        </h2>
+        {this.props.children}
+      </div>
+    );
+  }
+});
+
 var Sidebar = React.createClass({
   getState() {
     return {
-      isShowing: SidebarStore.isShowing
+      isShowing: SidebarStore.isShowing,
+      searchResults: SidebarStore.searchResults
     };
   },
 
@@ -28,6 +45,13 @@ var Sidebar = React.createClass({
     this.setState(this.getState());
   },
 
+  searchForEnteredText(e) {
+    var sidebarSearch = document.getElementById('sidebar-search-text');
+    SidebarActions.searchDocumentation(sidebarSearch.value);
+
+    e.preventDefault();
+  },
+
   render: function() {
     if (this.state.isShowing) {
       window.resizeTo(840, 520);
@@ -35,14 +59,17 @@ var Sidebar = React.createClass({
       window.resizeTo(640, 520);
     }
 
+    var entries = this.state.searchResults.map(function(searchResult) {
+      return (<Entry command={searchResult.name}>{searchResult.description}</Entry>);
+    });
+
     return (
       <div className="Sidebar" id='sidebar' style={{display: this.state.isShowing ? 'block' : 'none'}}>
-        <form action =''>
-          <input type="text" name="query" placeholder="Search"></input>
+        <form onSubmit={ this.searchForEnteredText }>
+          <input id='sidebar-search-text' type="text" name="query" placeholder="Search"></input>
         </form>
 
-        <!--<Entry command="ls">List directory contents</Entry>-->
-        <!--<Entry command="pwd">Print the name of current/working directory</Entry>-->
+        {entries}
       </div>
     );
   }
@@ -60,18 +87,6 @@ var s = document.getElementById('sidebar');
         }
 */
 
-/*var Entry = React.createClass({
-  render: function() {
-    return (
-      <div className="Entry">
-        <hr></hr>
-        <h2 className="entryCommand">
-          {this.props.command}
-        </h2>
-        {this.props.children}
-      </div>
-    );
-  }
-});*/
+
 
 export default Sidebar;

@@ -1,7 +1,7 @@
 'use strict';
 
 import AppDispatcher from '../dispatchers/AppDispatcher';
-import {ShellActions, AppActions} from '../constants/TerminalConstants';
+import {ShellActions, AppActions} from '../constants/AppConstants';
 
 export default {
 
@@ -32,12 +32,6 @@ export default {
     AppDispatcher.dispatch({
       action: AppActions.SEND_RAW_COMMANDS,
       commands: commands
-    });
-  },
-
-  toggleSidebar: () => {
-    AppDispatcher.dispatch({
-      action: AppActions.TOGGLE_SIDEBAR
     });
   }
 };

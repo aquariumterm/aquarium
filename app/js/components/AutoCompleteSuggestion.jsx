@@ -7,7 +7,7 @@ import ColorConstants from '../constants/ColorConstants';
 export default React.createClass({
   mainStyle() {
     return {
-      width: '600px',
+      width: '400px',
       borderStyle: 'solid',
       borderWidth: '1px',
       borderColor: ColorConstants.Mixed,

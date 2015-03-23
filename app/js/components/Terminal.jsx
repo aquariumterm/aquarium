@@ -5,9 +5,11 @@ import TerminalJS from 'term.js';
 import pty from 'pty.js';
 
 import TerminalActions from '../actions/TerminalActions';
+import SidebarActions from '../actions/SidebarActions';
+
 import {selectSuggestion} from '../actions/AutoCompleteActions';
 
-import TerminalConstants from '../constants/TerminalConstants';
+import AppConstants from '../constants/AppConstants';
 
 import CommandStore from '../stores/CommandStore';
 import EnteredCommandStore from '../stores/EnteredCommandStore';
@@ -90,8 +92,8 @@ let Terminal = React.createClass({
     term.on('data', data => {
 
       if (data.charCodeAt(0) === 0) {
-        TerminalActions.toggleSidebar();
-      } else if (this.state.selectedIndex >= 0 && data === TerminalConstants.Keys.Enter) {
+        SidebarActions.toggleSidebar();
+      } else if (this.state.selectedIndex >= 0 && data === AppConstants.Keys.Enter) {
         // User has chosen a suggestion
         // save properties before clearing the buffer mutates their values
         var autoCompletedText = this.state.autoCompletedText;
@@ -99,7 +101,7 @@ let Terminal = React.createClass({
 
         // clear the user's currently entered text (buffer)
         for (let i = 0; i < bufferLength; i++) {
-          this.writeKey(TerminalConstants.Keys.Backspace);
+          this.writeKey(AppConstants.Keys.Backspace);
         }
 
         // Write the suggested command

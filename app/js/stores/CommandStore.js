@@ -5,7 +5,7 @@
 'use strict';
 
 import AppDispatcher from '../dispatchers/AppDispatcher';
-import TerminalConstants from '../constants/TerminalConstants';
+import AppConstants from '../constants/AppConstants';
 import ChangeEmitter from '../mixins/ChangeEmitter';
 
 class CommandStore extends ChangeEmitter {
@@ -13,7 +13,7 @@ class CommandStore extends ChangeEmitter {
     this.dispatchToken = AppDispatcher.register(payload => {
       switch (payload.action) {
 
-        case TerminalConstants.AppActions.SEND_RAW_COMMANDS:
+        case AppConstants.AppActions.SEND_RAW_COMMANDS:
           this.init(payload.commands);
           this.emitChange();
           break;

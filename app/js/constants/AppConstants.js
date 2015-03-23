@@ -10,7 +10,7 @@ export default {
 
   AppActions: keymirror({
     SEND_RAW_COMMANDS: null,
-    TOGGLE_SIDEBAR: null
+    TOGGLE_SIDEBAR: null,
   }),
 
   PayloadSources: keymirror({
