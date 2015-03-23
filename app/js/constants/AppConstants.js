@@ -1,21 +1,20 @@
 'use strict';
 
-import keymirror from 'react/lib/keyMirror';
+import keyMirror from 'react/lib/keyMirror';
 
 export default {
-  ShellActions: keymirror({
+  ShellActions: keyMirror({
     TYPE_KEY: null,
     OUTPUT_RECEIVED: null
   }),
 
-  AppActions: keymirror({
-    SEND_RAW_COMMANDS: null,
-    TOGGLE_SIDEBAR: null,
+  AppActions: keyMirror({
+    SEND_RAW_COMMANDS: null
   }),
 
-  PayloadSources: keymirror({
-    SHELL_ACTION: null,
-    APP_ACTION: null
+  SidebarActions: keyMirror({
+    TOGGLE_SIDEBAR: null,
+    SEARCH_DOCUMENTATION: null
   }),
 
   Keys: {

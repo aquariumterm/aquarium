@@ -93,7 +93,9 @@ let Terminal = React.createClass({
 
       if (data.charCodeAt(0) === 0) {
         SidebarActions.toggleSidebar();
-      } else if (this.state.selectedIndex >= 0 && data === AppConstants.Keys.Enter) {
+      } else if (this.state.selectedIndex >= 0 && data === AppConstants.Keys.RightArrow) {
+        TerminalActions.typeKey(data);
+
         // User has chosen a suggestion
         // save properties before clearing the buffer mutates their values
         var autoCompletedText = this.state.autoCompletedText;
@@ -103,6 +105,8 @@ let Terminal = React.createClass({
         for (let i = 0; i < bufferLength; i++) {
           this.writeKey(AppConstants.Keys.Backspace);
         }
+
+        console.log('about to write text: ' + autoCompletedText);
 
         // Write the suggested command
         this.writeText(autoCompletedText);
@@ -136,7 +140,10 @@ let Terminal = React.createClass({
   },
 
   writeText(text) {
-    text.split('').forEach(char => this.writeKey(char));
+    text.split('').forEach(char => {
+      console.log('writing key ' + char);
+      this.writeKey(char);
+    });
   },
 
   render() {
