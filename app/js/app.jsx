@@ -8,9 +8,9 @@ import React from 'react';
 
 import Terminal from './components/Terminal';
 import TerminalActions from './actions/TerminalActions';
-import TerminalConstants from './constants/TerminalConstants';
+import AppConstants from './constants/AppConstants';
 
-TerminalActions.sendRawCommands(TerminalConstants.KnownCommands);
+TerminalActions.sendRawCommands(AppConstants.KnownCommands);
 
 import Sidebar from './components/Sidebar';
 

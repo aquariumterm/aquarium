@@ -3,7 +3,7 @@
 import assign from 'object-assign';
 
 import AppDispatcher from '../dispatchers/AppDispatcher';
-import {Keys, ShellActions} from '../constants/TerminalConstants';
+import {Keys, ShellActions} from '../constants/AppConstants';
 import ChangeEmitter from '../mixins/ChangeEmitter';
 
 // HACK: This entire store is a hack to keep track of the text that the user has entered, since there was no property

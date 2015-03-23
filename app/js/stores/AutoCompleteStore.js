@@ -3,7 +3,7 @@
 import Fuse from 'fuse.js';
 
 import AppDispatcher from '../dispatchers/AppDispatcher';
-import TerminalConstants from '../constants/TerminalConstants';
+import AppConstants from '../constants/AppConstants';
 
 import CommandStore from './CommandStore';
 import EnteredCommandStore from './EnteredCommandStore';
@@ -33,13 +33,13 @@ class AutoCompleteStore extends ChangeEmitter {
 
     this.dispatchToken = AppDispatcher.register(payload => {
       switch (payload.action) {
-        case TerminalConstants.AppActions.SEND_RAW_COMMANDS:
+        case AppConstants.AppActions.SEND_RAW_COMMANDS:
           AppDispatcher.waitFor([CommandStore.getDispatchToken()]);
           this.init(CommandStore.getAll());
           this.emitChange();
           break;
 
-        case TerminalConstants.ShellActions.TYPE_KEY:
+        case AppConstants.ShellActions.TYPE_KEY:
           AppDispatcher.waitFor([EnteredCommandStore.getDispatchToken()]);
           this.updateSuggestions(EnteredCommandStore.get());
           this.updateSelection(payload.key);
@@ -80,7 +80,7 @@ class AutoCompleteStore extends ChangeEmitter {
       return [];
     }
 
-    return [TerminalConstants.Keys.DownArrow, TerminalConstants.Keys.UpArrow, TerminalConstants.Keys.RightArrow];
+    return [AppConstants.Keys.DownArrow, AppConstants.Keys.UpArrow, AppConstants.Keys.RightArrow];
   }
 
   updateSelection(key) {
@@ -93,17 +93,17 @@ class AutoCompleteStore extends ChangeEmitter {
     }
 
     switch (key) {
-      case TerminalConstants.Keys.DownArrow:
+      case AppConstants.Keys.DownArrow:
         this.selectionIndex = Math.min(this.suggestions.length - 1, this.selectionIndex + 1);
         break;
 
-      case TerminalConstants.Keys.UpArrow:
+      case AppConstants.Keys.UpArrow:
         this.selectionIndex = Math.max(0, this.selectionIndex - 1);
         break;
 
       // HACK: to avoid interfering with the EnteredCommandStore's logic, which uses the enter key to clear the buffer,
       // use RightArrow for autocomplete for now
-      case TerminalConstants.Keys.RightArrow:
+      case AppConstants.Keys.RightArrow:
         if (this.selectionIndex !== -1) {
           this.autoCompletedText = this.suggestions[this.selectionIndex].name;
           this.selectionIndex = -1;
