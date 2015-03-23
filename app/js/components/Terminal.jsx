@@ -141,9 +141,7 @@ let Terminal = React.createClass({
   },
 
   writeText(text) {
-    text.split('').forEach(char => {
-      this.writeKey(char);
-    });
+    text.split('').forEach(char => this.writeKey(char));
   },
 
   render() {
