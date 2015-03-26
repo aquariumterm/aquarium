@@ -1,6 +1,6 @@
 'use strict';
 
-import keyMirror from 'keyMirror';
+import keyMirror from 'keymirror';
 
 export const AutoCompleteActions = keyMirror({
     SELECT_SUGGESTION: null
