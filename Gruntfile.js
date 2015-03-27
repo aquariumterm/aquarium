@@ -1,11 +1,5 @@
 'use strict';
 
-// # Globbing
-// for performance reasons we're only matching one level down:
-// 'test/spec/{,*/}*.js'
-// use this if you want to recursively match all subfolders:
-// 'test/spec/**/*.js'
-
 module.exports = function (grunt) {
 
   // Load grunt tasks automatically
@@ -75,7 +69,7 @@ module.exports = function (grunt) {
     nodewebkit: {
       options: {
         appName: 'app',
-        version: '0.8.6',
+        version: '0.12.0',
         platforms: [/*'win',*/ 'osx32', 'linux'],
         buildDir: './build'  // Where the build version of your nw.js app is saved
       },

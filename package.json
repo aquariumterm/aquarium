@@ -1,8 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "postinstall": "cd app && npm install && cd node_modules/pty.js && nw-gyp rebuild --target=0.8.6",
-    "start": "nodewebkit ./app",
+    "postinstall": "cd app && npm install && cd node_modules/pty.js && nw-gyp rebuild --target=0.12.0",
+    "start": "nw ./app",
     "test": "grunt test"
   },
   "repository": {
@@ -15,7 +15,7 @@
   },
   "homepage": "https://github.com/UoT-CSC30x-W15/301W15-Prj-Team4-repo",
   "engines": {
-    "node": "~0.10.22",
+    "node": "~0.12.0",
     "npm": "^2.5.0"
   },
   "devDependencies": {
@@ -35,7 +35,7 @@
     "grunt-shell": "^1.1.1",
     "load-grunt-tasks": "^3.0.0",
     "mocha": "^2.1.0",
-    "nodewebkit": "elliottsj/nodewebkit#v0.8.6",
+    "nw": "^0.12.0",
     "nw-gyp": "^0.12.4",
     "time-grunt": "^1.0.0",
     "wd": "^0.3.11"
