@@ -70,10 +70,10 @@ module.exports = function (grunt) {
       options: {
         appName: 'app',
         version: '0.12.0',
-        platforms: [/*'win',*/ 'osx32', 'linux'],
-        buildDir: './build'  // Where the build version of your nw.js app is saved
+        platforms: [/*'win',*/ 'osx', 'linux'],
+        buildDir: './build'
       },
-      src: ['./app/**/*']  // Your node-webkit app
+      src: ['./app/**/*']
     },
 
     compress: {
@@ -103,6 +103,15 @@ module.exports = function (grunt) {
         expand: true,
         cwd: 'build/app/',
         src: ['osx32/**'],
+        dest: ''
+      },
+      osx64: {
+        options: {
+          archive: 'build/compressed/osx64.zip'
+        },
+        expand: true,
+        cwd: 'build/app/',
+        src: ['osx64/**'],
         dest: ''
       }
     }
