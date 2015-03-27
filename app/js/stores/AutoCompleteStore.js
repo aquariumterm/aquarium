@@ -31,7 +31,7 @@ class AutoCompleteStore extends ChangeEmitter {
     this.cursor = 0;
 
     // keys that we don't want to write into the buffer of text entered by the user.
-    this.blacklist = [TerminalConstants.Keys.UpArrow, TerminalConstants.Keys.DownArrow];
+    this.blacklist = [AppConstants.Keys.UpArrow, AppConstants.Keys.DownArrow];
 
     // all the suggestions for autocompletion based on the currently entered text
     this.suggestions = [];
@@ -52,7 +52,7 @@ class AutoCompleteStore extends ChangeEmitter {
           this.emitChange();
           break;
 
-        case TerminalConstants.ShellActions.TYPE_KEY:
+        case AppConstants.ShellActions.TYPE_KEY:
           this.updateText(payload.key);
           this.updateSuggestions(this.command);
           this.updateSelection(payload.key);
@@ -73,9 +73,9 @@ class AutoCompleteStore extends ChangeEmitter {
 
   getEnteredCommand() {
     return this.command;
-  selectSuggestion() {
   }
 
+  selectSuggestion() {
     if (this.selectionIndex !== -1) {
       this.autoCompletedText = this.suggestions[this.selectionIndex].name;
       this.selectionIndex = -1;
@@ -88,20 +88,20 @@ class AutoCompleteStore extends ChangeEmitter {
 
   updateText(key) {
     switch (key) {
-      case TerminalConstants.Keys.Enter:
+      case AppConstants.Keys.Enter:
         this.command = '';
         this.cursor = 0;
         break;
 
-      case TerminalConstants.Keys.LeftArrow:
+      case AppConstants.Keys.LeftArrow:
         this.cursor = Math.max(-1, this.cursor - 1);
         break;
 
-      case TerminalConstants.Keys.RightArrow:
+      case AppConstants.Keys.RightArrow:
         this.cursor = Math.min(this.command.length - 1, this.cursor + 1);
         break;
 
-      case TerminalConstants.Keys.Backspace:
+      case AppConstants.Keys.Backspace:
         if (this.cursor >= 0) {
           // Remove character at cursor
           this.command = this.command.slice(0, this.cursor) + this.command.slice(this.cursor + 1);

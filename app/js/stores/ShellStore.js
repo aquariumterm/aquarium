@@ -4,7 +4,7 @@ import pty from 'pty.js';
 
 import TerminalActions from '../actions/TerminalActions';
 import AppDispatcher from '../dispatchers/AppDispatcher';
-import TerminalConstants from '../constants/TerminalConstants';
+import AppConstants from '../constants/AppConstants';
 import ChangeEmitter from '../mixins/ChangeEmitter';
 
 class ShellStore extends ChangeEmitter {
@@ -21,7 +21,7 @@ class ShellStore extends ChangeEmitter {
 
     this.dispatchToken = AppDispatcher.register(payload => {
       switch (payload.action) {
-        case TerminalConstants.ShellActions.TYPE_KEY:
+        case AppConstants.ShellActions.TYPE_KEY:
           this.write(payload.key);
           this.emitChange();
           break;

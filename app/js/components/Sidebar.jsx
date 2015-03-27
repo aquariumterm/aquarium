@@ -7,7 +7,7 @@ import React from 'react';
 
 // import Entry from './Entry';
 
-var Entry = React.createClass({
+export var Entry = React.createClass({
   render: function() {
     return (
       <div className="Entry">

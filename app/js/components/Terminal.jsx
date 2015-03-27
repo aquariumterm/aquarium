@@ -69,7 +69,7 @@ let Terminal = React.createClass({
 
     term.on('data', data => {
       // If the user selects a suggestion, trigger the selectSuggestion action
-      if (this.state.selectedIndex >= 0 && data === TerminalConstants.Keys.Enter) {
+      if (this.state.selectedIndex >= 0 && data === AppConstants.Keys.Enter) {
         selectSuggestion(this.state.selectedIndex);
       } else if (data.charCodeAt(0) === 0) {
         SidebarActions.toggleSidebar();
