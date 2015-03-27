@@ -84,18 +84,4 @@ var Sidebar = React.createClass({
   }
 });
 
-/*
-var s = document.getElementById('sidebar');
-        if(s.style.display === 'block'){
-          s.style.display = 'none';
-          window.resizeTo(640, 450);
-        }
-        else{
-          s.style.display = 'block';
-          window.resizeTo(840, 450);
-        }
-*/
-
-
-
 export default Sidebar;
