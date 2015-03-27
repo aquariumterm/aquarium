@@ -19,7 +19,8 @@ let Terminal = React.createClass({
   /** Styles */
   mainStyle() {
     return {
-      fontFamily: 'monospace'
+      fontFamily: 'monospace',
+      float: 'left'
     };
   },
 

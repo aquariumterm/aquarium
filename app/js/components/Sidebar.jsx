@@ -22,6 +22,15 @@ export var Entry = React.createClass({
 });
 
 var Sidebar = React.createClass({
+  getStyle() {
+    return {
+      width: '200px',
+      float: 'right',
+      overflow: 'hidden',
+      display: this.state.isShowing ? 'block' : 'none'
+    };
+  },
+
   getState() {
     return {
       isShowing: SidebarStore.isShowing,
@@ -64,7 +73,7 @@ var Sidebar = React.createClass({
     });
 
     return (
-      <div className="Sidebar" id='sidebar' style={{display: this.state.isShowing ? 'block' : 'none'}}>
+      <div className="Sidebar" id='sidebar' style={this.getStyle()}>
         <form onSubmit={ this.searchForEnteredText }>
           <input id='sidebar-search-text' type="text" name="query" placeholder="Search"></input>
         </form>
