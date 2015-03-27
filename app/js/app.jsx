@@ -8,11 +8,13 @@ import React from 'react';
 
 import Terminal from './components/Terminal';
 import TerminalActions from './actions/TerminalActions';
-import AppConstants from './constants/AppConstants';
-
-TerminalActions.sendRawCommands(AppConstants.KnownCommands);
+import TerminalConstants from './constants/TerminalConstants';
 
 import Sidebar from './components/Sidebar';
+
+import './stores/ShellStore';
+
+TerminalActions.sendRawCommands(TerminalConstants.KnownCommands);
 
 React.render(
   <div class ="term">
@@ -21,4 +23,3 @@ React.render(
   </div>,
   document.querySelector('main')
 );
-
