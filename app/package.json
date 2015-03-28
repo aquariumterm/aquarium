@@ -7,6 +7,7 @@
   "window": {
     "toolbar": true,
     "position": "center",
+    "resizable": false,
     "width": 1024,
     "height": 720,
     "min_width": 640,

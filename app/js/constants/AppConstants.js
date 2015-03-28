@@ -11,7 +11,8 @@ export default {
   }),
 
   AppActions: keyMirror({
-    SEND_RAW_COMMANDS: null
+    SEND_RAW_COMMANDS: null,
+    ATTACH_TERMINAL: null
   }),
 
   SidebarActions: keyMirror({

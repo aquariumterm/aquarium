@@ -66,7 +66,11 @@ let Terminal = React.createClass({
   componentDidMount() {
     // Initialize the terminal on this DOM node
     let term = TerminalStore.getTerminal();
-    term.open(this.getDOMNode());
+    let domNode = this.getDOMNode();
+    term.open(domNode);
+
+    // Signal that the terminal is attached
+    TerminalActions.attachTerminal(domNode.offsetWidth, domNode.offsetHeight);
 
     term.on('data', data => {
       // If the user selects a suggestion, trigger the selectSuggestion action
@@ -92,6 +96,12 @@ let Terminal = React.createClass({
   render() {
     return (
       <div className="Terminal" style={this.mainStyle()}>
+        <style>{`
+          /* Use inline CSS to ensure <ul> elements have zero margin by default */
+          .Terminal ul {
+          margin: 0
+          }
+        `}</style>
         <div></div>
 
         <ul style={this.suggestionListStyle()}>

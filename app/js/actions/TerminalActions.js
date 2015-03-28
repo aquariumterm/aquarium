@@ -5,6 +5,14 @@ import {ShellActions, AppActions} from '../constants/AppConstants';
 
 export default {
 
+  attachTerminal: (width, height) => {
+    AppDispatcher.dispatch({
+      action: AppActions.ATTACH_TERMINAL,
+      width: width,
+      height: height
+    });
+  },
+
   /* Shell Actions */
 
   typeKey: key => {
