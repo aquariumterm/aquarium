@@ -18,7 +18,9 @@ class TerminalStore extends ChangeEmitter {
     this.dispatchToken = AppDispatcher.register(payload => {
       switch (payload.action) {
         case AppConstants.ShellActions.OUTPUT_RECEIVED:
-          this.term.write(payload.output);
+          if (this.term.element) {
+            this.term.write(payload.output);
+          }
           this.emitChange();
           break;
       }

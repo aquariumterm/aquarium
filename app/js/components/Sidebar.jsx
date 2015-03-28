@@ -62,14 +62,10 @@ var Sidebar = React.createClass({
   },
 
   render: function() {
-    if (this.state.isShowing) {
-      window.resizeTo(840, 520);
-    } else {
-      window.resizeTo(640, 520);
-    }
-
-    var entries = this.state.searchResults.map(function(searchResult) {
-      return (<Entry command={searchResult.name}>{searchResult.description}</Entry>);
+    var entries = this.state.searchResults.map(searchResult => {
+      return (
+        <Entry command={searchResult.name}>{searchResult.description}</Entry>
+      );
     });
 
     return (
