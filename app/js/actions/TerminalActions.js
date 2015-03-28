@@ -1,6 +1,7 @@
 'use strict';
 
 import AppDispatcher from '../dispatchers/AppDispatcher';
+import SidebarActions from './SidebarActions';
 import {ShellActions, AppActions} from '../constants/AppConstants';
 
 export default {
@@ -20,6 +21,11 @@ export default {
       action: ShellActions.TYPE_KEY,
       key: key
     });
+
+    if (key.charCodeAt(0) === 10) {
+      // Ctrl + J
+      SidebarActions.toggleSidebar();
+    }
   },
 
   /**
