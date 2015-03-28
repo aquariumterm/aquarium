@@ -17,7 +17,7 @@ import './stores/ShellStore';
 TerminalActions.sendRawCommands(AppConstants.KnownCommands);
 
 React.render(
-  <div class ="term">
+  <div className="term">
     <Terminal />
     <Sidebar />
   </div>,
