@@ -7,12 +7,14 @@ import AppDispatcher from '../dispatchers/AppDispatcher';
 import AppConstants from '../constants/AppConstants';
 import ChangeEmitter from '../mixins/ChangeEmitter';
 
+import AutoCompleteStore from '../stores/AutoCompleteStore';
+
 class ShellStore extends ChangeEmitter {
   constructor() {
     this.shell = pty.spawn('bash', [], {
       name: 'xterm-color',
       cols: 80,
-      rows: 30,
+      rows: 46,
       cwd: process.env.HOME,
       env: process.env
     });
@@ -23,6 +25,11 @@ class ShellStore extends ChangeEmitter {
       switch (payload.action) {
         case AppConstants.ShellActions.TYPE_KEY:
           this.write(payload.key);
+          this.emitChange();
+          break;
+
+        case AppConstants.ShellActions.SEND_RAW_DATA:
+          this.write(payload.data);
           this.emitChange();
           break;
       }

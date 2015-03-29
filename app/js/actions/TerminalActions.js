@@ -21,11 +21,13 @@ export default {
       action: ShellActions.TYPE_KEY,
       key: key
     });
+  },
 
-    if (key.charCodeAt(0) === 10) {
-      // Ctrl + J
-      SidebarActions.toggleSidebar();
-    }
+  sendRawData: data => {
+    AppDispatcher.dispatch({
+      action: ShellActions.SEND_RAW_DATA,
+      data: data
+    });
   },
 
   /**

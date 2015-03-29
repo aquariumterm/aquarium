@@ -1,12 +1,16 @@
 'use strict';
 
+import _ from 'lodash';
 import Fuse from 'fuse.js';
 
 import AppDispatcher from '../dispatchers/AppDispatcher';
 import AutoCompleteConstants from '../constants/AutoCompleteConstants';
 import AppConstants from '../constants/AppConstants';
+import TerminalActions from '../actions/TerminalActions';
+import AutoCompleteActions from '../actions/AutoCompleteActions';
 
 import CommandStore from './CommandStore';
+import ShellStore from './ShellStore';
 
 import ChangeEmitter from '../mixins/ChangeEmitter';
 
@@ -25,20 +29,20 @@ const searchOptions = {
 class AutoCompleteStore extends ChangeEmitter {
   constructor() {
     // the text that the user has entered after the command prompt
-    this.text = '';
+    this.command = '';
 
     // the index of the user's cursor. Could probably be retrieved from term.js or pty.js instead.
     this.cursor = 0;
 
     // keys that we don't want to write into the buffer of text entered by the user.
-    this.blacklist = [AppConstants.Keys.UpArrow, AppConstants.Keys.DownArrow];
+    this.blacklist = [AppConstants.Keys.UpArrow, AppConstants.Keys.DownArrow, AppConstants.Keys.Enter];
 
     // all the suggestions for autocompletion based on the currently entered text
     this.suggestions = [];
 
     // the index of the autocompletion suggestion the user currently has selected
     // Should be -1 if there is no selection
-    this.selectionIndex = -1;
+    this.selectedIndex = -1;
 
     // any text that was filled in from choosing an autocomplete choice. This text needs
     // to be written to the shell.
@@ -53,14 +57,29 @@ class AutoCompleteStore extends ChangeEmitter {
           break;
 
         case AppConstants.ShellActions.TYPE_KEY:
-          this.updateText(payload.key);
-          this.updateSuggestions(this.command);
-          this.updateSelection(payload.key);
+          // Otherwise, update command & suggestions
+          this.updateCommand(payload.key);
+          this.updateSuggestions();
           this.emitChange();
           break;
 
-        case AutoCompleteConstants.Actions.SELECT_SUGGESTION:
-          this.selectSuggestion();
+        case AutoCompleteConstants.Actions.SELECT_PREV:
+          this.selectPrev();
+          this.emitChange();
+          break;
+
+        case AutoCompleteConstants.Actions.SELECT_NEXT:
+          this.selectNext();
+          this.emitChange();
+          break;
+
+        case AutoCompleteConstants.Actions.CONFIRM_SUGGESTION:
+          this.confirmSuggestion(payload.index);
+          this.emitChange();
+          break;
+
+        case AutoCompleteConstants.Actions.CLOSE_SUGGESTIONS:
+          this.selectedIndex = -1;
           this.emitChange();
           break;
       }
@@ -71,28 +90,52 @@ class AutoCompleteStore extends ChangeEmitter {
     this.fuzzySearch = new Fuse(commands, searchOptions);
   }
 
-  getEnteredCommand() {
-    return this.command;
+  getDispatchToken() {
+    return this.dispatchToken;
   }
 
-  selectSuggestion() {
-    if (this.selectionIndex !== -1) {
-      this.autoCompletedText = this.suggestions[this.selectionIndex].name;
-      this.selectionIndex = -1;
-    }
+  getOverriddenKeys() {
+    return this.blacklist;
+  }
+
+  getEnteredCommand() {
+    return this.command;
   }
 
   getSuggestions() {
     return this.suggestions;
   }
 
-  updateText(key) {
-    switch (key) {
-      case AppConstants.Keys.Enter:
-        this.command = '';
-        this.cursor = 0;
-        break;
+  getSelectedIndex() {
+    return this.selectedIndex;
+  }
 
+  clearSuggestions() {
+    this.suggestions = [];
+    this.selectedIndex = -1;
+  }
+
+  getSuggestion(index) {
+    if (index === -1) {
+      return null;
+    }
+    return this.suggestions[index].name;
+  }
+
+  confirmSuggestion(index) {
+    if (index !== -1) {
+      // Choose the suggestion by deleting the current command then filling in the chosen command
+      let sequence = _.times(this.command.length, () => AppConstants.Keys.Backspace).concat(this.getSuggestion(index).split(''));
+      sequence.forEach(char => ShellStore.write(char));
+
+      // Then clear new suggestions until more data is received
+      this.clearSuggestions();
+    }
+  }
+
+  updateCommand(key) {
+    //noinspection FallThroughInSwitchStatementJS
+    switch (key) {
       case AppConstants.Keys.LeftArrow:
         this.cursor = Math.max(-1, this.cursor - 1);
         break;
@@ -107,7 +150,6 @@ class AutoCompleteStore extends ChangeEmitter {
           this.command = this.command.slice(0, this.cursor) + this.command.slice(this.cursor + 1);
           this.cursor = Math.max(-1, this.cursor - 1);
         }
-
         break;
 
       default:
@@ -115,60 +157,43 @@ class AutoCompleteStore extends ChangeEmitter {
           this.command += key;
           this.cursor++;
         }
-
         break;
     }
   }
 
-  updateSuggestions(enteredText) {
+  updateSuggestions() {
     if (this.fuzzySearch === undefined) {
       return;
     }
 
     // do a fuzzy search for the text the user has entered
-    this.suggestions = this.fuzzySearch.search(enteredText);
-
-    // give each candidate a unique key
-    this.suggestions.forEach((candidate, i) => {
+    this.suggestions = this.fuzzySearch.search(this.command).map((candidate, i) => {
+      // give each candidate a unique key
       candidate.key = i;
+      return candidate;
     });
   }
 
-  getSelectionIndex() {
-    return this.selectionIndex;
-  }
-
-  getKeyboardKeysToIgnore() {
+  selectPrev() {
     if (this.suggestions.length === 0) {
-      return [];
-    }
-
-    return [AppConstants.Keys.DownArrow, AppConstants.Keys.UpArrow, AppConstants.Keys.RightArrow];
-  }
-
-  updateSelection(key) {
-    // if the user chose an autocompletion on the previous keystroke, reset its value
-    this.autoCompletedText = '';
-
-    if (this.suggestions.length === 0) {
-      this.selectionIndex = -1;
+      // No suggestions available
+      this.selectedIndex = -1;
       return;
     }
 
-    switch (key) {
-      case AppConstants.Keys.DownArrow:
-        this.selectionIndex = Math.min(this.suggestions.length - 1, this.selectionIndex + 1);
-        break;
+    this.selectedIndex = Math.max(0, this.selectedIndex - 1);
+  }
 
-      case AppConstants.Keys.UpArrow:
-        this.selectionIndex = Math.max(0, this.selectionIndex - 1);
-        break;
+  selectNext() {
+    if (this.suggestions.length === 0) {
+      // No suggestions available
+      this.selectedIndex = -1;
+      return;
     }
+
+    this.selectedIndex = Math.min(this.suggestions.length - 1, this.selectedIndex + 1);
   }
 
-  getAutoCompletedText() {
-    return this.autoCompletedText;
-  }
 }
 
 export default new AutoCompleteStore();
