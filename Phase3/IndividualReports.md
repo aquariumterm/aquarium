@@ -7,3 +7,14 @@
 - My main strengths as a team member is my ability to spot mistakes or improvements of work done by others. During the implementation of [Terminal.js](https://github.com/UoT-CSC30x-W15/301W15-Prj-Team4-repo/pull/13), I successfully peer-reviewed code that wasn't working for some time, and after carefully reading through it, I was able to spot the error and helped correct the mistake to allow the team to move forward.
 
 - My main weaknesses as a team member is a relative lack of knowledge with the technologies that we were mainly using, mainly node.js and the flux architecture. I should have studied how these technologies worked during the planning stages of our project, as my inexperienced slowed down the team in our implementation of certain features early on.
+ 
+
+@ryanfan
+
+- My most significant individual contribution was to create the sidebar.  Originally, it was able to show and hide itself with a keyboard macro, but the group decided as a whole that it would no longer be required.  I was also responsible for styling the sidebar into a format that is easy for the users to read.  I had to touch up on my CSS as well as get used to how React handles their styling.
+
+- A new technology that I learned while working on this project. Flux, which is a web development framework.  It consists of dispatcher, stores and views, and this allows the code to be easily modularized.  Because of this, it is easy to extend code and keep code independent from each other. 
+
+- In my opinion, my main strength as a team member, I can manage time well so that I will minimalize slowing down the team.  I know that I am not the best programmer in the world, but I am still able to find extra time to do work on the project.  Because it takes me a long time to do what others think is an "easy job" or a "quick fix", I need to keep in mind the time I allocate for such tasks.
+
+- In my opinion, my main weakness as a team member is my weaker technical skills.  I could not think I would be able to learn so many things in such a short amount of time without proper mentoring from other team members.  For future projects, spending some more time preparing on how to use the technologies will definitely help and make the amount of time needed shorter too.
