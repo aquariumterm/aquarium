@@ -5,7 +5,7 @@ import React from 'react';
 import TerminalActions from '../actions/TerminalActions';
 import SidebarActions from '../actions/SidebarActions';
 
-import {selectSuggestion} from '../actions/AutoCompleteActions';
+import AutoCompleteActions from '../actions/AutoCompleteActions';
 
 import AppConstants from '../constants/AppConstants';
 
@@ -51,9 +51,7 @@ let Terminal = React.createClass({
   getState() {
     return {
       suggestions: AutoCompleteStore.getSuggestions(),
-      selectedIndex: AutoCompleteStore.getSelectionIndex(),
-      enteredCommand: AutoCompleteStore.getEnteredCommand(),
-      autoCompletedText: AutoCompleteStore.getAutoCompletedText()
+      selectedIndex: AutoCompleteStore.getSelectedIndex()
     };
   },
 
@@ -72,22 +70,13 @@ let Terminal = React.createClass({
     // Signal that the terminal is attached
     TerminalActions.attachTerminal(domNode.offsetWidth, domNode.offsetHeight);
 
-    term.on('data', data => {
-      // If the user selects a suggestion, trigger the selectSuggestion action
-      if (this.state.selectedIndex >= 0 && data === AppConstants.Keys.Enter) {
-        selectSuggestion(this.state.selectedIndex);
-      } else {
-        // Otherwise, trigger typeKey action
-        TerminalActions.typeKey(data);
-      }
-    });
+    // Trigger the `typeKey` action when keys are pressed
+    term.on('data', data => this.consumeKey(data));
 
-    CommandStore.addChangeListener(this.onChange);
     AutoCompleteStore.addChangeListener(this.onChange);
   },
 
   componentWillUnmount() {
-    CommandStore.removeChangeListener(this.onChange);
     AutoCompleteStore.removeChangeListener(this.onChange);
   },
 
@@ -117,6 +106,34 @@ let Terminal = React.createClass({
 
   onChange() {
     this.setState(this.getState());
+  },
+
+  consumeKey(key) {
+    //noinspection FallThroughInSwitchStatementJS
+    switch (key) {
+      case AppConstants.Keys.Enter:
+        if (this.state.selectedIndex >= 0) {
+          // Confirm the selected suggestion
+          AutoCompleteActions.confirmSuggestion(this.state.selectedIndex);
+          break;
+        }
+        // No suggestion selected; fall through
+      case AppConstants.Keys.UpArrow:
+        if (this.state.suggestions.length > 0) {
+          AutoCompleteActions.selectPrev();
+          break;
+        }
+        // No suggestions; fall through
+      case AppConstants.Keys.DownArrow:
+        if (this.state.suggestions.length > 0) {
+          AutoCompleteActions.selectNext();
+          break;
+        }
+        // No suggestions; fall through
+      default:
+        TerminalActions.typeKey(key);
+        break;
+    }
   }
 });
 

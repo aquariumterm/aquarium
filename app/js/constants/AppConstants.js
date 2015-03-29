@@ -7,6 +7,7 @@ import knownCommands from './knownCommands.json';
 export default {
   ShellActions: keyMirror({
     TYPE_KEY: null,
+    SEND_RAW_DATA: null,
     OUTPUT_RECEIVED: null
   }),
 
