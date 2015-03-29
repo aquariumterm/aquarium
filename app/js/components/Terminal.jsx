@@ -21,7 +21,8 @@ let Terminal = React.createClass({
     return {
       fontFamily: 'monospace',
       float: 'left',
-      overflow: 'scroll'
+      overflow: 'scroll',
+      overflowX: 'hidden'
     };
   },
 

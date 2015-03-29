@@ -80,12 +80,14 @@ let Sidebar = React.createClass({
       backgroundColor: 'white',
       color: 'black',
       overflow: 'scroll',
+      overflowX: 'hidden',
       height: '450px'
     };
   },
 
   getSearchStyle() {
     return {
+      width: '95%',
       marginLeft: '1em',
       marginBottom: '1em'
     };
