@@ -11,7 +11,7 @@ class TerminalStore extends ChangeEmitter {
   constructor() {
     this.term = new Terminal({
       cols: 80,
-      rows: 46,
+      rows: 30,
       screenKeys: true
     });
 

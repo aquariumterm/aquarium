@@ -20,7 +20,8 @@ let Terminal = React.createClass({
   mainStyle() {
     return {
       fontFamily: 'monospace',
-      float: 'left'
+      float: 'left',
+      overflow: 'scroll'
     };
   },
 
