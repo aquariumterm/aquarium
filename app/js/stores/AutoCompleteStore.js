@@ -182,7 +182,7 @@ class AutoCompleteStore extends ChangeEmitter {
       // give each candidate a unique key
       candidate.key = i;
       return candidate;
-    });
+    }).slice(0, 5);  // Get top 5 results
   }
 
   selectPrev() {
