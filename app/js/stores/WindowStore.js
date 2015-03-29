@@ -10,15 +10,17 @@ import ChangeEmitter from '../mixins/ChangeEmitter';
 
 class TerminalStore extends ChangeEmitter {
   constructor() {
-    /*
-     * Enable OS X menus
-     */
     let gui = global.window.nwDispatcher.requireNwGui();
     this.win = gui.Window.get();
 
-    let nativeMenu = new gui.Menu({type: 'menubar'});
-    nativeMenu.createMacBuiltin(packageJson.name);
-    this.win.menu = nativeMenu;
+    /*
+     * Enable OS X menus
+     */
+    if (process.platform === 'darwin') {
+      let nativeMenu = new gui.Menu({type: 'menubar'});
+      nativeMenu.createMacBuiltin(packageJson.name);
+      this.win.menu = nativeMenu;
+    }
 
     this.dispatchToken = AppDispatcher.register(payload => {
       switch (payload.action) {
