@@ -113,10 +113,11 @@ let Terminal = React.createClass({
     switch (key) {
       case AppConstants.Keys.Enter:
         if (this.state.selectedIndex >= 0) {
+          // Confirm the selected suggestion
           AutoCompleteActions.confirmSuggestion(this.state.selectedIndex);
           break;
         }
-      // No suggestion selected; fall through
+        // No suggestion selected; fall through
       case AppConstants.Keys.UpArrow:
         if (this.state.suggestions.length > 0) {
           AutoCompleteActions.selectPrev();

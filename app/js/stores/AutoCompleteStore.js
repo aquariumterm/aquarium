@@ -125,8 +125,15 @@ class AutoCompleteStore extends ChangeEmitter {
   confirmSuggestion(index) {
     if (index !== -1) {
       // Choose the suggestion by deleting the current command then filling in the chosen command
-      let sequence = _.times(this.command.length, () => AppConstants.Keys.Backspace).concat(this.getSuggestion(index).split(''));
+      let suggestion = this.getSuggestion(index);
+      let sequence = _.times(this.command.length, () => AppConstants.Keys.Backspace).concat(suggestion.split(''));
       sequence.forEach(char => ShellStore.write(char));
+
+      // Update command
+      this.command = suggestion;
+
+      // Move cursor to end of command
+      this.cursor = this.command.length - 1;
 
       // Then clear new suggestions until more data is received
       this.clearSuggestions();
@@ -134,8 +141,12 @@ class AutoCompleteStore extends ChangeEmitter {
   }
 
   updateCommand(key) {
-    //noinspection FallThroughInSwitchStatementJS
     switch (key) {
+      case AppConstants.Keys.Enter:
+        this.command = '';
+        this.cursor = 0;
+        break;
+
       case AppConstants.Keys.LeftArrow:
         this.cursor = Math.max(-1, this.cursor - 1);
         break;
