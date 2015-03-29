@@ -5,9 +5,13 @@
   "main": "index.html",
   "single-instance": false,
   "window": {
-    "width": 720,
-    "height": 480,
-    "icon": "images/fish-512x512.png"
+    "toolbar": true,
+    "position": "center",
+    "resizable": false,
+    "width": 1024,
+    "height": 720,
+    "min_width": 640,
+    "min_height": 480
   },
   "dependencies": {
     "babel": "^4.6.0",

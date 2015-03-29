@@ -4,17 +4,31 @@
 global.document = window.document;
 global.navigator = window.navigator;
 
+
 import React from 'react';
 
 import Terminal from './components/Terminal';
 import TerminalActions from './actions/TerminalActions';
-import TerminalConstants from './constants/TerminalConstants';
+import AppConstants from './constants/AppConstants';
 
+import Sidebar from './components/Sidebar';
+
+import './stores/WindowStore';
 import './stores/ShellStore';
 
-TerminalActions.sendRawCommands(TerminalConstants.KnownCommands);
+TerminalActions.sendRawCommands(AppConstants.KnownCommands);
+
+/*
+ * Render root component
+ */
+let rootStyle = {
+  display: 'flex'
+};
 
 React.render(
-  <Terminal />,
+  <div className="term" style={rootStyle}>
+    <Terminal />
+    <Sidebar />
+  </div>,
   document.querySelector('main')
 );

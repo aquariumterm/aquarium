@@ -3,9 +3,11 @@
 import React from 'react';
 
 import TerminalActions from '../actions/TerminalActions';
+import SidebarActions from '../actions/SidebarActions';
+
 import {selectSuggestion} from '../actions/AutoCompleteActions';
 
-import TerminalConstants from '../constants/TerminalConstants';
+import AppConstants from '../constants/AppConstants';
 
 import TerminalStore from '../stores/TerminalStore';
 import CommandStore from '../stores/CommandStore';
@@ -17,7 +19,8 @@ let Terminal = React.createClass({
   /** Styles */
   mainStyle() {
     return {
-      fontFamily: 'monospace'
+      fontFamily: 'monospace',
+      float: 'left'
     };
   },
 
@@ -63,11 +66,15 @@ let Terminal = React.createClass({
   componentDidMount() {
     // Initialize the terminal on this DOM node
     let term = TerminalStore.getTerminal();
-    term.open(this.getDOMNode());
+    let domNode = this.getDOMNode();
+    term.open(domNode);
+
+    // Signal that the terminal is attached
+    TerminalActions.attachTerminal(domNode.offsetWidth, domNode.offsetHeight);
 
     term.on('data', data => {
       // If the user selects a suggestion, trigger the selectSuggestion action
-      if (this.state.selectedIndex >= 0 && data === TerminalConstants.Keys.Enter) {
+      if (this.state.selectedIndex >= 0 && data === AppConstants.Keys.Enter) {
         selectSuggestion(this.state.selectedIndex);
       } else {
         // Otherwise, trigger typeKey action
@@ -86,7 +93,13 @@ let Terminal = React.createClass({
 
   render() {
     return (
-      <div style={this.mainStyle()}>
+      <div className="Terminal" style={this.mainStyle()}>
+        <style>{`
+          /* Use inline CSS to ensure <ul> elements have zero margin by default */
+          .Terminal ul {
+          margin: 0
+          }
+        `}</style>
         <div></div>
 
         <ul style={this.suggestionListStyle()}>

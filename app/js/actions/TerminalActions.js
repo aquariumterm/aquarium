@@ -1,9 +1,18 @@
 'use strict';
 
 import AppDispatcher from '../dispatchers/AppDispatcher';
-import {ShellActions, AppActions} from '../constants/TerminalConstants';
+import SidebarActions from './SidebarActions';
+import {ShellActions, AppActions} from '../constants/AppConstants';
 
 export default {
+
+  attachTerminal: (width, height) => {
+    AppDispatcher.dispatch({
+      action: AppActions.ATTACH_TERMINAL,
+      width: width,
+      height: height
+    });
+  },
 
   /* Shell Actions */
 
@@ -12,6 +21,11 @@ export default {
       action: ShellActions.TYPE_KEY,
       key: key
     });
+
+    if (key.charCodeAt(0) === 10) {
+      // Ctrl + J
+      SidebarActions.toggleSidebar();
+    }
   },
 
   /**
