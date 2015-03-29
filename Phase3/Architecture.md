@@ -106,3 +106,10 @@ See diagram below:
 ┃                                               └──────────────────────────────────────────┘ ┃   
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 ```
+
+The most significant architectural decision we've made is to use the [Flux architecture by Facebook](https://github.com/facebook/flux) instead of [other Flux implementations](https://github.com/kriasoft/react-starter-kit/issues/22) or other frameworks such as [Ember](http://emberjs.com/) or [AngularJS](https://angularjs.org/). We chose Facebook Flux because:
+- The unidirectional flow of data makes it easy to reason about events in the application.
+- Facebook Flux is backed by a well-known organization; a lot of support is available.
+- It's easy to integrate Flux with other modules from [npm](https://www.npmjs.com/) via a simple `import` statement.
+
+We think this was a good decision based on the above reasons.
