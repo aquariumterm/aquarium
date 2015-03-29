@@ -12,7 +12,8 @@ export default {
 
   AppActions: keyMirror({
     SEND_RAW_COMMANDS: null,
-    ATTACH_TERMINAL: null
+    ATTACH_TERMINAL: null,
+    RESIZE_WINDOW: null
   }),
 
   SidebarActions: keyMirror({

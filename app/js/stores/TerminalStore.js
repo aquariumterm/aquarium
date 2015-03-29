@@ -10,7 +10,7 @@ import ChangeEmitter from '../mixins/ChangeEmitter';
 class TerminalStore extends ChangeEmitter {
   constructor() {
     this.term = new Terminal({
-      cols: 132,
+      cols: 80,
       rows: 46,
       screenKeys: true
     });
@@ -32,7 +32,6 @@ class TerminalStore extends ChangeEmitter {
           this.isTerminalAttached = true;
           this.widthPixels = payload.width;
           this.heightPixels = payload.height;
-          this.resizeWindow();
           this.emitChange();
       }
     });
@@ -52,10 +51,6 @@ class TerminalStore extends ChangeEmitter {
 
   getHeight() {
     return this.heightPixels;
-  }
-
-  resizeWindow() {
-    window.resizeTo(this.widthPixels, this.heightPixels);
   }
 }
 
