@@ -26,7 +26,7 @@ class TerminalStore extends ChangeEmitter {
       switch (payload.action) {
         case AppConstants.AppActions.ATTACH_TERMINAL:
           // Set window width to double, to leave room for documentation pane
-          this.resizeWindow(payload.width * 2, payload.height);
+          this.resizeWindow(payload.width * 2, payload.height + 55);
           this.emitChange();
           break;
 
