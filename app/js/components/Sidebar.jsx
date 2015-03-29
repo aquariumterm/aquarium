@@ -45,12 +45,14 @@ export var Entry = React.createClass({
     );
   }
 });
-
 let Sidebar = React.createClass({
+  /** Styles */
   getStyle() {
     return {
       flex: '1',
-      display: this.state.isShowing ? 'block' : 'none'
+      display: this.state.isShowing ? 'block' : 'none',
+      fontFamily: 'monospace',
+      float: 'left'
     };
   },
 
