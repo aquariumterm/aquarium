@@ -18,14 +18,14 @@ Supports _bash_, _zsh_, _fish_.
 
 Dependencies:
 
-* Node ~v0.10.36 ([nvm](https://github.com/creationix/nvm) recommended):
+* Node ~v0.12.0 ([nvm](https://github.com/creationix/nvm) recommended):
     ```shell
     # Linux Mint:
     sudo apt-get install curl build-essential
     curl https://raw.githubusercontent.com/creationix/nvm/v0.23.3/install.sh | bash
     echo "source $HOME/.nvm/nvm.sh" > ~/.bashrc
     source ~/.bashrc
-    nvm install 0.10.36
+    nvm install 0.12.1
     ```
     
 * _Note_: For Linux (Ubuntu/Mint), you must symlink `libudev.so.0`:
