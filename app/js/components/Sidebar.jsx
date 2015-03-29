@@ -5,28 +5,51 @@ import SidebarActions from '../actions/SidebarActions';
 
 import React from 'react';
 
-// import Entry from './Entry';
+export var EntryExample = React.createClass({
+  propTypes: {
+    code: React.PropTypes.string,
+    description: React.PropTypes.string
+  },
 
-export var Entry = React.createClass({
-  render: function() {
+  render() {
     return (
-      <div className="Entry">
-        <hr></hr>
-        <h2 className="entryCommand">
-          {this.props.command}
-        </h2>
-        {this.props.children}
+      <div>
+        <code>{this.props.code}</code>
+        <p>{this.props.description}</p>
       </div>
     );
   }
 });
 
-var Sidebar = React.createClass({
+export var Entry = React.createClass({
+  propTypes: {
+    name: React.PropTypes.string,
+    description: React.PropTypes.string,
+    examples: React.PropTypes.arrayOf(React.PropTypes.shape({
+      code: React.PropTypes.string,
+      description: React.PropTypes.string
+    }))
+  },
+
+  render() {
+    return (
+      <div className="Entry">
+        <h2 className="entryCommand">{this.props.name}</h2>
+        <p>{this.props.description}</p>
+        <div>
+          {this.props.examples.map((e, i) =>
+            <EntryExample key={i} code={e.code} description={e.description} />
+          )}
+        </div>
+      </div>
+    );
+  }
+});
+
+let Sidebar = React.createClass({
   getStyle() {
     return {
-      width: '200px',
-      float: 'right',
-      overflow: 'hidden',
+      flex: '1',
       display: this.state.isShowing ? 'block' : 'none'
     };
   },
@@ -34,7 +57,7 @@ var Sidebar = React.createClass({
   getState() {
     return {
       isShowing: SidebarStore.isShowing,
-      searchResults: SidebarStore.searchResults
+      searchResults: SidebarStore.getSearchResults()
     };
   },
 
@@ -55,26 +78,17 @@ var Sidebar = React.createClass({
   },
 
   searchForEnteredText(e) {
-    var sidebarSearch = document.getElementById('sidebar-search-text');
-    SidebarActions.searchDocumentation(sidebarSearch.value);
-
-    e.preventDefault();
+    let query = e.target.value;
+    SidebarActions.searchDocumentation(query);
   },
 
   render: function() {
-    var entries = this.state.searchResults.map(searchResult => {
-      return (
-        <Entry command={searchResult.name}>{searchResult.description}</Entry>
-      );
-    });
-
     return (
-      <div className="Sidebar" id='sidebar' style={this.getStyle()}>
-        <form onSubmit={ this.searchForEnteredText }>
-          <input id='sidebar-search-text' type="text" name="query" placeholder="Search"></input>
-        </form>
-
-        {entries}
+      <div style={this.getStyle()}>
+        <input type="text" ref="query" name="query" placeholder="Search" onChange={this.searchForEnteredText}></input>
+        {this.state.searchResults.map((entry, i) =>
+            <Entry key={i} name={entry.name} description={entry.description} examples={entry.examples} />
+        )}
       </div>
     );
   }

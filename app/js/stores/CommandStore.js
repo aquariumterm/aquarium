@@ -14,20 +14,10 @@ class CommandStore extends ChangeEmitter {
       switch (payload.action) {
 
         case AppConstants.AppActions.SEND_RAW_COMMANDS:
-          this.init(payload.commands);
+          this.commands = payload.commands;
           this.emitChange();
           break;
       }
-    });
-  }
-
-  init(rawCommands) {
-    this.commands = rawCommands.map(command => {
-      return {
-        name: command.commandName,
-        description: command.description,
-        examples: command.examples
-      };
     });
   }
 

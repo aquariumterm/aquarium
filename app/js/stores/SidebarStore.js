@@ -1,13 +1,23 @@
 'use strict';
 
+import Fuse from 'fuse.js';
+
 import AppDispatcher from '../dispatchers/AppDispatcher';
 import AppConstants from '../constants/AppConstants';
 import ChangeEmitter from '../mixins/ChangeEmitter';
 import CommandStore from './CommandStore';
 
+const searchOptions = {
+  caseSensitive: false,
+  includeScore: false,
+  shouldSort: true,
+  threshold: 0.2,
+  keys: ['name']
+};
+
 class SidebarStore extends ChangeEmitter {
   constructor() {
-    this.isShowing = false;
+    this.isShowing = true;
     this.searchResults = [];
 
     this.dispatchToken = AppDispatcher.register(payload => {
@@ -19,21 +29,17 @@ class SidebarStore extends ChangeEmitter {
           break;
 
         case AppConstants.SidebarActions.SEARCH_DOCUMENTATION:
-
-          // due to time constraints, do an exact search as opposed to a fuzzy search for now
-          this.searchResults = [];
-
-          var commands = CommandStore.getAll();
-          for (let i = 0; i < commands.length; i++) {
-            if (commands[i].name === payload.query) {
-              this.searchResults.push(commands[i]);
-            }
-          }
-
+          // Perform a fuzzy search over stored commands by name
+          let allCommands = CommandStore.getAll();
+          this.searchResults = new Fuse(allCommands.map(cmd => cmd.name), searchOptions).search(payload.query).map(id => allCommands[id]);
           this.emitChange();
           break;
       }
     });
+  }
+
+  getSearchResults() {
+    return this.searchResults;
   }
 }
 

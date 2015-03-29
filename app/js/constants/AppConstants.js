@@ -2,7 +2,7 @@
 
 import keyMirror from 'react/lib/keyMirror';
 
-import knownCommands from './knownCommands';
+import knownCommands from './knownCommands.json';
 
 export default {
   ShellActions: keyMirror({
@@ -29,13 +29,6 @@ export default {
     Backspace: '\u007F',
     Enter: '\r'
   },
-  KnownCommands: knownCommands
 
-/*
-  KnownCommands: [
-    { commandName: 'ls', description: 'List the contents of a directory', examples: ['ls -ah'] },
-    { commandName: 'cd', description: 'Change the current working directory', examples: ['cd code/'] },
-    { commandName: 'cp', description: 'Copy a file\'s contents into another file', examples: ['cp file1.txt file1_copy.txt'] },
-    { commandName: 'clear', description: 'Clear the output of the terminal', examples: ['clear'] }
-  ]*/
+  KnownCommands: knownCommands
 };

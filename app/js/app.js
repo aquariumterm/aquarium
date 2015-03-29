@@ -21,9 +21,12 @@ TerminalActions.sendRawCommands(AppConstants.KnownCommands);
 /*
  * Render root component
  */
+let rootStyle = {
+  display: 'flex'
+};
 
 React.render(
-  <div className="term">
+  <div className="term" style={rootStyle}>
     <Terminal />
     <Sidebar />
   </div>,
