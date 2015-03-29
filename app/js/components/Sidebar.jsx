@@ -6,6 +6,17 @@ import SidebarActions from '../actions/SidebarActions';
 import React from 'react';
 
 export var EntryExample = React.createClass({
+  getStyle(){
+    return {
+      paddingLeft: '16px',
+      marginTop: '0'
+    };
+  },
+  getBoldStyle(){
+    return {
+      fontWeight: 'bold'
+    };
+  },
   propTypes: {
     code: React.PropTypes.string,
     description: React.PropTypes.string
@@ -14,14 +25,28 @@ export var EntryExample = React.createClass({
   render() {
     return (
       <div>
-        <code>{this.props.code}</code>
-        <p>{this.props.description}</p>
+        <code style={this.getBoldStyle()}>{this.props.code}</code>
+        <p style={this.getStyle()} >{this.props.description}</p>
       </div>
     );
   }
 });
 
 export var Entry = React.createClass({
+  getStyle(){
+    return {
+      paddingLeft: '16px',
+      marginTop: '0'
+    };
+  },
+
+  getBoldStyle(){
+    return {
+      fontSize: '1.5em',
+      fontWeight: 'bold'
+    };
+  },
+
   propTypes: {
     name: React.PropTypes.string,
     description: React.PropTypes.string,
@@ -33,9 +58,9 @@ export var Entry = React.createClass({
 
   render() {
     return (
-      <div className="Entry">
-        <h2 className="entryCommand">{this.props.name}</h2>
-        <p>{this.props.description}</p>
+      <div className="Entry" style={this.getStyle()}>
+      <code style={this.getBoldStyle()} className="entryCommand">{this.props.name}</code>
+        <p style={this.getStyle()}>{this.props.description}</p>
         <div>
           {this.props.examples.map((e, i) =>
             <EntryExample key={i} code={e.code} description={e.description} />
@@ -45,12 +70,26 @@ export var Entry = React.createClass({
     );
   }
 });
-
 let Sidebar = React.createClass({
+  /** Styles */
   getStyle() {
     return {
       flex: '1',
-      display: this.state.isShowing ? 'block' : 'none'
+      display: this.state.isShowing ? 'block' : 'none',
+      fontFamily: 'monospace',
+      backgroundColor: 'white',
+      color: 'black',
+      overflow: 'scroll',
+      overflowX: 'hidden',
+      height: '450px'
+    };
+  },
+
+  getSearchStyle() {
+    return {
+      width: '95%',
+      marginLeft: '1em',
+      marginBottom: '1em'
     };
   },
 
@@ -85,7 +124,7 @@ let Sidebar = React.createClass({
   render: function() {
     return (
       <div style={this.getStyle()}>
-        <input type="text" ref="query" name="query" placeholder="Search" onChange={this.searchForEnteredText}></input>
+        <input type="text" ref="query" name="query" placeholder="Search" onChange={this.searchForEnteredText} style={this.getSearchStyle()}></input>
         {this.state.searchResults.map((entry, i) =>
             <Entry key={i} name={entry.name} description={entry.description} examples={entry.examples} />
         )}
