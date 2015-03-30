@@ -6,7 +6,7 @@ For our team, we had some stronger and some weaker programmers.  Something that 
 
 Tell us about tools/techniques/conventions that didn't work well for your team. Explain why.
 -------------------------------
-Our group decided to switch between technologies, or add new technologies and this required a very steep leraning curve form the weaker programmers.
+Our group decided to switch between technologies, or add new technologies and this required a very steep learning curve form the weaker programmers.  Because of the changes, there needed to be more time for everyone to learn how to use the new technologies.  Althought sometimes changing technologies can possbily make work more difficult, in our case, it made it easier.
 
 
 If you had to continue working as a team, and design your process, what would your process look like?
