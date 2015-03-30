@@ -1,18 +1,20 @@
 current word count ~219.
 
-Tell us about tools/techniques/conventions that worked well for your team. Explain why.
+### Tell us about tools/techniques/conventions that worked well for your team. Explain why.
 -------------------------------
 
 For our team, we had some stronger and some weaker programmers.  Something that we came up with was a half-day hackathon where the stronger programmers helped keep the team up to date with how all the code works, which allowed the team work more efficiently during the weekend.
   Two meetings per week allowed our team to keep on track what needed to get done, what took longer than usual and what got done.  Because we were always aware of the groups progress, it was much easier to assign tasks to team members.
 
-Tell us about tools/techniques/conventions that didn't work well for your team. Explain why.
+### Tell us about tools/techniques/conventions that didn't work well for your team. Explain why.
 -------------------------------
 
 Our group decided to switch between technologies, or add new technologies and this required a very steep learning curve form the weaker programmers.  Because of the changes, there needed to be more time for everyone to learn how to use the new technologies.  Althought sometimes changing technologies can possbily make work more difficult, in our case, it made it easier.
 
 
-If you had to continue working as a team, and design your process, what would your process look like?
+### If you had to continue working as a team, and design your process, what would your process look like?
 -------------------------------
+
+With regards to future implementation, we would most likely proceed by extending upon our minimum viable product that we completed in phase 2, and begin development and implementation of features that we consider to be the most essential to our product. The three most important features to develop, extend and improve on would be the documentation sidebar, the auto-completion and the tutorial system.
 
 As a team, it may be more useful to include days such as our half-day hackathon, where the stronger programmers teach the weaker programmers so that they can be more productive their time.  Especially near the beginning of middle of the project where the basics of the program are done, and we need to add features to the project that are extended from previously written code.
