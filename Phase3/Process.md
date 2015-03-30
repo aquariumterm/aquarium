@@ -10,4 +10,4 @@ Tell us about tools/techniques/conventions that didn't work well for your team. 
 If you had to continue working as a team, and design your process, what would your process look like?
 -------------------------------
   
-As a team, it may be more useful to include days such as our half-day hackathon, where the stronger programmers teach the weaker programmers so that they can be more productive their time.  Especially near the beginning of 
+As a team, it may be more useful to include days such as our half-day hackathon, where the stronger programmers teach the weaker programmers so that they can be more productive their time.  Especially near the beginning of middle of the project where the basics of the program are done, and we need to add features to the project that are extended from previously written code.
