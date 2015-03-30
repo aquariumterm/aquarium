@@ -11,7 +11,8 @@
     "width": 1024,
     "height": 720,
     "min_width": 640,
-    "min_height": 480
+    "min_height": 480,
+	"icon": "images/alt-32.png"
   },
   "dependencies": {
     "babel": "^4.6.0",
