@@ -42,8 +42,5 @@
     "time-grunt": "^1.0.0",
     "unhtml": "^0.1.0",
     "wd": "^0.3.11"
-  },
-  "window": {
-    "icon": "./app/images/alt-small"
   }
 }
