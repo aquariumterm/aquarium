@@ -28,10 +28,10 @@ Kyle Zhou (kylemsguy)
 Nicholas Goh (GohNicho)
 ---------------------
 
--
--
--
--
+- My most significant contribution to the project would be the [proof of concept work](https://github.com/UoT-CSC30x-W15/301-Prj-Team4-repo/commit/5572857818be61ec04da7e657cec378e3efb9205) done towards the development of the sidebar, as well as work done on implementation of [titlebar icons](https://github.com/UoT-CSC30x-W15/301W15-Prj-Team4-repo/commit/0d3f8fa85e1d518e12efe4142a933938cbdda87e).
+- From our project, I have learened numerous important lessons about how to optimize workflow using Github issues and branches. I have also learned about the flux architecture pattern used in our project, and have begun to better understands the differences and benefits it brings. 
+- My main strength as a team member would be that I am able to keep track of the larger development goals, meaning that I can help members, and myself organize our development process, while also helping with smaller programming tasks.
+- My weaknesses as a team member would be my weaker technical skills, especially with regards to extension of larger and pre-existing systems. I often find it difficult to fit my work in with the work of others as I struggle to understand how each part links up.
 
 Peter Lu (pxlu)
 ---------------------
