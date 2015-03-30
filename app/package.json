@@ -1,10 +1,11 @@
 {
-  "name": "Aquarium",
+  "name": "aquarium",
   "version": "0.0.1",
   "description": "A terminal emulator for beginners",
   "main": "index.html",
   "single-instance": false,
   "window": {
+    "title": "Aquarium",
     "toolbar": true,
     "position": "center",
     "resizable": false,
