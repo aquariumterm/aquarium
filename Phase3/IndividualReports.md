@@ -12,10 +12,13 @@ Allen Hsiao (allenh)
 Alexander Biggs (akbiggs)
 ---------------------
 
--
--
--
--
+- My most significant contribution was the [implementation of the autocompletion feature](https://github.com/UoT-CSC30x-W15/301W15-Prj-Team4-repo/pull/24), which provides users with suggestions on commands they can use as they type. As the Flux architecture in our codebase had not been set up at this point, this required substantial research of existing examples and documentation to determine how the user's interaction with the terminal could be modelled with Flux's paradigms.
+
+- I learned how to dive into existing codebases on GitHub, and to examine their issues and recent changes to the repositories when debugging why certain aspects of the project were not working. I also became comfortable developing features using Flux.
+
+- My main strength as a team player is my ability to adapt to new technologies and workflows quickly, finding a way to ship features even when I am inexperienced.
+
+- My main weakness as a team player is learning how to delegate and manage progress on features, to ensure that all the members of the team have equal opportunity to become experienced working in the codebase.
 
 Kyle Zhou (kylemsguy)
 ---------------------
