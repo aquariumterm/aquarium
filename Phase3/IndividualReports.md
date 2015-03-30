@@ -59,7 +59,13 @@ Ryan Fan (ryanfan)
 Spencer Elliott (elliottsj)
 ---------------------
 
+- My most significant contribution was to configure and integrate the build system and application architecture, including:
+  - Configuration of npm dependencies, and building [pty.js][] native addons for [nw.js][]
+  - Configuration of [Grunt](http://gruntjs.com/) to automate code style checking via [ESLint](http://eslint.org/), testing via [Selenium](http://www.seleniumhq.org/), and building native binaries for Linux and OS X.
+  - Bootstrapping [React](https://facebook.github.io/react/) onto the [nw.js][] app with ES6 + JSX compilation via [babel](https://babeljs.io/).
+- An issue I experienced was dealing with [cyclical dependencies in node.js modules](https://nodejs.org/api/modules.html#modules_cycles). I found that it was not possible for two stores to depend on each other using our current architecture, since each store is instantiated upon being `import`ed. Specifically, I wanted `ShellStore` to depend on the result of `AutoCompleteStore` to continue passing data into the host shell, but `AutoCompleteStore` already depended on `ShellStore` to write data directly to the shell. A possible solution would be to extract `ShellStore`'s [pty.js][] instance to another module and include that module in both `ShellStore` and `AutoCompleteStore`, but I instead ended up [refactoring the `Terminal` component to be in charge of calling different actions depending on which key was pressed](https://github.com/UoT-CSC30x-W15/301W15-Prj-Team4-repo/commit/2ff2078cc23d6192d386e955587c4e4ee99cf241#diff-647535f01552daaf415326a7584b136dR111).
 -
 -
--
--
+
+[pty.js]: https://github.com/chjj/pty.js
+[nw.js]: https://github.com/nwjs/nw.js
