@@ -1,29 +1,29 @@
 Individual Reports
 ====================
 
-Allen Hsiao (allenh)
+WeiPing Allen Hsiao (allenh)
 ---------------------
 
--
--
--
--
+- The most significant contribution that I have done to the team is that I created test scripts using ChaiAsPromised with Selenium to test the web framework as well as working with Ryan on the implementation of the sidebar with the help from Alex.
+- During the implementation of Aquarium I learned various new technologies such as [Flux](https://facebook.github.io/flux/) framework for building the application and [Chai](http://chaijs.com/) for testing the web application. A few issues that I encountered during the process were all technical related issues such as setting up the development environment on different Linux distributions (Ubuntu and Linux Mint).
+- I think that my main strength as a team member is the fact that I was able to work seamlessly with the team. For example during the process of implementing the application I worked closely with Ryan to implement the sidebar and [refactored his initial code to use the Flux architecture](https://github.com/UoT-CSC30x-W15/301W15-Prj-Team4-repo/commit/99bf4a9f9f4a43ff0a3a47682645728d7fe74d4c).
+- The most hindering weakness that I had as a team member was the lack of knowledge in the Javascript libraries that we chose to work with. As a result of this I had to spend an extensive amount of time to read over documentations and tutorials before I could finally start developing the application.
 
 Alexander Biggs (akbiggs)
 ---------------------
 
--
--
--
--
+- My most significant contribution was the [implementation of the autocompletion feature](https://github.com/UoT-CSC30x-W15/301W15-Prj-Team4-repo/pull/24), which provides users with suggestions on commands they can use as they type. As the Flux architecture in our codebase had not been set up at this point, this required substantial research of existing examples and documentation to determine how the user's interaction with the terminal could be modelled with Flux's paradigms.
+- I learned how to dive into existing codebases on GitHub, and to examine their issues and recent changes to the repositories when debugging why certain aspects of the project were not working. I also became comfortable developing features using Flux.
+- My main strength as a team player is my ability to adapt to new technologies and workflows quickly, finding a way to ship features even when I am inexperienced.
+- My main weakness as a team player is learning how to delegate and manage progress on features, to ensure that all the members of the team have equal opportunity to become experienced working in the codebase.
 
 Kyle Zhou (kylemsguy)
 ---------------------
 
--
--
--
--
+- My most significant contributions include writing a node.js program to combine, parse, and serialize a set of Markdown files into JSON (see commit [8f04c69](https://github.com/UoT-CSC30x-W15/301W15-Prj-Team4-repo/commit/8f04c696d20a6d5ebcec1414bcdd1c44215442d5). I also worked on the base term.js, figuring out how it worked and how it fit into our project, and did work debugging issues with Linux compatibility [#16](https://github.com/UoT-CSC30x-W15/301W15-Prj-Team4-repo/pull/16). 
+- During the course of working on Aquarium, I learned about how different versions of bleeding-edge packages can break compatibility with each other, as well as techniques to resolve these issues. 
+- Some of my strengths include strong problem solving skills when it comes to figuring out code written by others, and how to integrate the code into Aquarium. I was also very good at finding and fixing compatibility problems with different versions of Linux and Node.
+- My main weakness was inexperience with the frameworks that we were using, which meant that I had to spend a lot of time learning and asking questions, which may have initially limited my contribution to the project. However, after familiarizing myself with the frameworks we were using, I was able to contribute adequately well to the project. 
 
 Nicholas Goh (GohNicho)
 ---------------------
