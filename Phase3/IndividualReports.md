@@ -20,10 +20,10 @@ Alexander Biggs (akbiggs)
 Kyle Zhou (kylemsguy)
 ---------------------
 
--
--
--
--
+- My most significant contributions include writing a node.js program to combine, parse, and serialize a set of Markdown files into JSON (see commit [8f04c69](https://github.com/UoT-CSC30x-W15/301W15-Prj-Team4-repo/commit/8f04c696d20a6d5ebcec1414bcdd1c44215442d5). I also worked on the base term.js, figuring out how it worked and how it fit into our project, and did work debugging issues with Linux compatibility [#16](https://github.com/UoT-CSC30x-W15/301W15-Prj-Team4-repo/pull/16). 
+- During the course of working on Aquarium, I learned about how different versions of bleeding-edge packages can break compatibility with each other, as well as techniques to resolve these issues. 
+- Some of my strengths include strong problem solving skills when it comes to figuring out code written by others, and how to integrate the code into Aquarium. I was also very good at finding and fixing compatibility problems with different versions of Linux and Node.
+- My main weakness was inexperience with the frameworks that we were using, which meant that I had to spend a lot of time learning and asking questions, which may have initially limited my contribution to the project. However, after familiarizing myself with the frameworks we were using, I was able to contribute adequately well to the project. 
 
 Nicholas Goh (GohNicho)
 ---------------------
