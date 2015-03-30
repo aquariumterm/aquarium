@@ -1,3 +1,5 @@
+current word count ~219.
+
 Tell us about tools/techniques/conventions that worked well for your team. Explain why.
 -------------------------------
 
