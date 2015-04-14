@@ -4,10 +4,6 @@ Aquarium
 A terminal emulator with enhanced auto-complete, and built-in documentation and tutorials.
 Supports _bash_, _zsh_, _fish_.
 
-## Phase 1
-
-[Google Doc](https://docs.google.com/a/elliottsj.com/document/d/1HZ4h6swJqrk_00HHjmtdXOsPP-hKEZCTttgK40Uk37E)
-
 ## Development
 
 #### NOTE:
@@ -27,7 +23,7 @@ Dependencies:
     source ~/.bashrc
     nvm install 0.12.1
     ```
-    
+
 * _Note_: For Linux (Ubuntu/Mint), you must symlink `libudev.so.0`:
 
     ```shell
@@ -62,7 +58,7 @@ We're following the
 
 1. (If one doesn't exist) Create a new GitHub issue for your feature/bug/other:
 
-    <https://github.com/UoT-CSC30x-W15/301W15-Prj-Team4-repo/issues/new>
+    <https://github.com/aquariumterm/aquarium/issues/new>
 
 2. Create your feature branch, with name starting with `feature/`, (or `fix/` or `chore/`):
 
@@ -84,7 +80,7 @@ We're following the
 
 4. Create a pull request on GitHub based on `master`:
 
-    <https://github.com/UoT-CSC30x-W15/301W15-Prj-Team4-repo/compare/master...feature/my-awesome-feature>
+    <https://github.com/aquariumterm/aquarium/compare/master...feature/my-awesome-feature>
 
 5. Work with the team to review your code, making any necessary changes before merging.
 
