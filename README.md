@@ -1,4 +1,4 @@
-Aquarium
+Aquarium [![Circle CI][circleci-badge]][circleci]
 ========
 
 A terminal emulator with enhanced auto-complete, and built-in documentation and tutorials.
@@ -159,3 +159,6 @@ See diagram below:
 ┃                                               └──────────────────────────────────────────┘ ┃   
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 ```
+
+[circleci]: https://circleci.com/gh/aquariumterm/aquarium
+[circleci-badge]: https://circleci.com/gh/aquariumterm/aquarium.svg?style=svg
